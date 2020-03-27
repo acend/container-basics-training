@@ -1,101 +1,69 @@
 ---
-title: "1.0 - Quicktour Kubernetes"
+title: "1.0 - Installation"
 weight: 10
 ---
 
-# Lab 1: Quicktour Kubernetes
+## Preparation
 
-In this lab we will introduce the core concepts of Kubernetes.
+First it's a good idea to clone the git repository which contains the labs so everything's available locally.
 
-All explanations and resources used in this labs give only a quick and not detailed overview. Please check [the official documentation](https://kubernetes.io/docs/concepts/) to get further details.
+```
+$ cd [git repo project folder]
+$ git clone https://github.com/puzzle/docker-techlab.git
+```
 
+Alternatively the repository can be downloaded as a [zip file](https://github.com/puzzle/docker-techlab/archive/master.zip).
 
-## Core concepts
+## Try Docker without Installation
 
-Using the open source software Kubernetes, you get a platform to deploy your software in a container and operate them at the same time. Therefore Kubernetes is also called "Container Platform" or the term Container-as-a-Service (CaaS) is used. Depending on the configuration Platform-as-a-Service (PaaS) works as well.
+The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this Techlab using a Browser-based Docker shell.
 
+To do this lab with *Play with Docker*:
 
-### Docker
+* Go to <https://labs.play-with-docker.com>
+* Click on Start
+* Enter your Docker Login or register first.
+* Click *ADD NEW INSTANCE* and you are ready to do this lab.
 
-[Docker](https://www.docker.com/) known as _the_ container engine can be used with Kubernetes besides other container engines (CRI-O). Originally docker was created to help developers testing there applications in there continuous integration environments. Nowadays also also system admins use it. After choosing the best matching base image for your technology kubernetes deploys for you the application as a container.
+## Installation for Windows and Mac
 
+Please follow the instructions on Docker's official documentation to install Docker CE.
 
-## Overview
+When asked to use Windows container, choose NOT to.
 
-Kubernetes consists out of Kubernetes master nodes and kubernetes minion (also knows as worker or compute) nodes.
+**Note:** You don't have to register for a Docker Cloud account.
 
-### Master and minion nodes
-The master components are the _apiserver_, the _scheduler_ and the _controller-manager_.
-The _apiserver_ itself represents the management interface.
-The scheduler and the controller-manager decide, which applications should be deployed on the cluster. Additionally the state and configuration of the cluster itself is controlled in the master components
-Minion nodes are also known as compute nodes, which are responsible for running the workloads (applications).
-The Control plane for the minions is implemented in the master components.
+* [Windows](https://docs.docker.com/docker-for-windows/install/#install-docker-for-windows-desktop-app)
+* [Mac](https://docs.docker.com/docker-for-mac/install/)
 
+### Proxy Configuration
 
+If your organization has a proxy in place you have to configure it in your Docker configuration in order to be able to do `docker search` or `docker pull`.
 
-### Container and images
+* [Instructions to configure a proxy on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration)
+* [Instructions to configure a proxy on Mac](https://docs.docker.com/docker-for-mac/#proxies)
 
-The smallest entities in Kubernetes are pods, which resamble your "containerized Application".
-Using container virtualisation, processes on a linux system can be isolated up to a level, where only the predefined resources are available. Several containers can run on the same system, without "seeing" eachother (files, process ids, network). One container should contain one application (webserver, database, cache etc.).
-It should be at least one part of the application, e.g. when running a multi service middleware.
-In a container itself any process can be started, that runs native on your oparating system.
+## Installation for Linux
 
-Containers are based on images. An image represents the file tree, which includes the binary, shared libraries and other files, which are needed to run your application.
+Follow the instructions for your appropriate distribution. The recommended way of installing is using the repository, except if you already know you're going to remove the package again soon.
 
-A Container image typically is built from a Dockerfile, which is a text file filled with instructions. The endresult is a hierachically, layered binary construct.
-Depending on the used backend, most of the time the implementation is using overlay or COW mechanismens to represent the image.
+* [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+* [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
+* [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
+* [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
 
-**Layer example Tomcat**
-- Base image (CentOS 7)
-- + install Java
-- + install Tomcat
-- + install App
+Unrelated to what distribution you use, also have a look at the post-installation steps. Please note however that these are optional steps and some are quite advanced, so going with the default might be the most appropriate way to go.
 
-The ready built images can be version-controlled saved in an image registry and can be used by the container platform.
+* [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/)
 
+## Docker Architecture
 
-### Namespaces
-
-Namespaces in Kubernetes represent a logical segregation of unique names for entities (pods, services, deployments, configmaps, etc.)
-
-Permissions and roles can be bound on a namespace base. This way a user can control his own resources inside a namespace.
-**Note:** Some resources are clusterwide valid and can not be set and controlled on a namespace based.
-
-
-### Pods
-
-A Pod is the smallest entity in Kubernetes. It represents one instance of your running application process.
-The pod consists out of at least two containers, one for your application itself and another one as part of the kubernetes design, to keep the network namespace.
-The so called infrastructure container (or pause container) therefore is automatically added by Kubernetes.
-
-The applications port from inside the pod are exposed via services.
-
-
-### Services
-
-A service represents a stateful endpoint for your application in the pod. As a pod and its IP address typically is considered as stateless, the IP address of the service does not change, when changing the application inside the Pod. If you scale up your pods, you have an automatic internal load balancing towards all pod ip addresses.
-
-There are different kinds of services:
-- ClusterIP (the default, virtual IP address range)
-- NodePort (same as ClusterIP + open ports on the nodes)
-- LoadBalancer (external loadbalancer is created, works only in cloud environment, e.g. AWS elb)
-
-A service is unique inside a namespace.
- 
-### Deployment
-
-Please follow <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
-
-
-### Volume
-
-Please follow <https://kubernetes.io/docs/concepts/storage/volumes/>
-
-
-### Job
-
-Please follow <https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/>
-
----
-
-**End of lab 1**
+* Docker is a client-server application.
+* The **Docker daemon** (or "Engine")
+  * Receives and processes incoming Docker API requests
+* The **Docker client**
+  * Talks to the Docker daemon via the Docker API
+  * We'll use mostly the CLI embedded within the Docker binary
+* The **Docker Hub** Registry
+  * Is a collection of public images
+  * The Docker daemon talks to it via the registry API

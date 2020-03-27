@@ -1,129 +1,128 @@
 ---
-title: "2.0 - Install the Kubernetes CLI"
+title: "2.0 - Getting Started"
 weight: 20
 ---
 
+Previously in the lab...
 
-# Lab 2: Install the Kubernetes CLI
+Question: What's next?
+Answer: Let's get the Docker party started!
 
-In this we will install and configure the `kubectl` client to be able to practice on further tasks in the following techlabs.
+## The Command Line Tool
 
-**Note:** In Rancher you can use `kubectl` directly within your browser. As soon as you are loggend in Rancher WebGUI, click on "Launch kubectl" (or use the ° key) and you get a console with kubectl installed and configured.
+With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least a command. `docker --help` shows the available options:
 
-## Command Line Interface
+```bash
+$ docker --help
+Usage: docker COMMAND
 
-`kubectl` provides for you a console based interface to control one or several Kubernetes clusters.
+A self-sufficient runtime for containers
 
-As the client is written in Go, you can run the single binary on the following Operating Systems:
+Options:
+      --config string      Location of client config files (default "/home/user/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/user/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/user/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/user/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
 
-- Microsoft Windows
-- Mac OS X
-- Linux
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
 
-## Manual installation of `kubectl`
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
 
-Follow https://kubernetes.io/docs/tasks/tools/install-kubectl/
-
-In case the installation from the official package repositories didn't work or a specific version is need, the static binary can be downloaded and put into one of the following paths.
-
-**Linux**
-
-```
-~/bin
-```
-
-**Mac OS X**
-
-```
-~/bin
-```
-
-**Windows**
-
-```
-C:\Kubernetes\
-```
-
-
-## Set the the right file modes on Linux and MacOS
-
-`kubectl` has to be executable:
-
-```
-cd ~/bin
-chmod +x kubectl
-```
-
-
-## `kubectl` folder in PATH variable
-
-In **Linux** and **Mac OS X** the directory _~/bin_ should already be part of the PATH variable.
-In case `kubectl` is placed in a different directory, you can change the PATH with the following command:
-
-```
-$ export PATH=$PATH:[path to kubectl]
-```
-
-
-### Windows
-
-The PATH can be set in windows in the advanced system settings. It depends on the used version:
-
-- [Windows 7](http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx)
-- [Windows 8](http://www.itechtics.com/customize-windows-environment-variables/)
-- [Windows 10](http://techmixx.de/windows-10-umgebungsvariablen-bearbeiten/)
-
-**Windows Quick Hack**
-
-Copy the `kubectl` binary directly into the folder `C:\Windows`.
-
-
-## Verify installation 
-
-The `kubectl` binary should be correctly installed by now. This can be proofed by running the following command:
-
-```
-$ kubectl version
-```
-
-The shown output should look similar to this:
-
-```
-Client Version: version.Info{Major:"1", Minor:"12", GitVersion:"v1.12.1", GitCommit:"4ed3216f3ec431b140b1d899130a69fc671678f4", GitTreeState:"clean", BuildDate:"2018-10-05T16:46:06Z", GoVersion:"go1.10.4", Compiler:"gc", Platform:"linux/amd64"}
-[...]
+Run 'docker COMMAND --help' for more information on a command.
 ```
 
-If you don't see a similar out, possibly there are issues with the set PATH variable.
+To view the switches available to a specific command, type:
 
----
+`docker docker-subcommand --help`
 
-## bash/zsh completion (optional)
+To view system-wide information about Docker, use:
 
-Running on Linux and iOS (Mac) you can activate the bash completion:
+`docker info`
 
-```
-source <(kubectl completion bash)
-```
 
-As well as for zsh:
-```
-source <(kubectl completion zsh)
-```
+## Hello World (with Docker images)
 
-To make it permanent you can put that command in our bash configuration file:
+Docker containers are run from Docker images. By default, it pulls these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
 
-```
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-```
+To check whether you can access and download images from Docker Hub, type:
 
-On most linux systems you have to install the bash-completion packet to make the completion work.
+`docker run hello-world`
 
-Ubuntu:
+The output, which should include the following, indicates that Docker appears to be working correctly:
 
-```
-sudo apt install bash-completion
+```bash
+Hello from Docker.
+This message shows that your installation appears to be working correctly.
+...
 ```
 
----
+## Our First Container :)
 
-**End of lab 2**
+With this command we now run on our computers our first container. It ran a simple process that printed a message to standard out. The container is not very useful though.
+
+## Additional Lab: Getting Familiar With the Docker Docs
+
+Browse <https://docs.docker.com> and get familiar with the docs and the references. In this techlab we're using Docker CE so this is the docs section you might want to check out as well.
+
+Question: Is there only a "hello world" Docker image?
+
+Maybe the next Lab will provide some answers?

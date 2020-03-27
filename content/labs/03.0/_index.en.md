@@ -1,112 +1,81 @@
 ---
-title: "3.0 - First steps in the lab environment"
+title: "3.0 - Images"
 weight: 30
 ---
 
-# Lab 3: First steps in the lab environment
+Previously in the lab...
 
-In this excercise we will interact for the first time with the lab environment, both with `kubectl` as well as via web console.
+Question: Is there only a "hello world" Docker image?
 
+Answer: No! There are tons of images provided by companies, open source projects, and boys/girls like you and me.
 
-## Preparation for the labs
+## Docker Images
 
-Please clone the git repository, to have a local copy of all necessary excercises.
+You can search for images available on [Docker Hub](https://hub.docker.com) by using the Docker command with the `search` subcommand. For example, to search for a mariadb image, type:
 
-```
-$ cd [Git Repo Project Folder]
-$ git clone https://github.com/puzzle/kubernetes-techlab.git
-```
+`docker search mariadb`
 
-As a fallback the repository can be downloaded as [zip file](https://github.com/puzzle/kubernetes-techlab/archive/master.zip).
+The script will crawl Docker Hub and return a listing of all images whose name match the search string. In this case, the output will be similar to this:
 
-
-## Login
-
-**Note:** Please make sure, the be finshed with [Lab 2](02_cli.md).
-
-Our Kubernetes cluster of the techlab environment runs on [cloudscale.ch](cloudscale.ch) and has been provisioned with [Rancher](https://rancher.com/). You can login into the cluster with a Rancher user.
-
-**Note:** For details about your credentials to log in, ask your teacher.
-
-
-
-### Login and choose Kubernetes Cluster
-
-Login into the Rancher WebGUI with your assigned user and the choose the desired cluster.
-
-
-On the cluster dashboard you find top right a button with `Kubeconfig File`. Save the config file into your homedirectory `.kube/config`. Verify afterwards if `kubectl` works correctly e.g. with `kubectl version`
-
-**Note:** If you already have a kubeconfig file, you might need to merge the Rancher entries with yours. Or use the KUBECONFIG environment variable to specify a dedicated file.
-
-```
-#example location ~/.kube-techlab/config
-vim ~/.kube-techlab/config
-# paste content 
-
-# set KUBECONFIG Environment Variable to the correct file
-export KUBECONFIG=$KUBECONFIG:~/.kube-techlab/config
+```bash
+NAME                                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mariadb                                                   MariaDB is a community-developed fork of M...   1516      [OK]
+bitnami/mariadb                                           Bitnami MariaDB Docker Image                    41                   [OK]
+paintedfox/mariadb                                        A docker image for running MariaDB 5.5, a ...   29                   [OK]
+toughiq/mariadb-cluster                                   Dockerized Automated MariaDB Galera Cluste...   20                   [OK]
+linuxserver/mariadb                                       A Mariadb container, brought to you by Lin...   19
+million12/mariadb                                         MariaDB 10 on CentOS-7 with UTF8 defaults       14                   [OK]
+webhippie/mariadb                                         Docker images for mariadb                       11                   [OK]
+colinmollenhour/mariadb-galera-swarm                      MariaDb w/ Galera Cluster, DNS-based servi...   10                   [OK]
+diegomarangoni/mariadb-galera                             Creates a MariaDB Galera Cluster                10                   [OK]
+...
 ```
 
+This output is corresponding with the search you can use on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=mariadb&starCount=0).
 
-## Create a namespace
+In the OFFICIAL column, OK indicates an image built and supported by the company behind the project. Once you've identified the image that you would like to use, you can download it to your computer using the pull subcommand, like so:
 
-A namespace is the logical design used in Kubernetes to organize and separate your applications, deployments, services etc. on a top level base. Take a look at the [Kubernetes docs](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
+`docker pull mariadb`
 
+**Note:** Care about security! Check the images before you run them.
 
-**Note:** Additionaly Rancher does know the concept of a [project](https://rancher.com/docs/rancher/v2.x/en/cluster-admin/projects-and-namespaces/) which encapsulates multiple namespaces.
+* Is it an official image?
+* What is installed?
+  * Read the Dockerfile that was used to build the image
+  * Check the base image
 
-In the Rancher WebGUI you can now choose your Project.
+After an image has been downloaded, you may then run a container using the downloaded image with the `run` subcommand. If an image has not been downloaded when Docker is executed with the `run` subcommand, the Docker client will first download the image, then run a container using it:
 
+`docker run hello-world:linux`
 
+**Note:** Here we use the linux tag of the hello-world image to not use latest again.
 
-## Exercise: LAB3.1
+To see the images that have been downloaded to your computer, type:
 
-Create a new namespace in the lab environment.
+`docker images`
 
-**Note**: Please choose an identifying name for the namespace, in best case your the techlab username, e.g. `[TEAM]-lab3-1`
+The output should look similar to the following:
 
-> How can a new namespace be created?
-
-**Tip** :information_source:
-```
-$ kubectl help
-```
-
-**Tip:** By using the following command, you can switch into another namespace:
-```
-Linux:
-$ kubectl config set-context $(kubectl config current-context) --namespace=[TEAM]-lab3-1
-```
-
-```
-Windows:
-$ kubectl config current-context
-// Save the context in a variable
-SET KUBE_CONTEXT=[Insert output of the upper command]
-$ kubectl config set-context %KUBE_CONTEXT% --namespace=[TEAM]-lab3-1
+```bash
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mariadb             latest              58730544b81b        2 weeks ago         397MB
+hello-world         latest              1815c82652c0        2 months ago        1.84kB
+hello-world         linux               1815c82652c0        2 months ago        1.84kB
 ```
 
+The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.
 
-**Note:** Namespaces created via `kubectl`, have to be assigned to your project in order to be seen inside the Rancher WebGUI. Ask your teacher for the assignement.
+As an example, let's run a container using the latest image of mariadb. The combination of the -i and -t switches gives you interactive shell access into the container:
 
-## Exercise: LAB3.2 discover the web console
+`docker run -it mariadb`
 
+An error is popping up!
 
-Please check the menu entries, there should neither appear any deployments nor any pods or services.
-
-
----
-
-## Solution: LAB3.1
-
+```bash
+error: database is uninitialized and password option is not specified
+  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
-$ kubectl create namespace [TEAM]-lab3-1
-```
----
 
-It is bestpractice to explicitly select the Namespace in each `kubectl` command by adding `--namespace namespace` or in short`-n namespace`.
+Question: What's wrong? Am I an idiot?
 
----
-
-**Ende Lab 3**
+Check out the next lab.

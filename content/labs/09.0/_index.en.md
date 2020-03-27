@@ -1,108 +1,108 @@
 ---
-title: "9.0 - Persistent Storage"
+title: "9.0 - Embedding the Source Code"
 weight: 90
 ---
 
-# Lab 9: Persistent Storage
+Previously in the lab...
 
-By default, data in pods is not persistent which was e.g. the case in lab 8. This means that data that was written in a pod is lost as soon as that pod does not exist anymore. We want to prevent this from happening. One possible solution to this problem is using persistent storage.
+Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
 
+Answer(s):
 
-## Lab: LAB9.1
+1. The apache webserver does not allow to scan its own document root.
+2. There is another way, and you're going to love it.
 
-### Request Storage
+## Get the PHP App
 
-Attaching persistent storage to a pod happens in two steps. The first step includes the creation of a so-called PersistentVolueClaim (PVC) in our namespace. This claim defines amongst others what name and size we would like to get.
+For this lab you're going to need a small PHP app consisting of two files.
 
-The PersistentVolumeClaim only represents a request but not the storage itself. It is automatically going to be bound to a Persistent Volume by Kubernetes, one that has at least the requested size. If only volumes exist that have a larger size than was requested, one of these volumes is going to be used. The claim will automatically be updated with the new size. If there are only smaller volumes available, the claim will not be bound as long as no volume the exact same or larger size is created.
+First, let's create a directory for the app's files called `php-app`.
 
+Then, inside that directory, create a new file named `index.php` with the following content:
 
-### Attaching a Volume to a Pod
-
-In a second step, the pvc from before is going to be attached to the right pod. In [lab 6](06_scale.md) we edited the deployment configuration in order to insert a readiness probe. We are now going to do the same for inserting the persistent volume.
-
-The following command creates a PersistentVolumeClaim which requests a volume of 1Gi size:
-
-```
-$ kubectl create --namespace [TEAM]-dockerimage -f ./labs/08_data/mysql-persistent-volume-claim.yaml
+```php
+<?php
+echo "Welcome to Docker (my young padawan)!";
 ```
 
-We now have to insert the volume definition in the correct section of the MySQL deployment:
+**Note for play-with-docker.com:**
 
-```
-$ kubectl edit deployment springboot-mysql --namespace [TEAM]-dockerimage
-```
-```
-...
-    spec:
-      containers:
-      - env:
-        - name: MYSQL_DATABASE
-          value: springboot
-        - name: MYSQL_USER
-          value: springboot
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: mysql-password
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: mysql-root-password
-        image: mysql:5.6
-        imagePullPolicy: IfNotPresent
-        name: mysql
-        ports:
-        - containerPort: 3306
-          name: mysql
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
-...
+* create directory with this shell command: `mkdir php-app`
+* create file with this shell command: `touch index.php`
+* open your editor
+* select the folder and then the file
+* add the content and save the changes
+
+And lastly, create another file named `db.php` with the following content:
+
+```php
+<?php
+$servername = "mariadb-container-with-existing-external-volume";
+$username = "peter";
+$password = "venkman";
+
+// Create connection
+$conn = new \mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
 ```
 
-**Note:** Because we just changed the deployment a new pod was automatically redeployed. This unfortunately also means that we just lost the data we inserted before.
+That's it for the app part.
 
-Our application automatically creates the database schema at startup.
+## Mounting the dev environment into your Docker container
 
-**Tip:** If you want to force a redeployment of a pod, you could e.g. use this:
+Make sure you're outside that freshly created app directory when you execute the next commands.
 
-```
-$ kubectl patch deployment example-spring-boot -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace [USER]-dockerimage
-```
+Now you can mount the php-app as host directory into your docker container via
 
-Using the command `kubectl get persistentvolumeclaim` or - a bit easier to write - `kubectl get pvc --namespace [TEAM]-dockerimage`, we can display the freshly created PersistentVolumeClaim:
+**Tipp:** you need to set the absolute path on the -v option eg. `-v /home/[path]/php-app` `-v c:/temp/php-app:/var/www/html`
 
-```
-$ kubectl get pvc --namespace [TEAM]-dockerimage
-NAME             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-mysql-pv-claim   Bound    pvc-2cb78deb-d157-11e8-a406-42010a840034   1Gi        RWO            standard       11s
+```bash
+docker run -d --name apache-php -v /home/[path]/php-app:/var/www/html  php:7-apache
 ```
 
-The two columns `STATUS` and `VOLUME` show us that our claim has been bound to the persistent volume `pvc-2cb78deb-d157-11e8-a406-42010a840034`.
+**Note:** Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
 
+You can now check if the error is still present OR you wait until the second question is answered.
 
-## Task: LAB9.2: Persistence Check
+## Portforwarding your Docker Container
 
-### Restore Data
+Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
+Imagine you had a local httpd service running on port 80 and you are forwarding this same port to your Docker instance.
 
-Repeat the task from [lab 8.4](08_database.md#l%C3solution-lab84).
+But let's not assume this right now! Or simply use a port other than 80.
 
+As you might have guessed it's again a parameter named `-p[local]:[container]` that you can set:
 
-### Test
+```bash
+docker run -it --name apache-php -v /home/[path]/php-app:/var/www/html -p8080:80 php:7-apache
+```
 
-Scale your MySQL pod to 0 replicas and back to 1. Observe that the new pod didn't loose any data.
+**Note:** Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
 
----
+If you take a look into `docker container ls` you'll find an interesting change for the PORT column
 
-**End of lab 9**
+```bash
+$ docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:80->80/tcp   apache-php
+50197361e87b        mariadb             "docker-entrypoint..."   2 hours ago         Up 2 hours          3306/tcp             mariadb-container-with-existing-external-volume
+6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
+```
+
+You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
+If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+
+**Note for play-with-docker.com:** To access the frontend app, you have to use a special url.
+
+* copy the ssh connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
+* remove *ssh* and replace the **@** with a **.**
+* with that url you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
+
+Question: Can I somehow link the containers together so they can talk to each other?
+
+The answer lies in the next lab.

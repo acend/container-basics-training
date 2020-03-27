@@ -1,113 +1,145 @@
 ---
-title: "7.0 - Troubleshooting, what is a Pod?"
+title: "7.0 - Working with Volumes"
 weight: 70
 ---
 
-# Lab 7: Troubleshooting, what is a Pod?
+Previously in the lab...
 
-This Lab helps you to troubleshoot your application and shows you some tools to make troubleshooting easier.
+Question: Hmm, I have a container with a database server running... But when I remove the container what is happening with my data?
 
-## Login to a Container
+Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set so you can store your data outside of the container.
 
-Running container should be treated as immutable infrastructure and should therefore not be modified. Although, there are some use-cases in which you have to login into your running container. Debugging and analyze is one example for this.
+## Mounting a Volume in a Container
 
+The mariadb container is fortunately a good example as to why it's good to have an external volume.
+There are several possibilities on how to work with volumes on docker, in this case, we're going to create a docker volume, that is managed by docker itself.
 
-## Task: LAB7.1 Shell into POD
+**Lab:** Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
 
+Create the docker managed volume with:
+```
+$ docker volume create volume-mariadb
+```
 
-With Kubernetes you can open a remote Shell into a pod without installing SSH by Using the command `kubectl exec`. The command is used to executed anything in a pod. With the parameter `-it` you can leave open an connection. We can use `winpty` for this.
+Now let's use the created volume and attach it to the mariadb
 
-Choose a pod with `kubectl get pods --namespace [TEAM]-dockerimage` and execute the following command:
+With the parameter `-v` you can now state where to attach the volume, e.g.:
 
 ```bash
-$ kubectl exec -it [POD] --namespace [TEAM]-dockerimage -- /bin/bash
+docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-With this, you can work inside the pod, e.g.:
+### Using a host directory as volume 
+
+**Hint:** The local path as volume does not work on windows with the mariadb due to the storage driver setup, so only read the instructions if you're working on windows
+
+We need to create a directory named `datastore-mariadb` but don't change into it (shell command: `mkdir datastore-mariadb`).
 
 ```bash
-bash-4.2$ ls -la
-total 40
-drwxr-xr-x 1 default root 4096 Jun 21  2016 .
-drwxr-xr-x 1 default root 4096 Jun 21  2016 ..
-drwxr-xr-x 6 default root 4096 Jun 21  2016 .gradle
-drwxr-xr-x 3 default root 4096 Jun 21  2016 .pki
-drwxr-xr-x 9 default root 4096 Jun 21  2016 build
--rw-r--r-- 1 root    root 1145 Jun 21  2016 build.gradle
-drwxr-xr-x 3 root    root 4096 Jun 21  2016 gradle
--rwxr-xr-x 1 root    root 4971 Jun 21  2016 gradlew
-drwxr-xr-x 4 root    root 4096 Jun 21  2016 src
+docker run --name mariadb-container-with-path-volume -v /[absolute path to your directory]/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-With `exit` you can leave the pod and close the connection
+On Windows this command probably does not work because the path cannot be relative. Use these alternatives instead:
+
+Powershell:
 
 ```bash
-bash-4.2$ exit
+docker run --name mariadb-container-with-path-volume -v C:\...\datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-## Task: LAB7.2 Single Command
-
-Single commands inside a container can be executed with `kubectl exec`:
-
+Windows bash:
 
 ```bash
-$ kubectl exec [POD] --namespace [TEAM]-dockerimage env
+docker run --name mariadb-container-with-path-volume -v //c/.../datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
+
+Once the container is up and running let's have a look into the datastore directory:
+
+**Hint:** use `dir` instead of `ls -la` on Windows
 
 ```bash
-$ kubectl exec example-spring-boot-69b658f647-xnm94 --namespace [TEAM]-dockerimage env
-PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-HOSTNAME=example-spring-boot-4-8mbwe
-KUBERNETES_SERVICE_PORT_DNS_TCP=53
-KUBERNETES_PORT_443_TCP_PROTO=tcp
-KUBERNETES_PORT_443_TCP_ADDR=172.30.0.1
-KUBERNETES_PORT_53_UDP_PROTO=udp
-KUBERNETES_PORT_53_TCP=tcp://172.30.0.1:53
-...
+$ ls -la datastore-mariadb/
+total 122944
+drwxrwxr-x 4 guest-r0bhvk docker     4096 Mai 31 08:50 .
+drwxrwxr-x 5 user         user       4096 Mai 31 08:49 ..
+-rw-rw---- 1 guest-r0bhvk docker    16384 Mai 31 08:50 aria_log.00000001
+-rw-rw---- 1 guest-r0bhvk docker       52 Mai 31 08:50 aria_log_control
+-rw-rw---- 1 guest-r0bhvk docker      976 Mai 31 08:50 ib_buffer_pool
+-rw-rw---- 1 guest-r0bhvk docker 12582912 Mai 31 08:50 ibdata1
+-rw-rw---- 1 guest-r0bhvk docker 50331648 Mai 31 08:50 ib_logfile0
+-rw-rw---- 1 guest-r0bhvk docker 50331648 Mai 31 08:50 ib_logfile1
+-rw-rw---- 1 guest-r0bhvk docker 12582912 Mai 31 08:50 ibtmp1
+-rw-rw---- 1 guest-r0bhvk docker        0 Mai 31 08:50 multi-master.info
+drwx------ 2 guest-r0bhvk docker     4096 Mai 31 08:50 mysql
+drwx------ 2 guest-r0bhvk docker     4096 Mai 31 08:50 performance_schema
+-rw-rw---- 1 guest-r0bhvk docker    24576 Mai 31 08:50 tc.log
 ```
 
-## Watch Logfiles
+Okay, let's create a new user in the mariadb container:
 
-Logfiles of a pod can with shown with the following command:
+1. `docker exec -it mariadb-container-with-external-volume bash`
+2. `mysql -uroot -pmy-secret-pw`
+3. In the mysql-client: `use mysql`
+4. In the mysql-client: `CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';`
 
+Once all steps are done you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
+
+Now we have to stop and remove the mariadb-container-with-external-volume container.
 
 ```bash
-$ kubectl logs [POD] --namespace [TEAM]-dockerimage
+docker stop mariadb-container-with-external-volume
+docker rm mariadb-container-with-external-volume
 ```
 
-The parameter `-f` allows you to follow the logfile (same as `tail -f`). With this, logfiles are streamed and new entries are shown directly
-
-When a pod is in State **CrashLoopBackOff** it means, that even after some restarts, the pod could not be started successfully. Even if the pod is not running, logfiles can be viewed with the following command:
-
-
- ```bash
-$ kubectl logs -p [POD] --namespace [TEAM]-dockerimage
-```
-
-
-## Task: LAB7.3 Port Forwarding
-
-Kubernetes allows you to forward arbitrary ports to your development workstation. This allows you to access admin consoles, databases etc, even when they are not exposed externaly. Port forwarding are handled by the Kubernetes master and therefore tunneled from the client via HTTPS. This allows you to access the Kubernetes platform even when there are restrictive firewalls and/or proxies between your workstation and Kubernetes.
-
-Exercise: Access the Spring Boot Metrics from [Lab 4](04_deploy_dockerimage.md).
-
+It's getting interesting...
+We are creating a new mariadb container with the datastorage volume:
 
 ```bash
-$ kubectl get pod --namespace [TEAM]-dockerimage
-$ kubectl port-forward example-spring-boot-1-xj1df 9000:9000 --namespace [TEAM]-dockerimage
-Forwarding from 127.0.0.1:9000 -> 9000
-Forwarding from [::1]:9000 -> 9000
+docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-Don't forget to change the pod Name to your own Installation. If configured, you can use Auto-Completion.
+The moment of truth... Connect to the database server:
 
-The metrics are now available with the following Link: [http://localhost:9000/metrics/](http://localhost:9000/metrics/).
-Those metrics are shown in JSON. With the same concept you can access databases from your local client or connect your local development environment via remote debugging to your application in the pod.
- 
-With the following link you find more information about port forwarding: <https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/>
+```bash
+$ docker exec -it mariadb-container-with-existing-external-volume bash  
+root@6f08ac657320:/# mysql -upeter -pvenkman
+```
 
-**Note:** The `kubectl port-forward`-process runs as long as it is not terminated by the user. So when done, stop it with CTRL-C.
+If everything worked as expected you should now have been connected as peter to your database instance. You can test this by using the `SELECT USER();` statement in the sql client.
 
----
+```bash
+MariaDB [(none)]> SELECT USER();
++-----------------+
+| USER()          |
++-----------------+
+| peter@localhost |
++-----------------+
+1 row in set (0.00 sec)
+```
 
-**End Lab 7**
+Question: I'm feeling like a docker king... What's next?
+
+## Additional Info Working With Docker Volumes
+
+An alternative way of working with volumes besides mounting local directories (host folders) by path into your container is by using Docker volumes.
+
+Docker volumes can be used:
+
+* Decouple the data that is stored from the container which created the data
+* Bypassing the copy-on-write system to obtain native disk I/O performance
+* Bypassing copy-on-write to leave some files out of docker commit
+* Sharing a directory between multiple containers
+* Sharing a directory between the host and a container
+* Sharing a single file between the host and a container
+
+### Docker Storage Driver
+
+When running a lot of Docker containers on a machine usually a lot of storage is needed. Docker volumes and container storage are provided on a filesystem. The following link provides additional information on how to choose the correct storage setup:
+
+<https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/managing_storage_with_docker_formatted_containers>
+
+At the moment, `overlay2` is the [recommended storage driver](https://docs.docker.com/storage/storagedriver/select-storage-driver/#docker-ce).
+
+**Lab:** Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+
+**Hint:** Use `docker volume create <name>` and `docker run -v <name>:<path> …` commands.

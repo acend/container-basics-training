@@ -1,131 +1,143 @@
 ---
-title: "4.0 - Deploy a Docker Image"
+title: "4.0 - Environment Variables"
 weight: 40
 ---
 
 
-# Lab 4: Deploy a Docker Image
+Previously in the lab...
 
-In this lab, we are going to deploy our first pre-built container image and look at the Kubernetes concepts pod, service and deployment.
+An error is popping up!
 
-
-## Task: LAB4.1
-
-After we've familiarized ourselves with the platform in [lab 3](03_first_steps.md), we are going to have a look at deploying a pre-built container image from Docker Hub or any other public Container registry.
-
-As a first step we are going to create a new namespace. A namespace represents a grouping of resources (containers and container images, pods, services, configurations, quotas, limits and more). Authorized users inside that namespace are able to manage those resources. Inside a Kubernetes cluster, the name of a namespace has to be unique.
-
-
-
-Create a new namespace with name `[TEAM]-dockerimage`:
-
-```
-$ kubectl create namespace [TEAM]-dockerimage
-```
-
-Display all existing pods in your namespace (there should not yet be any!):
 ```bash
-$ kubectl get pods -n=[TEAM]-dockerimage
+error: database is uninitialized and password option is not specified
+  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
 
-With the command `kubectl get` you can display all kinds of resources of different types.
+Question: What's wrong? Am I an idiot?
 
+Answer: No! You have just done what was stated in the instructions.
 
-## Task: LAB4.2 Start a Pod
+## Environment Variables
 
-As soon as your new namespace has been created, we are able to deploy our first application inside of it. First, we are going to directly start a new pod:
+What happened?
+The mariadb server is not able to run without a proper configuration. Docker has the possibility to pass variables into the instantiation process via environment variables.
+Environment variables are passed via the parameter `-e` e.g.
 
-```
-$ kubectl run nginx --image=nginx --port=80 --restart=Never --namespace [TEAM]-dockerimage
-```
+`docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb`
 
-Use `kubectl get pods --namespace [TEAM]-dockerimage` in order to show the running pod:
-```
-$ kubectl get pods --namespace [TEAM]-dockerimage
-NAME      READY     STATUS    RESTARTS   AGE
-nginx     1/1       Running   0          1m
-```
+Once you run the command you will see an output like this:
 
-Have a look at your nginx pod inside the Rancher WebGUI under "Workloads" an delete the pod right afterwards.
+```bash
 
-## Task: LAB4.3 Deployment
+Initializing database
 
-In some usecases it makes sense to start a single pod but has its downsides and is not really best practice. Let's look at another Kubernetes concept which is tightly coupled with the pod: the so-called deployment. A deployment makes sure that a pod is monitored and checks that the number of running pods corresponds to the number of requested pods.
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+To do so, start the server, then issue the following commands:
 
-With the following command we can create a deployment inside our already created namespace:
+'/usr/bin/mysqladmin' -u root password 'new-password'
+'/usr/bin/mysqladmin' -u root -h  password 'new-password'
 
+Alternatively you can run:
+'/usr/bin/mysql_secure_installation'
 
-```
-$ kubectl create deployment example-spring-boot --image=appuio/example-spring-boot --namespace [TEAM]-dockerimage
-```
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
 
-The output should be:
-```
-deployment.apps/example-spring-boot created
-```
+See the MariaDB Knowledgebase at http://mariadb.com/kb or the
+MySQL manual for more instructions.
 
-We're using an example from APPUiO (a Java Spring Boot application), which you can find on [Docker Hub](https://hub.docker.com/r/appuio/example-spring-boot/) and [GitHub (Source)](https://github.com/appuio/example-spring-boot-helloworld).
+Please report any problems at http://mariadb.org/jira
 
-Kubernetes creates the defined and necessary resources, pulls the container image (in this case from Docker Hub) and deploys the pod.
+The latest information about MariaDB is available at http://mariadb.org/.
+You can find additional information about the MySQL part at:
+http://dev.mysql.com
+Consider joining MariaDB's strong and vibrant community:
+https://mariadb.org/get-involved/
 
-Use the command `kubectl get` with the `-w` parameter in order to get the requested resources and afterwards watch for changes. (**This command will never end unless you terminate it with ctrl+c**):
+Database initialized
+MySQL init process in progress...
+2018-05-31  6:21:03 0 [Note] mysqld (mysqld 10.3.7-MariaDB-1:10.3.7+maria~jessie) starting as process 101 ...
+2018-05-31  6:21:03 0 [Note] InnoDB: Using Linux native AIO
+2018-05-31  6:21:03 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2018-05-31  6:21:03 0 [Note] InnoDB: Uses event mutexes
+2018-05-31  6:21:03 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+2018-05-31  6:21:03 0 [Note] InnoDB: Number of pools: 1
+2018-05-31  6:21:03 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2018-05-31  6:21:03 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
 
+...
 
-```
-$ kubectl get pods --namespace [TEAM]-dockerimage -w
-```
-
-This process can last for some time depending on your internet connection and if the image is already available locally.
-
-**Tip**: If you want to create your own container images and use them with Kubernetes, you definitely should have a look at [these best practices](https://docs.openshift.com/container-platform/latest/creating_images/guidelines.html) and apply them. The Image Creation Guide may be from OpenShift, however it also applies to Kubernetes and other container platforms.
-
-
-
-
-## Viewing the Created Resources
-
-When we executed the command `kubectl create deployment example-spring-boot --image=appuio/example-spring-boot --namespace [TEAM]-dockerimage`, Kubernetes created a deployment resource.
-
-
-### Deployment
-
-Display the created deployment using the following command:
-
-```
-$ kubectl get deployment --namespace [TEAM]-dockerimage
-```
-A [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) defines the following facts:
-
-- Update strategy: How application updates should be executed and how the pods are being exchanged
-- Containers
-  - Which image should be deployed
-  - Environment configuration for pods
-  - ImagePullPolicy
-- The number of pods/replicas that should be deployed
-
-By using the `-o` (or `--output`) parameter we get a lot more information about the deployment itself:
-```
-$ kubectl get deployment example-spring-boot -o json --namespace [TEAM]-dockerimage
+2018-05-31  6:21:08 0 [Note] mysqld: ready for connections.
+Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 ```
 
-After the image has been pulled, Kubernetes deploys a pod according to the deployment:
+The problem is that you are now stuck in this console.
+To return to your shell press `CTRL p` and than `CTRL q` **Hint:** this might not be working on windows, since there might be set other actions to `CTRL p` and `CTRL q` like Bingsearch for example.
+This will leave the container running while you are back in your shell. To see that the container is really running use the command:
+
+`docker container ls`
+
+The output should look much like this:
+
+```bash
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+7cb31f821233        mariadb             "docker-entrypoint..."   5 minutes ago       Up 5 minutes        3306/tcp            upbeat_blackwell
+```
+
+To connect to the container again you can use the following command:
+
+`docker exec -it [CONTAINER ID|NAME] bash`
+
+**Note:** The docker exec command needs either the `CONTAINER_ID` or `NAME` of the container. And additionally, at the end, an executable.
+
+In this example it's `bash` as we want to do something interactively in the container.
+
+Once the command is executed you should see this:
+
+`root@7cb31f821233:/#`
+
+**Note:** Every time you connect yourself to a container you will always be the user that was defined as user in the Dockerfile.
+
+Now that we are connected lets find out if the mariadb is working...
+
+`root@7cb31f821233:/# mysql -uroot -pmy-secret-pw`
+
+If everything works as expected you should now see the mariadb command line:
+
+```bash
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.3.8-MariaDB-1:10.3.8+maria~jessie mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+```
+
+## Daemons
+
+One might think: *This whole starting process is a bit freaky with `CTRL p` and then `CTRL q`*.
+Therefore you can run a Docker container "daemonized".
+You just have to add the parameter `-d` to the Docker `run` command e.g.:
+
+```bash
+$ docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+699e82ed8f1f7c6d4316f26bcdb5d03164610840315aaa587a87672591401041
 
 ```
-$ kubectl get pod --namespace [TEAM]-dockerimage
+
+If you now have a look into the container list you should come up with two running containers:
+
+```bash
+$ docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+699e82ed8f1f        mariadb             "docker-entrypoint..."   3 minutes ago       Up 3 minutes        3306/tcp            jolly_bardeen
+7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-```
-NAME                                   READY   STATUS    RESTARTS   AGE
-example-spring-boot-69b658f647-xnm94   1/1     Running   0          52m
-```
+Question: Do we need two running mariadb containers at the same time for this lab?
 
-The deployment defines that one replica should be deployed, which is running as we can see in the output. This pod is not yet reachable from outside of the cluster.
-
-## Task: LAB4.4 Verify the Deployment in the Rancher WebGUI
-
-Try to display the logs from the Springboot application via the Rancher WebGui.
-
-
----
-
-**End of lab 4**
+Find out in the next lab.
