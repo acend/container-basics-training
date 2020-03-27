@@ -6,7 +6,7 @@ enableGitInfo = true
 languageCode = "en-us"
 
 # site title
-title = "Kubernetes Techlabs"
+title = "Docker Techlabs"
 
 # theme
 theme = "dot"
@@ -73,8 +73,8 @@ link = "https://linkedin.com/company/puzzle-itc"
 
     # banner
     [Languages.en.params.banner]
-      title = "Kubernetes Techlabs"
-      description = "Learning Kubernetes from the ground up"
+      title = "Docker Techlabs"
+      description = "Learning Docker from the ground up"
       image = "images/pic_puzzle_man.png"
       placeholder = "Just enter terms to query our labs content"
 
