@@ -23,7 +23,7 @@ spec:
         app: docker-techlab
     spec:
       containers:
-      - image: docker.io/acend/docker-techlab:latest
+      - image: acend/docker-techlab:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
