@@ -94,6 +94,6 @@ Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot
 
 **Note:** The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 
-Question: Hmm, I have a container with a DB Server running... But when I remove the container what is happening with my data?
+Question: I have a container with a database server running. But when I remove the container, what happens to my data?
 
 Let's find out in... the next lab!

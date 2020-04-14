@@ -22,7 +22,7 @@ For that we create a new directory and create an empty Dockerfile in there. You 
 ```bash
 mkdir myfirstimage
 cd myfirstimage
-vim Dockerfile
+vim Dockerfile # or editor of your choice --> close and save file with vim [ESC] :wq!
 ```
 
 Add the following content to your Dockerfile:
@@ -224,7 +224,8 @@ docker build -t php-app .
 docker run -d --network docker-techlab --name php-app -p8080:80 php-app
 ```
 
-Now open a browser and navigate to <http://localhost/db.php>.
+Now open a browser and navigate to <http://localhost:8080/db.php>.
+You should get a response saying "Connected successfully".
 
 ## Additional Lab
 

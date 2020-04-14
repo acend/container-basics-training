@@ -41,7 +41,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 For this exercise we are creating our own network with `docker network create docker-techlab`.
 If you now rerun the list command for Docker networks you should see the newly created network.
 
-To make the backend accessable/visible to the fronend (via Container-NAMES) you have to run both containers with the `--network` option:
+To make the backend accessable/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
 
 ```bash
 $ docker run -d --network docker-techlab --name apache-php -v /home/[path]/php-app:/var/www/html -p8080:80 php:7-apache
@@ -52,12 +52,12 @@ If you now access the containers you should be able to resolve the other's conta
 
 ``` bash
 $ docker exec -it mariadb-container-with-existing-external-volume bash
-$ getent hosts apache-php
+$ root@6f08ac657320:/# getent hosts apache-php
 ```
 
 Now the two containers can talk to each other. Let's check this:
 
-If you now type <http://localhost/db.php> in your browser you should get... an error!
+If you now type <http://localhost:8080/db.php> in your browser you should get... an error!
 Because the mysqli extension is not found.
 
 Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?

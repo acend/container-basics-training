@@ -20,31 +20,24 @@ Let's have a look at the following example:
 The complete example can be found under https://github.com/appuio/example-spring-boot-helloworld
 
 ```
-FROM centos/s2i-base-centos7
+FROM fabric8/java-centos-openjdk11-jdk
 
-EXPOSE 8080
-      
-# Install Java
-RUN INSTALL_PKGS="tar unzip bc which lsof java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
-    yum install -y $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
-    yum clean all -y && \
-    mkdir -p /opt/s2i/destination
+MAINTAINER Thomas Philipona <philipona@puzzle.ch>
 
-USER 1001
-    
-ADD ./gradlew /opt/app-root/src/
-ADD gradle /opt/app-root/src/gradle
-ADD build.gradle /opt/app-root/src/
-ADD src /opt/app-root/src/src
+EXPOSE 8080 9000
 
-# build the application from source
-RUN sh /opt/app-root/src/gradlew build 
 
-# copy the artifact to the correct location
-RUN cp -a  /opt/app-root/src/build/libs/springboots2idemo*.jar /opt/app-root/springboots2idemo.jar 
+LABEL io.k8s.description="Example Spring Boot App" \
+      io.k8s.display-name="APPUiO Spring Boot App" \
+      io.openshift.expose-services="8080:http" \
+      io.openshift.tags="builder,springboot"
 
-CMD java -Xmx64m -Xss1024k -jar /opt/app-root/springboots2idemo.jar
+RUN mkdir -p /tmp/src/
+ADD . /tmp/src/
+
+RUN cd /tmp/src && sh gradlew build
+
+RUN cp -a  /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
 
 ```
 
@@ -103,7 +96,7 @@ Multi stage Docker build:
 ```
 FROM golang:1.9
 WORKDIR /go/src/myapp
-RUN go get -d -v golang.org/x/net/html  
+RUN go get -d -v golang.org/x/net/html
 COPY app.go .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
@@ -111,7 +104,23 @@ FROM alpine:3.6
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=0 /go/src/myapp .
-CMD ["./app"]  
+CMD ["./app"]
+```
+
+Content of the Go application `app.go`:
+```
+package main
+import (
+        "net/http"
+        "fmt"
+)
+func main() {
+        http.HandleFunc("/", hello)
+        http.ListenAndServe(":8180", nil)
+}
+func hello(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprint(w, "Docker workshop")
+}
 ```
 
 ## Multi Stage Builds
@@ -124,3 +133,34 @@ Read more about docker multi stage builds under https://docs.docker.com/develop/
 ## LAB: create a multi stage build
 
 Turn the docker build from the first example (Java Spring boot https://github.com/appuio/example-spring-boot-helloworld) into a docker multistage build.
+
+---
+
+{{< collapse solution-1 "Solution" >}}
+
+```
+FROM fabric8/java-centos-openjdk11-jdk
+
+MAINTAINER Thomas Philipona <philipona@puzzle.ch>
+
+EXPOSE 8080 9000
+
+
+LABEL io.k8s.description="Example Spring Boot App" \
+      io.k8s.display-name="APPUiO Spring Boot App" \
+      io.openshift.expose-services="8080:http" \
+      io.openshift.tags="builder,springboot"
+
+RUN mkdir -p /tmp/src/
+ADD . /tmp/src/
+
+RUN cd /tmp/src && sh gradlew build
+
+FROM fabric8/java-alpine-openjdk11-jre
+
+EXPOSE 8080 9000
+
+COPY --from=0 /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
+```
+
+{{< /collapse >}}

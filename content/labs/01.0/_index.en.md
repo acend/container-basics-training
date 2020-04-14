@@ -16,7 +16,7 @@ Alternatively the repository can be downloaded as a [zip file](https://github.co
 
 ## Try Docker without Installation
 
-The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this Techlab using a Browser-based Docker shell.
+The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this techlab using a browser-based Docker shell.
 
 To do this lab with *Play with Docker*:
 

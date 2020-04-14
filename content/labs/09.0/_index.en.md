@@ -89,7 +89,7 @@ If you take a look into `docker container ls` you'll find an interesting change 
 ```bash
 $ docker container ls
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
-6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:80->80/tcp   apache-php
+6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   apache-php
 50197361e87b        mariadb             "docker-entrypoint..."   2 hours ago         Up 2 hours          3306/tcp             mariadb-container-with-existing-external-volume
 6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
 ```

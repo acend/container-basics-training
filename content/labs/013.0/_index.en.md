@@ -46,12 +46,15 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=my-secret-pw
     volumes:
-      - './datastore-mysql:/var/lib/mysql'
+      - 'volume-mariadb:/var/lib/mysql'
     networks:
       - docker-techlab
 
 networks:
   docker-techlab:
+
+volumes:
+  volume-mariadb:
 ```
 
 For each of the `docker run` commands, you add an entry under `services`, containing the appropriate options. The various options are described in the [Compose file reference](https://docs.docker.com/compose/compose-file/).

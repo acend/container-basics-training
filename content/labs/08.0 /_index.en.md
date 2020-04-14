@@ -80,6 +80,8 @@ $ docker inspect apache-php | grep IPAddress
 
 With the IP from the inspection we can now navigate to the webserver at <http://172.17.0.4>.
 
+**Note:** It might be that your local firewall blocks requests to this address.
+
 And unfortunatly we get a "403 Error - Forbidden".
 
 **Note:** Do not forget to remove the existing instance of the apache-php container.

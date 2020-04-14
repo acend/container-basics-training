@@ -5,7 +5,7 @@ weight: 70
 
 Previously in the lab...
 
-Question: Hmm, I have a container with a database server running... But when I remove the container what is happening with my data?
+Question: I have a container with a database server running. But when I remove the container, what happens to my data?
 
 Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set so you can store your data outside of the container.
 
@@ -21,7 +21,7 @@ Create the docker managed volume with:
 $ docker volume create volume-mariadb
 ```
 
-Now let's use the created volume and attach it to the mariadb
+Now let's use the created volume and attach it to the mariadb database.
 
 With the parameter `-v` you can now state where to attach the volume, e.g.:
 
@@ -31,26 +31,31 @@ docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/
 
 ### Using a host directory as volume 
 
-**Hint:** The local path as volume does not work on windows with the mariadb due to the storage driver setup, so only read the instructions if you're working on windows
-
 We need to create a directory named `datastore-mariadb` but don't change into it (shell command: `mkdir datastore-mariadb`).
+
+**Hint:** The local path as volume sometimes needs an additional configuration parameter on Windows due to the storage driver setup. See below for more information.
+
 
 ```bash
 docker run --name mariadb-container-with-path-volume -v /[absolute path to your directory]/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-On Windows this command probably does not work because the path cannot be relative. Use these alternatives instead:
+As mentioned in the hint above, add the following configuration parameter __on Windows__ to the basic `docker run` command. :
+
+```
+--innodb_flush_method=O_DSYNC
+```
 
 Powershell:
 
 ```bash
-docker run --name mariadb-container-with-path-volume -v C:\...\datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-path-volume -v C:\...\datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
 ```
 
 Windows bash:
 
 ```bash
-docker run --name mariadb-container-with-path-volume -v //c/.../datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-path-volume -v //c/.../datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
 ```
 
 Once the container is up and running let's have a look into the datastore directory:
