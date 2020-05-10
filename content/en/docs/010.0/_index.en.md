@@ -5,7 +5,7 @@ weight: 10
 
 Previously in the lab...
 
-Question: Can I somehow link the containers together so they can talk to each other?
+> Question: Can I somehow link the containers together so they can talk to each other?
 
 Answer: Yes, you can! And here's how it works.
 
@@ -66,6 +66,6 @@ Now the two containers can talk to each other. Let's check this:
 If you now type <http://localhost:8080/db.php> in your browser you should get... an error!
 Because the mysqli extension is not found.
 
-Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
+> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 
 I'm sure there is, let's check out the next lab to find out how.

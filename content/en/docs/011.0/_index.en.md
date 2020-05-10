@@ -5,7 +5,7 @@ weight: 11
 
 Previously in the lab...
 
-Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
+> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 
 Answer: Yes there is. Create your own Dockerfile which describes the content of a Docker image.
 

@@ -5,7 +5,7 @@ weight: 7
 
 Previously in the lab...
 
-Question: I have a container with a database server running. But when I remove the container, what happens to my data?
+> Question: I have a container with a database server running. But when I remove the container, what happens to my data?
 
 Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set so you can store your data outside of the container.
 

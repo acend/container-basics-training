@@ -5,7 +5,7 @@ weight: 8
 
 Previously in the lab...
 
-Question: I'm feeling like a Docker king... What's next?
+> Question: I'm feeling like a Docker king... What's next?
 
 Answer: Now that we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
 
@@ -99,8 +99,10 @@ And unfortunatly we get a "403 Error - Forbidden".
 
 **Note:** Do not forget to remove the existing instance of the apache-php container.
 
-**Note for play-with-docker.com:** This is not possible without port forwarding, see next lab.
+{{% alert title="Note for play-with-docker.com" color="warning" %}}
+This is not possible without port forwarding, see next lab.
+{{% /alert %}}
 
-Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
+> Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
 
 Go on and find the answers in the next lab.

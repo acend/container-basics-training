@@ -5,7 +5,7 @@ weight: 9
 
 Previously in the lab...
 
-Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
+> Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
 
 Answer(s):
 
@@ -65,7 +65,9 @@ Now you can mount the php-app as host directory into your docker container via
 docker run -d --name apache-php -v /home/[path]/php-app:/var/www/html  php:7-apache
 ```
 
-**Note:** Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
+{{% alert title="Note" color="warning" %}}
+Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
+{{% /alert %}}
 
 You can now check if the error is still present OR you wait until the second question is answered.
 
@@ -106,6 +108,6 @@ If you now type <http://localhost:8080/index.php> in your browser you should get
 * remove *ssh* and replace the **@** with a **.**
 * with that url you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 
-Question: Can I somehow link the containers together so they can talk to each other?
+> Question: Can I somehow link the containers together so they can talk to each other?
 
 The answer lies in the next lab.

@@ -5,7 +5,7 @@ weight: 3
 
 Previously in the lab...
 
-Question: Is there only a "hello world" Docker image?
+> Question: Is there only a "hello world" Docker image?
 
 Answer: No! There are tons of images provided by companies, open source projects, and boys/girls like you and me.
 
@@ -88,6 +88,6 @@ error: database is uninitialized and password option is not specified
   You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
 
-Question: What's wrong? Am I an idiot?
+> Question: What's wrong? Am I an idiot?
 
 Check out the next lab.

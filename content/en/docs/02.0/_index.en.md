@@ -5,7 +5,8 @@ weight: 2
 
 Previously in the lab...
 
-Question: What's next?
+> Question: What's next?
+
 Answer: Let's get the Docker party started!
 
 ## The Command Line Tool
@@ -132,6 +133,6 @@ With this command we now run on our computers our first container. It ran a simp
 
 Browse <https://docs.docker.com> and get familiar with the docs and the references. In this techlab we're using Docker CE so this is the docs section you might want to check out as well.
 
-Question: Is there only a "hello world" Docker image?
+> Question: Is there only a "hello world" Docker image?
 
 Maybe the next Lab will provide some answers?

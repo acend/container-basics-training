@@ -5,7 +5,7 @@ weight: 5
 
 Previously in the lab...
 
-Question: Do we need two running mariadb containers at the same time for this lab?
+> Question: Do we need two running mariadb containers at the same time for this lab?
 
 Answer: No!
 
@@ -80,6 +80,6 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 Always try to clean up as every container is using space on your disk!
 {{% /alert %}}
 
-Question: Where do these strange names come from?
+> Question: Where do these strange names come from?
 
 Obviously you will find it out... in the next lab!

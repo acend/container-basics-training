@@ -5,7 +5,7 @@ weight: 6
 
 Previously in the lab...
 
-Question: Where do these strange names come from?
+> Question: Where do these strange names come from?
 
 Answer: Docker (what a surprise!)... Beside the CONTAINER_ID the NAME is a unique identifier for a container.
 
@@ -104,6 +104,6 @@ Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 {{% /alert %}}
 
-Question: I have a container with a database server running. But when I remove the container, what happens to my data?
+> Question: I have a container with a database server running. But when I remove the container, what happens to my data?
 
 Let's find out in... the next lab!

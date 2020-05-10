@@ -13,7 +13,7 @@ error: database is uninitialized and password option is not specified
   You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
 
-Question: What's wrong? Am I an idiot?
+> Question: What's wrong? Am I an idiot?
 
 Answer: No! You have just done what was stated in the instructions.
 
@@ -151,6 +151,6 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-Question: Do we need two running mariadb containers at the same time for this lab?
+> Question: Do we need two running mariadb containers at the same time for this lab?
 
 Find out in the next lab.
