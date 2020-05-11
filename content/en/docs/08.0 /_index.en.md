@@ -93,15 +93,25 @@ docker inspect apache-php | grep IPAddress
 
 With the IP from the inspection we can now navigate to the webserver at <http://172.17.0.4>.
 
+{{% alert title="Windows and Mac Users" color="warning" %}}
+As the docker linux brige is not reachable from your Windows or MacOS host you cannot access the container directly via IP Adress.
+See:
+
+* <https://docs.docker.com/docker-for-windows/networking/>
+* <https://docs.docker.com/docker-for-mac/networking/>
+
+Use port forwarding to access the container.
+{{% /alert %}}
+
+{{% alert title="Note for play-with-docker.com" color="warning" %}}
+This is not possible without port forwarding, see next lab.
+{{% /alert %}}
+
 **Note:** It might be that your local firewall blocks requests to this address.
 
 And unfortunatly we get a "403 Error - Forbidden".
 
 **Note:** Do not forget to remove the existing instance of the apache-php container.
-
-{{% alert title="Note for play-with-docker.com" color="warning" %}}
-This is not possible without port forwarding, see next lab.
-{{% /alert %}}
 
 > Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
 
