@@ -16,7 +16,7 @@ Unlike the CONTAINER_ID the NAME is something we can manipulate. The name is han
 To do so you have to add a parameter in the `run` command of Docker
 
 ```bash
-docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb`
+docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 As always, to check if this has really worked out look at the container list
