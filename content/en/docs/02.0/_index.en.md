@@ -97,7 +97,7 @@ Run 'docker COMMAND --help' for more information on a command.
 To view the switches available to a specific command, type:
 
 ```bash
-docker docker-subcommand --help
+docker [COMMAND] --help
 ```
 
 To view system-wide information about Docker, use:

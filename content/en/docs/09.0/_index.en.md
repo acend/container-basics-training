@@ -5,14 +5,14 @@ weight: 9
 
 Previously in the lab...
 
-> Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
+> Question: Why? Why do I get this error? And is there no other way to access the web server via the private IP?
 
 Answer(s):
 
-1. The apache webserver does not allow to scan its own document root.
+1. The Apache web server does not allow to scan its own document root.
 2. There is another way, and you're going to love it.
 
-## Get the PHP App
+## Get the PHP app
 
 For this lab you're going to need a small PHP app consisting of two files.
 
@@ -27,11 +27,11 @@ echo "Welcome to Docker (my young padawan)!";
 
 **Note for play-with-docker.com:**
 
-* create directory with this shell command: `mkdir php-app`
-* create file with this shell command: `touch index.php`
-* open your editor
-* select the folder and then the file
-* add the content and save the changes
+* Create directory with this shell command: `mkdir php-app`
+* Create file with this shell command: `touch index.php`
+* Open your editor
+* Select the folder and then the file
+* Add the content and save the changes
 
 And lastly, create another file named `db.php` with the following content:
 
@@ -59,10 +59,18 @@ Make sure you're outside that freshly created app directory when you execute the
 
 Now you can mount the php-app as host directory into your docker container via
 
-**Tipp:** you need to set the absolute path on the -v option eg. `-v /home/[path]/php-app` `-v c:/temp/php-app:/var/www/html`
+**Tipp:** you need to set the absolute path on the -v option, e.g. `-v /home/[path]/php-app` or `-v C:\Temp\php-app:/var/www/html`
+
+Linux:
 
 ```bash
-docker run -d --name apache-php -v /home/[path]/php-app:/var/www/html  php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html  php:7-apache
+```
+
+Windows (Git Bash):
+
+```
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
 
 {{% alert title="Note" color="warning" %}}
@@ -71,25 +79,25 @@ Do not forget to stop/remove the existing instance of the apache-php container b
 
 You can now check if the error is still present OR you wait until the second question is answered.
 
-## Portforwarding your Docker Container
+## Port forwarding for your Docker container
 
 Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
 Imagine you had a local httpd service running on port 80 and you are forwarding this same port to your Docker instance.
 
 But let's not assume this right now! Or simply use a port other than 80.
 
-As you might have guessed it's again a parameter named `-p[local]:[container]` that you can set:
+As you might have guessed it's again a parameter named `-p [HOST_PORT]:[CONTAINER_PORT]` that you can set:
 
 ```bash
-docker run -it --name apache-php -v /home/[path]/php-app:/var/www/html -p8080:80 php:7-apache
+docker run -it --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
 ```
 
 **Note:** Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
 
-If you take a look into `docker container ls` you'll find an interesting change for the PORT column
+If you take a look into `docker ps` you'll find an interesting change for the PORT column
 
 ```bash
-docker container ls
+docker ps
 ```
 
 ```
@@ -104,10 +112,10 @@ If you now type <http://localhost:8080/index.php> in your browser you should get
 
 **Note for play-with-docker.com:** To access the frontend app, you have to use a special url.
 
-* copy the ssh connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
-* remove *ssh* and replace the **@** with a **.**
-* with that url you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
+* Copy the SSH connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
+* Remove *ssh* and replace the **@** with a **.**
+* With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 
-> Question: Can I somehow link the containers together so they can talk to each other?
+> Question: Can I somehow link the containers together so that they can talk to each other?
 
 The answer lies in the next lab.

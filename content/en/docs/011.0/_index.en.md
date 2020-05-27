@@ -128,7 +128,7 @@ If you only want to trigger a partial rebuild, e.g. run `apt-get update` to inst
 you can use the following pattern:
 
 ```bash
-ENV REFRESHED_AT 2018-03-13
+ENV REFRESHED_AT 2020-03-13
 RUN apt-get update
 ```
 

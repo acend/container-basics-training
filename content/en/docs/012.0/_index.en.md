@@ -66,37 +66,37 @@ Live Restore Enabled: false
 To see all running containers:
 
 ```bash
-docker container ls
+docker ps
 ```
 
 To see all containers, also exited containers:
 
 ```bash
-docker container ls --all
+docker ps --all
 ```
 
 To see only the last container that was started:
 
 ```bash
-docker container ls -l
+docker ps -l
 ```
 
 To see only the ID of containers:
 
 ```bash
-docker container ls -q
+docker ps -q
 ```
 
 To see only the ID of the last started container:
 
 ```bash
-docker container ls -ql
+docker ps -ql
 ```
 
 To see the size of the containers:
 
 ```bash
-docker container ls -s
+docker ps -s
 ```
 
 To see the general docker storage usage(After 1.13.0, Docker):
@@ -105,7 +105,7 @@ To see the general docker storage usage(After 1.13.0, Docker):
 docker system df
 ```
 
-This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker container ls -ql)`, which will delete the last started container.
+This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
 
 ## Stopping Containers
 
@@ -215,13 +215,13 @@ Keep your local dev environment clean. And
 ### Stop All Running Containers
 
 ```bash
-docker stop $(docker container ls -a -q)
+docker stop $(docker ps -a -q)
 ```
 
 ### Delete All Containers
 
 ```bash
-docker rm $(docker container ls -a -q)
+docker rm $(docker ps -a -q)
 ```
 
 ### Delete All Images

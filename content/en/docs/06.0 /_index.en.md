@@ -22,7 +22,7 @@ docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -d maria
 As always, to check if this has really worked out look at the container list
 
 ```bash
-docker container ls
+docker ps
 ```
 
 ``` 
@@ -47,7 +47,7 @@ docker inspect mariadb-container
 [
     {
         "Id": "6f08ac657320f279a9193728905f6f18d74f72d2c5dea97a9ffc76fb7e216c59",
-        "Created": "2018-05-31T06:37:18.180716875Z",
+        "Created": "2020-05-27T06:37:18.180716875Z",
         "Path": "docker-entrypoint.sh",
         "Args": [
             "mysqld"

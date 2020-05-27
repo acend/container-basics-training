@@ -31,36 +31,31 @@ docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/
 
 ### Using a host directory as volume 
 
-We need to create a directory named `datastore-mariadb` but don't change into it (shell command: `mkdir datastore-mariadb`).
+We need to create a directory named `datastore-mariadb` but don't change into it:
+ 
+```bash
+mkdir datastore-mariadb
+```
 
 **Hint:** The local path as volume sometimes needs an additional configuration parameter on Windows due to the storage driver setup. See below for more information.
 
+Linux:
 
 ```bash
-docker run --name mariadb-container-with-path-volume -v /[absolute path to your directory]/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-path-volume -v $(pwd)/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-As mentioned in the hint above, add the following configuration parameter __on Windows__ to the basic `docker run` command. :
+Windows (Git Bash):
+
+As mentioned in the hint above, add the configuration parameter `--innodb_flush_method=O_DSYNC` to the basic `docker run` command.
 
 ```bash
---innodb_flush_method=O_DSYNC
+MSYS_NO_PATHCONV=1 docker run --name mariadb-container-with-path-volume -v $(pwd)/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
 ```
 
-Powershell:
+Once the container is up and running let's have a look into the `datastore-mariadb` directory:
 
-```bash
-docker run --name mariadb-container-with-path-volume -v C:\...\datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
-```
-
-Windows bash:
-
-```bash
-docker run --name mariadb-container-with-path-volume -v //c/.../datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
-```
-
-Once the container is up and running let's have a look into the datastore directory:
-
-**Hint:** use `dir` instead of `ls -la` on Windows
+**Hint:** use `dir` instead of `ls -la` on Windows when not using bash.
 
 ```bash
 ls -la datastore-mariadb/
