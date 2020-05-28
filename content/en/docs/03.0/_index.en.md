@@ -9,9 +9,9 @@ Previously in the lab...
 
 Answer: No! There are tons of images provided by companies, open source projects, and boys/girls like you and me.
 
-## Docker Images
+## Docker images
 
-You can search for images available on [Docker Hub](https://hub.docker.com) by using the Docker command with the `search` subcommand. For example, to search for a mariadb image, type:
+You can search for images available on [Docker Hub](https://hub.docker.com) by using the Docker command with the `search` sub command. For example, to search for a mariadb image, type:
 
 ```bash
 docker search mariadb
@@ -35,7 +35,7 @@ diegomarangoni/mariadb-galera                             Creates a MariaDB Gale
 
 This output is corresponding with the search you can use on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=mariadb&starCount=0).
 
-In the OFFICIAL column, OK indicates an image built and supported by the company behind the project. Once you've identified the image that you would like to use, you can download it to your computer using the pull subcommand, like so:
+In the OFFICIAL column, OK indicates an image built and supported by the company behind the project. Once you've identified the image that you would like to use, you can download it to your computer using the pull sub command, like so:
 
 ```bash
 docker pull mariadb
@@ -49,7 +49,7 @@ Care about security! Check the images before you run them.
   * Read the Dockerfile that was used to build the image
   * Check the base image
 
-After an image has been downloaded, you may then run a container using the downloaded image with the `run` subcommand. If an image has not been downloaded when Docker is executed with the `run` subcommand, the Docker client will first download the image, then run a container using it:
+After an image has been downloaded, you may then run a container using the downloaded image with the `run` sub command. If an image has not been downloaded when Docker is executed with the `run` sub command, the Docker client will first download the image, then run a container using it:
 
 ```bash
 docker run hello-world:linux

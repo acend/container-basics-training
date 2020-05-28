@@ -1,5 +1,5 @@
 ---
-title: "12. Debugging Running Container"
+title: "12. Debugging running containers"
 weight: 12
 ---
 
@@ -8,6 +8,7 @@ In this Lab you'll learn some more advanced features used when debugging, stoppi
 ## Docker info
 
 To see general info about your docker environment use
+
 ```bash
 docker system info
 ``` 
@@ -61,7 +62,14 @@ Live Restore Enabled: false
 
 ```
 
-## List Containers
+## Listing containers
+
+{{% alert title="Hint" color="info" %}}
+`docker ps` and `docker container ls` are equivalent. This also applies to other top-level commands.
+
+For brevity, we are going to use `docker ps` etc. even though the `docker container` commands are more consistent.
+See `docker container --help` for a full list of sub-commands.
+{{% /alert %}}
 
 To see all running containers:
 
@@ -99,7 +107,7 @@ To see the size of the containers:
 docker ps -s
 ```
 
-To see the general docker storage usage(After 1.13.0, Docker):
+To see the general docker storage usage:
 
 ```bash
 docker system df
@@ -107,11 +115,11 @@ docker system df
 
 This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
 
-## Stopping Containers
+## Stopping containers
 
 Take a look at [Lab 04](../04.0).
 
-## Restarting and Attaching to Containers
+## Restarting and attaching to containers
 
 We have started containers in the foreground, and in the background.
 Now we will see how to:
@@ -120,116 +128,130 @@ Now we will see how to:
 * Attach to a background container to bring it to the foreground.
 * Restart a stopped container
 
-### Background and Foreground
+### Background and foreground
 
 From Docker's point of view, all containers are the same. All containers run the same way, whether there is a client attached to them or not.
 
 It is always possible to detach from a container, and to re-attach to a container.
 
-### Detaching from a Container
+### Detaching from a container
 
 If you have started an interactive container (with option -it), you can detach from it.
 
-* The "detach" sequence is `^P^Q`.
+* The detach key sequence is `CTRL-p CTRL-q`.
 * Or you can detach by killing the Docker client.
 
-Don’t hit `^C`, as this would deliver SIGINT to the container
+Don’t hit `CTRL-c`, as this would deliver SIGINT to the container
 
-What does -it stand for?
+What does `-it` stand for?
 
 * `-t` means "terminal" as in "allocate a terminal."
 * `-i` means "interactive" as in "connect stdin to the terminal."
 
-### Attaching to a Container
+### Attaching to a container
 
 You can attach to a container:
 
 ```bash
-docker attach <containerID|name>
+docker attach <container>
 ```
 
 * The container must be running.
 * There can be multiple clients attached to the same container.
-* Warning: if the container was started without -it…
-  * You won't be able to detach with ^P^Q.
-  * If you hit ^C, the signal will be proxied to the container.
+* Warning: if the container was started without `-it`:
+  * You won't be able to detach with `CTRL-p CTRL-q`.
+  * If you hit `CTRL-c`, the signal will be proxied to the container.
 
 Remember: you can always detach by killing the Docker client (e.g. close the bash window).
 
-### Executing a Command in a Container
+### Executing a command in a container
 
 You can execute a command in a container:
 
 ```bash
-docker exec -i -t <containerID|name> <command>
+docker exec -it <container>
 ```
 
 E.g. if you want to execute a shell, then run the following command:
 
 ```bash
-docker exec -i -t <containerID|name> /bin/bash
+docker exec -it <container> /bin/bash
 ```
 
-### Checking Container Output
+### Checking container output
 
 Use `docker attach` if you intend to send input to the container.
-If you just want to see the output of a container, use docker logs
+If you just want to see the output of a container, use `docker logs`.
 
-### Restarting a Container
+### Restarting a container
 
-When a container has exited, it is in stopped state.
-
-* It can then be restarted with the start command: `docker start <yourContainerID>`
+When a container has exited, it is in stopped state. It can then be restarted with the start command: `docker start <container>`
 
 The container will be restarted using the same options you launched it with.
-You can re-attach to it if you want to interact with it
+You can re-attach to it if you want to interact with it.
 
-## Listing Images
+## Listing images
 
-We already stumbled about the command to list Docker images. See [Lab 02](02_images.md).
+We already stumbled about the command to list Docker images. See [Lab 02](../02.0/).
 
-## Viewing Logs of Containers
+## Viewing logs of containers
 
 ```bash
-docker logs <CONTAINER ID>
+docker logs <container>
 ```
 
 This will show the whole log of that container, sometimes it's enough to display only a few lines:
 
 ```bash
-docker logs --tail 3 <CONTAINER ID>
+docker logs --tail 3 <container>
 ```
 
 With the `-follow` option you can tell the `docker logs` command to follow the log file in real time:
 
 ```bash
-docker logs --tail 3 --follow <CONTAINER ID>
+docker logs --tail 3 --follow <container>
 ```
 
-## House Keeping
+## Housekeeping
 
-Keep your local dev environment clean. And 
+There are various housekeeping commands.
 
-**Don't run in production environment!!!**
+### Dev environment
 
-### Stop All Running Containers
+{{% alert title="Note" color="warning" %}}
+Don't use these commands in production!
+{{% /alert %}}
+
+
+Stop all running containers and then delete them:
 
 ```bash
 docker stop $(docker ps -a -q)
-```
-
-### Delete All Containers
-
-```bash
 docker rm $(docker ps -a -q)
 ```
 
-### Delete All Images
+Delete all images:
 
 ```bash
 docker rmi $(docker images -q)
 ```
 
-### Docker prune
+### Pruning
 
-you can use the `docker system prune` command to keep your production environment clean
+Remove unused data:
+
+```bash
+docker system prune
+```
+
+Remove all stopped containers:
+
+```bash
+docker container prune
+```
+
+Remove unused images:
+
+```bash
+docker image prune
+```

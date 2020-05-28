@@ -1,20 +1,22 @@
 ---
-title: "7. Working with Volumes"
+title: "7. Working with volumes"
 weight: 7
 ---
 
 Previously in the lab...
 
-> Question: I have a container with a database server running. But when I remove the container, what happens to my data?
+> Question: I have a container with a database server running. When I remove the container, what happens to my data?
 
-Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set so you can store your data outside of the container.
+Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set, so you can store your data outside of the container.
 
-## Mounting a Volume in a Container
+## Mounting a volume in a container
 
 The mariadb container is fortunately a good example as to why it's good to have an external volume.
-There are several possibilities on how to work with volumes on docker, in this case, we're going to create a docker volume, that is managed by docker itself.
+There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume, that is managed by Docker itself.
 
-**Lab:** Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+{{% alert title="Lab" color="secondary" %}}
+Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+{{% /alert %}}
 
 Create the docker managed volume with:
 ```bash
@@ -37,7 +39,9 @@ We need to create a directory named `datastore-mariadb` but don't change into it
 mkdir datastore-mariadb
 ```
 
-**Hint:** The local path as volume sometimes needs an additional configuration parameter on Windows due to the storage driver setup. See below for more information.
+{{% alert title="Hint" color="info" %}}
+The local path as volume sometimes needs an additional configuration parameter on Windows due to the storage driver setup. See below for more information.
+{{% /alert %}}
 
 Linux:
 
@@ -55,7 +59,9 @@ MSYS_NO_PATHCONV=1 docker run --name mariadb-container-with-path-volume -v $(pwd
 
 Once the container is up and running let's have a look into the `datastore-mariadb` directory:
 
-**Hint:** use `dir` instead of `ls -la` on Windows when not using bash.
+{{% alert title="Hint" color="info" %}}
+Use `dir` instead of `ls -la` on Windows when not using Bash.
+{{% /alert %}}
 
 ```bash
 ls -la datastore-mariadb/
@@ -95,7 +101,7 @@ docker rm mariadb-container-with-external-volume
 ```
 
 It's getting interesting...
-We are creating a new mariadb container with the datastorage volume:
+We are creating a new mariadb container with the data storage volume:
 
 ```bash
 docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -128,9 +134,9 @@ SELECT USER();
 
 Question: I'm feeling like a docker king... What's next?
 
-## Additional Info Working With Docker Volumes
+## Additional info for working with Docker volumes
 
-An alternative way of working with volumes besides mounting local directories (host folders) by path into your container is by using Docker volumes.
+An alternative way of working with volumes besides mounting local directories (host folders) by a path into your container is by using Docker volumes.
 
 Docker volumes can be used:
 
@@ -141,14 +147,18 @@ Docker volumes can be used:
 * Sharing a directory between the host and a container
 * Sharing a single file between the host and a container
 
-### Docker Storage Driver
+### Docker storage driver
 
-When running a lot of Docker containers on a machine usually a lot of storage is needed. Docker volumes and container storage are provided on a filesystem. The following link provides additional information on how to choose the correct storage setup:
+When running a lot of Docker containers on a machine you usually need a lot of storage. Docker volumes and container storage are provided on a filesystem. The following link provides additional information on how to choose the correct storage setup:
 
 <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/managing_storage_with_docker_formatted_containers>
 
 At the moment, `overlay2` is the [recommended storage driver](https://docs.docker.com/storage/storagedriver/select-storage-driver/#docker-ce).
 
-**Lab:** Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+{{% alert title="Lab" color="secondary" %}}
+Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+{{% /alert %}}
 
-**Hint:** Use `docker volume create <name>` and `docker run -v <name>:<path> …` commands.
+{{% alert title="Hint" color="info" %}}
+Use `docker volume create <name>` and `docker run -v <name>:<path> …` commands.
+{{% /alert %}}

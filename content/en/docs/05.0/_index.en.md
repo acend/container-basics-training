@@ -1,5 +1,5 @@
 ---
-title: "5. Deleting Container"
+title: "5. Deleting containers"
 weight: 5
 ---
 
@@ -11,7 +11,7 @@ Answer: No!
 
 So let's delete a container!
 
-## Deleting a Container
+## Deleting a container
 
 As for every OS you can barely delete it when it is running!
 So first we have to stop the container. Some might still know the CONTAINER ID or the NAME of the container but for those who don't:
@@ -29,7 +29,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 To stop a container, you can use the command:
 
 ```bash
-docker stop [CONTAINER]
+docker stop <container>
 ```
 
 ```bash
@@ -41,7 +41,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 699e82ed8f1f        mariadb             "docker-entrypoint..."   9 minutes ago       Up 9 minutes        3306/tcp            jolly_bardeen
 ```
 
-As an alternative you can also kill a container with the `docker kill [CONTAINER]` command. This stops the container immediately by using the KILL signal.
+As an alternative you can also kill a container with the `docker kill <container>` command. This stops the container immediately by using the KILL signal.
 
 You may recognize that the container *upbeat_blackwell* is not present in the container list anymore. `docker ps` only shows running container but as always you have a parameter that helps:
 
@@ -59,7 +59,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 Now that the *upbeat_blackwell* container is stopped we can delete it:
 
 ```bash
-docker rm [CONTAINER]
+docker rm <container>
 ```
 
 ```bash
@@ -72,7 +72,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
 ```
 
-{{% alert title="Tip" color="warning" %}}
+{{% alert title="Tip" color="info" %}}
 Always try to clean up as every container is using space on your disk!
 {{% /alert %}}
 
