@@ -13,7 +13,7 @@ Answer: Now that we have a "backend", why not deploy a frontend container (e.g. 
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-I would recommend the php:7-apache image.
+We would recommend the php:7-apache image.
 
 ```bash
 docker pull php:7-apache
@@ -63,10 +63,10 @@ Now we can deploy the new container using the correct tag.
 docker run -d --name apache-php php:7-apache
 ```
 
-With `docker container ls` you see that the new container is running.
+With `docker ps` you see that the new container is running.
 
 ```bash
-docker container ls
+docker ps
 ```
 
 ```
@@ -91,16 +91,22 @@ docker inspect apache-php | grep IPAddress
 [...]
 ```
 
-With the IP from the inspection we can now navigate to the webserver at <http://172.17.0.4>.
+With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
 
 {{% alert title="Windows and Mac Users" color="warning" %}}
-As the docker linux brige is not reachable from your Windows or MacOS host you cannot access the container directly via IP Adress.
+As the docker linux brige is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
 See:
 
 * <https://docs.docker.com/docker-for-windows/networking/>
 * <https://docs.docker.com/docker-for-mac/networking/>
 
 Use port forwarding to access the container.
+
+```bash
+docker run -p 8080:80 -d --name apache-php php:7-apache
+```
+
+Now you can access the web server at <http://localhost:8080>.
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="warning" %}}
@@ -113,6 +119,6 @@ And unfortunatly we get a "403 Error - Forbidden".
 
 **Note:** Do not forget to remove the existing instance of the apache-php container.
 
-> Question: Why? Why do I get this error? And is there no other way to access the webserver via the private IP?
+> Question: Why? Why do I get this error? And is there no other way to access the web server via the private IP?
 
 Go on and find the answers in the next lab.

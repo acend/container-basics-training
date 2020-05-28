@@ -14,7 +14,7 @@ Answer: Yes, you can! And here's how it works.
 If you have properly worked through all the previous labs you should now have the following setup:
 
 ```bash
-docker container ls
+docker ps
 ```
 
 ```
@@ -44,13 +44,18 @@ NETWORK ID          NAME                DRIVER              SCOPE
 72f9a9996909        none                null                local
 ```
 
-For this exercise we are creating our own network with `docker network create docker-techlab`.
+For this exercise we are creating our own network with:
+ 
+```bash
+docker network create docker-techlab
+```
+
 If you now rerun the list command for Docker networks you should see the newly created network.
 
 To make the backend accessable/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
 
 ```bash
-docker run -d --network docker-techlab --name apache-php -v /home/[path]/php-app:/var/www/html -p8080:80 php:7-apache
+docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
 docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 

@@ -59,18 +59,18 @@ https://mariadb.org/get-involved/
 
 Database initialized
 MySQL init process in progress...
-2018-05-31  6:21:03 0 [Note] mysqld (mysqld 10.3.7-MariaDB-1:10.3.7+maria~jessie) starting as process 101 ...
-2018-05-31  6:21:03 0 [Note] InnoDB: Using Linux native AIO
-2018-05-31  6:21:03 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
-2018-05-31  6:21:03 0 [Note] InnoDB: Uses event mutexes
-2018-05-31  6:21:03 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
-2018-05-31  6:21:03 0 [Note] InnoDB: Number of pools: 1
-2018-05-31  6:21:03 0 [Note] InnoDB: Using SSE2 crc32 instructions
-2018-05-31  6:21:03 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+2020-05-27  6:21:03 0 [Note] mysqld (mysqld 10.3.7-MariaDB-1:10.3.7+maria~jessie) starting as process 101 ...
+2020-05-27  6:21:03 0 [Note] InnoDB: Using Linux native AIO
+2020-05-27  6:21:03 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2020-05-27  6:21:03 0 [Note] InnoDB: Uses event mutexes
+2020-05-27  6:21:03 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+2020-05-27  6:21:03 0 [Note] InnoDB: Number of pools: 1
+2020-05-27  6:21:03 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-27  6:21:03 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
 
 ...
 
-2018-05-31  6:21:08 0 [Note] mysqld: ready for connections.
+2020-05-27  6:21:08 0 [Note] mysqld: ready for connections.
 Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 ```
 
@@ -79,7 +79,7 @@ To return to your shell press `CTRL p` and than `CTRL q` **Hint:** this might no
 This will leave the container running while you are back in your shell. To see that the container is really running use the command:
 
 ```bash
-docker container ls
+docker ps
 ```
 
 The output should look much like this:
@@ -92,7 +92,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 To connect to the container again you can use the following command:
 
 ```bash
-docker exec -it [CONTAINER ID|NAME] bash
+docker exec -it [CONTAINER] bash
 ```
 
 {{% alert title="Tip" color="warning" %}}
@@ -122,7 +122,7 @@ Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 8
 Server version: 10.3.8-MariaDB-1:10.3.8+maria~jessie mariadb.org binary distribution
 
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+Copyright (c) 2000, 2020, Oracle, MariaDB Corporation Ab and others.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
@@ -142,7 +142,7 @@ docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 If you now have a look into the container list you should come up with two running containers:
 
 ```bash
-docker container ls
+docker ps
 ```
 
 ```

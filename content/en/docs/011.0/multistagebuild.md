@@ -75,7 +75,7 @@ Oracle Java in Docker without the official image.
 
 ### Static HTML, CSS, JS example
 
-A docker image that serves  static content like HTML, CSS, JS which will only be served via a simple Webserver like nginx or apache. We don't want/need the build tools to be in the resulting docker image.
+A docker image that serves  static content like HTML, CSS, JS which will only be served via a simple web server like Nginx or Apache. We don't want/need the build tools to be in the resulting docker image.
 
 During Build phase tools are needed to do:
 
