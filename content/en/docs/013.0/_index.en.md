@@ -5,23 +5,24 @@ weight: 13
 
 Instead of managing the containers with the `docker` command, you may use [Docker Compose](https://docs.docker.com/compose/) to handle them.
 
-First **if on Ubuntu** install the `docker-compose` command:
+{{% alert title="Note" color="warning" %}}
+Ubuntu users need to install the `docker-compose` command:
 
 ```bash
 sudo apt-get install docker-compose
 ```
-
-**Note:** On Windows the Docker installer usually includes `docker-compose` already.
+On Windows, the Docker installer usually includes `docker-compose` already.
+{{% /alert %}}
 
 ## Docker Compose file
 
-Previously we run:
+Previously we ran:
 
 ```bash
 docker run --name mariadb-container-with-existing-external-volume -v$(pwd)/datastore-mysql:/var/lib/mysql -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-and
+and:
 
 ```bash
 docker run -itd --name php-app -p8080:80 --link mariadb-container-with-existing-external-volume php-app
@@ -65,4 +66,4 @@ Having this file, you can run both containers with a simple command:
 docker-compose up
 ```
 
-Then again, check localhost/db.php in the browser.
+Then again, check <http:/localhost:8080/db.php> in a browser.

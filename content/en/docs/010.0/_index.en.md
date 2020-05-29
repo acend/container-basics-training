@@ -1,15 +1,15 @@
 ---
-title: "10. Linking Frontend and Backend"
+title: "10. Linking frontend and backend"
 weight: 10
 ---
 
 Previously in the lab...
 
-> Question: Can I somehow link the containers together so they can talk to each other?
+> Question: Can I somehow link the containers together, so they can talk to each other?
 
-Answer: Yes, you can! And here's how it works.
+Answer: Yes, you can! Here's how it works.
 
-## Linking Containers
+## Linking containers
 
 If you have properly worked through all the previous labs you should now have the following setup:
 
@@ -52,7 +52,7 @@ docker network create docker-techlab
 
 If you now rerun the list command for Docker networks you should see the newly created network.
 
-To make the backend accessable/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
+To make the backend accessible/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
 
 ```bash
 docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache

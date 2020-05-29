@@ -1,5 +1,5 @@
 ---
-title: "4. Environment Variables"
+title: "4. Environment variables"
 weight: 4
 ---
 
@@ -17,7 +17,7 @@ error: database is uninitialized and password option is not specified
 
 Answer: No! You have just done what was stated in the instructions.
 
-## Environment Variables
+## Environment variables
 
 What happened?
 The mariadb server is not able to run without a proper configuration. Docker has the possibility to pass variables into the instantiation process via environment variables.
@@ -75,7 +75,12 @@ Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld
 ```
 
 The problem is that you are now stuck in this console.
-To return to your shell press `CTRL p` and than `CTRL q` **Hint:** this might not be working on windows, since there might be set other actions to `CTRL p` and `CTRL q` like Bingsearch for example.
+To return to your shell press `CTRL-p` and then `CTRL-q` 
+
+{{% alert title="Hint for Windows" color="info" %}}
+This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes.
+{{% /alert %}}
+
 This will leave the container running while you are back in your shell. To see that the container is really running use the command:
 
 ```bash
@@ -92,11 +97,11 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 To connect to the container again you can use the following command:
 
 ```bash
-docker exec -it [CONTAINER] bash
+docker exec -it <container> bash
 ```
 
-{{% alert title="Tip" color="warning" %}}
-The docker exec command needs either the `CONTAINER_ID` or `NAME` of the container. And additionally, at the end, an executable.
+{{% alert title="Tip" color="info" %}}
+The docker exec command needs either the ID or name of the container. Additionally, at the end, an executable.
 {{% /alert %}}
 
 In this example it's `bash` as we want to do something interactively in the container.
@@ -105,7 +110,7 @@ Once the command is executed you should see this:
 
 `root@7cb31f821233:/#`
 
-{{% alert title="Tip" color="warning" %}}
+{{% alert title="Tip" color="info" %}}
 Every time you connect yourself to a container you will always be the user that was defined as user in the Dockerfile.
 {{% /alert %}}
 
@@ -131,8 +136,8 @@ MariaDB [(none)]>
 
 ## Daemons
 
-One might think: *This whole starting process is a bit freaky with `CTRL p` and then `CTRL q`*.
-Therefore you can run a Docker container "daemonized".
+One might think: *This whole starting process is a bit freaky with `CTRL-p` and then `CTRL-q`*.
+Therefore, you can run a Docker container "daemonized".
 You just have to add the parameter `-d` to the Docker `run` command e.g.:
 
 ```bash

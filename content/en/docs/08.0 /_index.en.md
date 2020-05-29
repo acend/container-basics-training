@@ -1,5 +1,5 @@
 ---
-title: "8. Frontend Container"
+title: "8. Frontend container"
 weight: 8
 ---
 
@@ -7,13 +7,13 @@ Previously in the lab...
 
 > Question: I'm feeling like a Docker king... What's next?
 
-Answer: Now that we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
+Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
 
-## Deploying a Frontend Container
+## Deploying a frontend container
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-We would recommend the php:7-apache image.
+We would recommend the `php:7-apache` image.
 
 ```bash
 docker pull php:7-apache
@@ -34,16 +34,15 @@ hello-world         linux               1815c82652c0        2 months ago        
 
 ```
 
-Besides the known mariadb image there is one new image. Also the php REPOSITORY has another TAG than the other REPOSITORIES.
+Beside the known `mariadb` image, there is one new image. Also, the php REPOSITORY has another TAG than the other REPOSITORIES.
 When you use the `pull` command Docker will always pull down the latest versions of the REPOSITORY but by requesting php:7-apache you have pulled a specific TAG.
 So Docker labels it that way.
 
->
 > Here's some background info about images and containers.
 >
 > Question: What's an image?
 >
-> * An image is a collection of files + some meta data (or in technical terms: those files form the root filesystem of a container)
+> * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
 > * Images are made of layers, conceptually stacked on top of each other
 > * Each layer can add, change, and remove files
 > * Images can share layers to optimize disk usage, transfer times and memory use
@@ -84,17 +83,17 @@ docker inspect apache-php | grep IPAddress
 ```
 
 ```
-[...]
+...
             "SecondaryIPAddresses": null,
             "IPAddress": "172.17.0.4",
                     "IPAddress": "172.17.0.4",
-[...]
+...
 ```
 
 With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
 
-{{% alert title="Windows and Mac Users" color="warning" %}}
-As the docker linux brige is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
+{{% alert title="Note" color="warning" %}}
+As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
 See:
 
 * <https://docs.docker.com/docker-for-windows/networking/>
@@ -113,12 +112,16 @@ Now you can access the web server at <http://localhost:8080>.
 This is not possible without port forwarding, see next lab.
 {{% /alert %}}
 
-**Note:** It might be that your local firewall blocks requests to this address.
+{{% alert title="Note" color="warning" %}}
+It might be that your local firewall blocks requests to this address.
+{{% /alert %}}
 
-And unfortunatly we get a "403 Error - Forbidden".
+And unfortunately we get a "403 Error - Forbidden".
 
-**Note:** Do not forget to remove the existing instance of the apache-php container.
+{{% alert title="Note" color="warning" %}}
+Do not forget to remove the existing instance of the apache-php container.
+{{% /alert %}}
 
-> Question: Why? Why do I get this error? And is there no other way to access the web server via the private IP?
+> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
 
 Go on and find the answers in the next lab.

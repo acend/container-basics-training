@@ -9,11 +9,11 @@ Previously in the lab...
 
 Answer: Docker (what a surprise!)... Beside the CONTAINER_ID the NAME is a unique identifier for a container.
 
-## Naming a Container
+## Naming a container
 
 Unlike the CONTAINER_ID the NAME is something we can manipulate. The name is handy not only for starting/connecting/stopping/destroying a container but also for the networking (which comes later in the lab).
 
-To do so you have to add a parameter in the `run` command of Docker
+To do so, you have to add a parameter in the `run` command of Docker
 
 ```bash
 docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -37,7 +37,7 @@ If you want to access your DB server there are two ways:
    This will connect you into the remote `bash` shell from where you can connect to the server via `mysql -uroot -pmy-secret-pw`.
 
 1) Using a local mysqlclient
-   This is a bit tricky. First you have to find out the IP address of your docker container. Therefore use this command:
+   This is a bit tricky. First you have to find out the IP address of your docker container. Therefore, use this command:
 
 ```bash
 docker inspect mariadb-container
@@ -104,6 +104,6 @@ Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 {{% /alert %}}
 
-> Question: I have a container with a database server running. But when I remove the container, what happens to my data?
+> Question: I have a container with a database server running. When I remove the container, what happens to my data?
 
 Let's find out in... the next lab!

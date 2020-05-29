@@ -1,5 +1,5 @@
 ---
-title: "2. Getting Started"
+title: "2. Getting started"
 weight: 2
 ---
 
@@ -9,7 +9,7 @@ Previously in the lab...
 
 Answer: Let's get the Docker party started!
 
-## The Command Line Tool
+## The command line tool
 
 With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least a command. `docker --help` shows the available options:
 
@@ -97,7 +97,7 @@ Run 'docker COMMAND --help' for more information on a command.
 To view the switches available to a specific command, type:
 
 ```bash
-docker [COMMAND] --help
+docker <command> --help
 ```
 
 To view system-wide information about Docker, use:
@@ -107,7 +107,7 @@ docker info
 ```
 
 
-## Hello World (with Docker images)
+## Hello world (with Docker images)
 
 Docker containers are run from Docker images. By default, it pulls these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
 
@@ -125,11 +125,11 @@ This message shows that your installation appears to be working correctly.
 ...
 ```
 
-## Our First Container :)
+## Your first container :)
 
 With this command we now run on our computers our first container. It ran a simple process that printed a message to standard out. The container is not very useful though.
 
-## Additional Lab: Getting Familiar With the Docker Docs
+## Additional lab: getting familiar with the Docker docs
 
 Browse <https://docs.docker.com> and get familiar with the docs and the references. In this techlab we're using Docker CE so this is the docs section you might want to check out as well.
 
