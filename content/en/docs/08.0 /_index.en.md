@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
 
+
 ## Deploying a frontend container
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).

@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: Yes, you can! Here's how it works.
 
+
 ## Linking containers
 
 If you have properly worked through all the previous labs you should now have the following setup:
@@ -45,7 +46,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 ```
 
 For this exercise we are creating our own network with:
- 
+
 ```bash
 docker network create docker-techlab
 ```

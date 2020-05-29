@@ -9,11 +9,13 @@ Previously in the lab...
 
 Answer: Yes there is. Create your own Dockerfile which describes the content of a Docker image.
 
+
 ## Dockerfile
 
 Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.
 
 The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/engine/reference/builder/>.
+
 
 ## Write your first Dockerfile
 
@@ -39,6 +41,7 @@ RUN apt-get update && \
 * Our RUN commands must be non-interactive (no input can be provided to Docker during the build)
 * Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write nice Dockerfiles
 
+
 ## Build the image
 
 ```bash
@@ -54,6 +57,7 @@ Use the additional parameter `--build-arg` when behind a corporate proxy:
 ```bash
 docker build -t myfirstimage --build-arg http_proxy=http://<proxy-host>:<proxy-port> .
 ```
+
 {{% /alert %}}
 
 Please note that the tag can be omitted in most Docker commands and instructions. In that case the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name it does not necessarily identify the latest version of an image.
@@ -62,7 +66,8 @@ Because of this you must never use the `latest` tag in production, always use a 
 
 Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
 
-### What happens when we build the image?
+
+### What happens when we build the image
 
 The output of the Docker build looks like this:
 
@@ -76,6 +81,7 @@ Successfully built b3c08112fd1c
 Successfully tagged myfirstimage:latest
 ```
 
+
 ### Sending the build context to Docker
 
 ```bash
@@ -87,6 +93,7 @@ Sending build context to Docker daemon 84.48 kB
 * It is sent (as an archive) by the Docker client to the Docker daemon
 * This allows to use a remote machine to build using local files
 * Be careful (or patient) if that directory is big, and your link is slow
+
 
 ### Inspecting step execution
 
@@ -107,6 +114,7 @@ Successfully tagged myfirstimage:latest
 * The build container (ea4c82dcd15a) is removed
 * The output of this step will be the base image for the next one
 * ...
+
 
 ### The caching system
 
@@ -134,6 +142,7 @@ RUN apt-get update
 If you update the value of `REFRESHED_AT` it will invalidate the Docker build cache of that and all
 the following steps, thus installing the latest updates.
 
+
 ### Run it
 
 ```bash
@@ -151,6 +160,7 @@ root@00f0766080ed:/# figlet hello
 root@00f0766080ed:/# exit
 ```
 
+
 ## The CMD instruction in Dockerfile
 
 With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default if a container is started:
@@ -164,10 +174,10 @@ RUN apt-get update && \
 CMD ["figlet", "hello"]
 ```
 
-After building the image with 
+After building the image with
 
 ```bash
-docker build -t myfirstimagecmd . 
+docker build -t myfirstimagecmd .
 ```
 
 We simply run it:
@@ -188,6 +198,7 @@ It directly executes the defined command and prints out
 ```
 
 Checkout <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact> for more information.
+
 
 ## Frontend app image build
 
@@ -211,10 +222,10 @@ RUN docker-php-ext-install mysqli
 ```
 
 {{% alert title="Note" color="warning" %}}
-The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way. 
+The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
 You can use the additional parameter `--build-arg http_proxy=http://<proxy-host>:<proxy-port>`.
 
-Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs. 
+Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs.
 Instead of above Dockerfile you'd use:
 
 ```Dockerfile
@@ -223,6 +234,7 @@ FROM puzzle/php-apache-mysqli
 # Copies the php source code to the correct location
 ADD ./php-app/ /var/www/html/
 ```
+
 {{% /alert %}}
 
 
@@ -248,13 +260,14 @@ docker run -d --network docker-techlab --name php-app -p8080:80 php-app
 Now open a browser and navigate to <http://localhost:8080/db.php>.
 You should get a response saying "Connected successfully".
 
+
 ## Additional lab
 
 Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
 Fix the code in the db.php file. According to the continuous delivery principles we don't want usernames and passwords in our source code.
 
 {{% alert title="Hint" color="info" %}}
-Use the PHP function `getenv("WHATEVER_KEY")` to read config values from environment variables inside the frontend container. 
+Use the PHP function `getenv("WHATEVER_KEY")` to read config values from environment variables inside the frontend container.
 
 You might want to use the `-e` parameter to set an environment variable inside a container while running it: `docker run -e`.
 {{% /alert %}}

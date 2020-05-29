@@ -12,6 +12,7 @@ Answer(s):
 1. The Apache web server does not allow to scan its own document root.
 2. There is another way, and you're going to love it.
 
+
 ## Get the PHP app
 
 For this lab you're going to need a small PHP app consisting of two files.
@@ -26,6 +27,7 @@ echo "Welcome to Docker (my young padawan)!";
 ```
 
 {{% alert title="Note for play-with-docker.com" color="warning" %}}
+
 * Create a directory with this shell command: `mkdir php-app`
 * Create a file with this shell command: `touch index.php`
 * Open your editor
@@ -52,6 +54,7 @@ echo "Connected successfully";
 ```
 
 That's it for the app part.
+
 
 ## Mounting the dev environment into your Docker container
 
@@ -80,6 +83,7 @@ Do not forget to stop/remove the existing instance of the apache-php container b
 {{% /alert %}}
 
 You can now check if the error is still present, or you wait until the second question is answered.
+
 
 ## Port forwarding for your Docker container
 

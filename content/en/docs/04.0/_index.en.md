@@ -17,6 +17,7 @@ error: database is uninitialized and password option is not specified
 
 Answer: No! You have just done what was stated in the instructions.
 
+
 ## Environment variables
 
 What happened?
@@ -75,7 +76,7 @@ Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld
 ```
 
 The problem is that you are now stuck in this console.
-To return to your shell press `CTRL-p` and then `CTRL-q` 
+To return to your shell press `CTRL-p` and then `CTRL-q`
 
 {{% alert title="Hint for Windows" color="info" %}}
 This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes.
@@ -116,9 +117,9 @@ Every time you connect yourself to a container you will always be the user that 
 
 Now that we are connected lets find out if the mariadb is working...
 
-```bas
+```bash
 mysql -uroot -pmy-secret-pw
-``` 
+```
 
 If everything works as expected you should now see the mariadb command line:
 
@@ -133,6 +134,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 MariaDB [(none)]>
 ```
+
 
 ## Daemons
 

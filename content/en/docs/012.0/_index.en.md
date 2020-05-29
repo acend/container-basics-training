@@ -5,13 +5,14 @@ weight: 12
 
 In this Lab you'll learn some more advanced features used when debugging, stopping and starting containers
 
+
 ## Docker info
 
 To see general info about your docker environment use
 
 ```bash
 docker system info
-``` 
+```
 
 ```
 Containers: 42
@@ -61,6 +62,7 @@ Insecure Registries:
 Live Restore Enabled: false
 
 ```
+
 
 ## Listing containers
 
@@ -115,9 +117,11 @@ docker system df
 
 This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
 
+
 ## Stopping containers
 
 Take a look at [Lab 04](../04.0).
+
 
 ## Restarting and attaching to containers
 
@@ -128,11 +132,13 @@ Now we will see how to:
 * Attach to a background container to bring it to the foreground.
 * Restart a stopped container
 
+
 ### Background and foreground
 
 From Docker's point of view, all containers are the same. All containers run the same way, whether there is a client attached to them or not.
 
 It is always possible to detach from a container, and to re-attach to a container.
+
 
 ### Detaching from a container
 
@@ -147,6 +153,7 @@ What does `-it` stand for?
 
 * `-t` means "terminal" as in "allocate a terminal."
 * `-i` means "interactive" as in "connect stdin to the terminal."
+
 
 ### Attaching to a container
 
@@ -164,6 +171,7 @@ docker attach <container>
 
 Remember: you can always detach by killing the Docker client (e.g. close the bash window).
 
+
 ### Executing a command in a container
 
 You can execute a command in a container:
@@ -178,10 +186,12 @@ E.g. if you want to execute a shell, then run the following command:
 docker exec -it <container> /bin/bash
 ```
 
+
 ### Checking container output
 
 Use `docker attach` if you intend to send input to the container.
 If you just want to see the output of a container, use `docker logs`.
+
 
 ### Restarting a container
 
@@ -190,9 +200,11 @@ When a container has exited, it is in stopped state. It can then be restarted wi
 The container will be restarted using the same options you launched it with.
 You can re-attach to it if you want to interact with it.
 
+
 ## Listing images
 
 We already stumbled about the command to list Docker images. See [Lab 02](../02.0/).
+
 
 ## Viewing logs of containers
 
@@ -212,9 +224,11 @@ With the `-follow` option you can tell the `docker logs` command to follow the l
 docker logs --tail 3 --follow <container>
 ```
 
+
 ## Housekeeping
 
 There are various housekeeping commands.
+
 
 ### Dev environment
 
@@ -235,6 +249,7 @@ Delete all images:
 ```bash
 docker rmi $(docker images -q)
 ```
+
 
 ### Pruning
 

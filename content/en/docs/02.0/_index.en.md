@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: Let's get the Docker party started!
 
+
 ## The command line tool
 
 With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least a command. `docker --help` shows the available options:
@@ -125,9 +126,11 @@ This message shows that your installation appears to be working correctly.
 ...
 ```
 
+
 ## Your first container :)
 
 With this command we now run on our computers our first container. It ran a simple process that printed a message to standard out. The container is not very useful though.
+
 
 ## Additional lab: getting familiar with the Docker docs
 

@@ -11,6 +11,7 @@ Answer: No!
 
 So let's delete a container!
 
+
 ## Deleting a container
 
 As for every OS you can barely delete it when it is running!

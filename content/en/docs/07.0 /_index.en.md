@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set, so you can store your data outside of the container.
 
+
 ## Mounting a volume in a container
 
 The mariadb container is fortunately a good example as to why it's good to have an external volume.
@@ -19,6 +20,7 @@ Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volume
 {{% /alert %}}
 
 Create the docker managed volume with:
+
 ```bash
 docker volume create volume-mariadb
 ```
@@ -31,10 +33,11 @@ With the parameter `-v` you can now state where to attach the volume, e.g.:
 docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-### Using a host directory as volume 
+
+### Using a host directory as volume
 
 We need to create a directory named `datastore-mariadb` but don't change into it:
- 
+
 ```bash
 mkdir datastore-mariadb
 ```
@@ -111,7 +114,7 @@ The moment of truth... Connect to the database server:
 
 ```bash
 docker exec -it mariadb-container-with-existing-external-volume bash
-``` 
+```
 
 ```
 root@6f08ac657320:/# mysql -upeter -pvenkman
@@ -134,6 +137,7 @@ SELECT USER();
 
 Question: I'm feeling like a docker king... What's next?
 
+
 ## Additional info for working with Docker volumes
 
 An alternative way of working with volumes besides mounting local directories (host folders) by a path into your container is by using Docker volumes.
@@ -146,6 +150,7 @@ Docker volumes can be used:
 * Sharing a directory between multiple containers
 * Sharing a directory between the host and a container
 * Sharing a single file between the host and a container
+
 
 ### Docker storage driver
 
