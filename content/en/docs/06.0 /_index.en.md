@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: Docker (what a surprise!)... Beside the CONTAINER_ID the NAME is a unique identifier for a container.
 
+
 ## Naming a container
 
 Unlike the CONTAINER_ID the NAME is something we can manipulate. The name is handy not only for starting/connecting/stopping/destroying a container but also for the networking (which comes later in the lab).
@@ -25,7 +26,7 @@ As always, to check if this has really worked out look at the container list
 docker ps
 ```
 
-``` 
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 6f08ac657320        mariadb             "docker-entrypoint..."   58 seconds ago      Up 57 seconds       3306/tcp            mariadb-container
 699e82ed8f1f        mariadb             "docker-entrypoint..."   24 minutes ago      Up 24 minutes       3306/tcp            jolly_bardeen

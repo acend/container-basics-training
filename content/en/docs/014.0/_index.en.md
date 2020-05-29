@@ -7,9 +7,11 @@ So far we only built and ran the Docker images locally on our computers, but wha
 Similar to a Maven artifact repo, where the built JARs, WARs, and EARs get deployed to distribute later, there is the concept of a Docker registry.
 
 In this Lab we're going to learn:
+
 * Docker Hub platform
 * Pull and push images from and to the registry
 * Create automated docker builds on Docker Hub
+
 
 ## Docker Hub
 
@@ -28,9 +30,9 @@ docker pull nginx
 ```
 Using default tag: latest
 latest: Pulling from library/nginx
-f17d81b4b692: Pull complete 
-d5c237920c39: Pull complete 
-a381f92f36de: Pull complete 
+f17d81b4b692: Pull complete
+d5c237920c39: Pull complete
+a381f92f36de: Pull complete
 Digest: sha256:4ddaf6043a77aa145ce043d4c662e3768556421d6c0a65d303e89977ad3c9636
 Status: Downloaded newer image for nginx:latest
 ```
@@ -48,9 +50,10 @@ nginx                                                    latest              dbf
 
 `docker run` or `docker build` does a `docker pull` implicitly when an image is not yet locally available.
 
+
 ### Create a Docker Hub account
 
-Now it's time to prepare for pushing a docker image a Docker Hub repository. 
+Now it's time to prepare for pushing a docker image a Docker Hub repository.
 
 * Create a Docker Hub account if not already available: <https://hub.docker.com/>
 * Create a new public repository: use the **Create Repository** button after you logged in.
@@ -73,6 +76,7 @@ https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 Login Succeeded
 ```
 
+
 ### Push your first image
 
 Let's push our "myfirstimage", we need to tag the image with the same name as the repository we've created previously:
@@ -84,24 +88,25 @@ docker push <docker-user>/<docker-repo>
 
 ```
 The push refers to repository docker.io/<docker-user>/<docker-repo>
-213d31159bea: Pushed 
-9f9cacfd69bf: Pushed 
-a1950e3866f0: Mounted from library/php 
-2dc96af1a4a5: Mounted from library/php 
-8cb5b8d4756a: Mounted from library/php 
-bcc4727d0912: Mounted from library/php 
-59e338bee70e: Mounted from library/php 
-369e6fd590f3: Mounted from library/php 
-1805144065e1: Mounted from library/php 
-b6311cdc5fb6: Mounted from library/php 
-e30181a94bbf: Mounted from library/php 
-481da43a1302: Mounted from library/php 
-a4ace4ed0385: Mounted from library/php 
-fd29e0f8792a: Mounted from library/php 
-687dad24bb36: Mounted from library/php 
-237472299760: Mounted from library/php 
+213d31159bea: Pushed
+9f9cacfd69bf: Pushed
+a1950e3866f0: Mounted from library/php
+2dc96af1a4a5: Mounted from library/php
+8cb5b8d4756a: Mounted from library/php
+bcc4727d0912: Mounted from library/php
+59e338bee70e: Mounted from library/php
+369e6fd590f3: Mounted from library/php
+1805144065e1: Mounted from library/php
+b6311cdc5fb6: Mounted from library/php
+e30181a94bbf: Mounted from library/php
+481da43a1302: Mounted from library/php
+a4ace4ed0385: Mounted from library/php
+fd29e0f8792a: Mounted from library/php
+687dad24bb36: Mounted from library/php
+237472299760: Mounted from library/php
 latest: digest: sha256:604c7893ff67fab19fddcaaf89935f9bd252a8711e1d42ab3c8c837144b57eee size: 3659
 ```
+
 
 ### Tagging images
 
@@ -146,21 +151,24 @@ docker tag <image> myregistryhost:5000/puzzlelab/dockertechlab:<tag>
 ```
 
 {{% alert title="Note" color="warning" %}}
-Using the `latest` tag can be tricky. First of all it's important to define dependencies explicit and under version control, so that builds are reproducible. Second the latest tag basically means `"the last build/tag that ran without a specific tag/version specified"` https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375
+Using the `latest` tag can be tricky. First of all it's important to define dependencies explicit and under version control, so that builds are reproducible. Second the latest tag basically means `"the last build/tag that ran without a specific tag/version specified"` <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
 {{% /alert %}}
 
 
-## Docker Enterprise 
+## Docker Enterprise
 
-Docker has its own enterprise features, which are available for Enterprises https://www.docker.com/products/docker-enterprise
+Docker has its own enterprise features, which are available for Enterprises <https://www.docker.com/products/docker-enterprise>
 
-## Docker Hub alternatives 
 
-There are a couple of other public registries available, such as for example https://quay.io/
+## Docker Hub alternatives
+
+There are a couple of other public registries available, such as for example <https://quay.io/>
+
 
 ## Private registries
 
-A docker registry can be deployed on premises as well. Most of the available artifact repository applications like for example Nexus and Artifactory are also able to manage Docker images. 
+A docker registry can be deployed on premises as well. Most of the available artifact repository applications like for example Nexus and Artifactory are also able to manage Docker images.
+
 
 ## Automated integrated Docker build from GitHub
 
@@ -173,6 +181,7 @@ It's pretty straight-forward to integrate Docker Hub together with projects on G
 * Trigger the first build
 
 Make a change in your `Dockerfile` and check for triggered builds.
+
 
 ## Additional lab
 

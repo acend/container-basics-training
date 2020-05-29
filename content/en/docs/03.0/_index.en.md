@@ -9,6 +9,7 @@ Previously in the lab...
 
 Answer: No! There are tons of images provided by companies, open source projects, and boys/girls like you and me.
 
+
 ## Docker images
 
 You can search for images available on [Docker Hub](https://hub.docker.com) by using the Docker command with the `search` sub command. For example, to search for a mariadb image, type:
@@ -40,6 +41,7 @@ In the OFFICIAL column, OK indicates an image built and supported by the company
 ```bash
 docker pull mariadb
 ```
+
 {{% alert title="Note" color="warning" %}}
 Care about security! Check the images before you run them.
 {{% /alert %}}
@@ -54,6 +56,7 @@ After an image has been downloaded, you may then run a container using the downl
 ```bash
 docker run hello-world:linux
 ```
+
 {{% alert title="Note" color="warning" %}}
 Here we use the linux tag of the hello-world image to not use latest again.
 {{% /alert %}}

@@ -9,15 +9,17 @@ Since docker 17.05 they implemented a solution for that problem, the so called m
 
 In this lab you're going to learn how to use multistage builds and what they are good for.
 
+
 ## Purpose
 
-If the application is not available as prebuilt artifact, in many cases, the application itself gets built directly during the docker build process `docker build -t ...` 
+If the application is not available as prebuilt artifact, in many cases, the application itself gets built directly during the docker build process `docker build -t ...`
 
 Let's have a look at the following example:
 
+
 ### Java Spring Boot Gradle build
 
-The complete example can be found under https://github.com/appuio/example-spring-boot-helloworld
+The complete example can be found under <https://github.com/appuio/example-spring-boot-helloworld>
 
 ```Dockerfile
 FROM fabric8/java-centos-openjdk11-jdk
@@ -53,6 +55,7 @@ Runtime phase dependencies:
 
 * Java
 
+
 #### Notes regarding Java in Docker
 
 Java is not yet fully container-aware and by default configures itself according to the memory
@@ -61,8 +64,8 @@ logic to work around this limitation. For other images you may have to specify s
 options through an environment variable when starting containers.
 The precise environment variable depends on the image, usually `JAVA_OPTIONS`.
 The `_JAVA_OPTIONS` (yes, with leading underscore) environment variable, which is picked up directly
-by the JDK, should also work. See also: https://developers.redhat.com/blog/2017/03/14/java-inside-docker/
-and https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits.
+by the JDK, should also work. See also: <https://developers.redhat.com/blog/2017/03/14/java-inside-docker/>
+and <https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits.>
 
 Note that only Java Docker images from [Azul](https://hub.docker.com/u/azul/),
 [Red Hat](https://access.redhat.com/containers/),
@@ -73,6 +76,7 @@ e.g. the [JBoss Java base image](https://hub.docker.com/r/jboss/base-jdk/) and
 are TCK certified and therefore guaranteed to work as specified in the various Java specifications.
 In addition, there are [legal concerns](https://www.infoq.com/news/2016/03/docker-java) when running
 Oracle Java in Docker without the official image.
+
 
 ### Static HTML, CSS, JS example
 
@@ -85,15 +89,17 @@ During Build phase tools are needed to do:
 * compiling CSS with less, Sass, ...
 * minify, uglify, caching
 * optimizing images, creating different sizes of the images
-* and so on ... 
+* and so on ...
 
 during the execution time of the image, actually only the created static content must be available.
+
 
 ### Go application
 
 A go application is a great use case for multi-stage builds, since the resulting artifact is an executable binary containing every dependency that is needed to run the application. That means that the resulting docker image can be very small, so the base image we use is a simple alpine linux.
 
 Multi stage Docker build:
+
 ```bash
 FROM golang:1.9
 WORKDIR /go/src/myapp
@@ -109,6 +115,7 @@ CMD ["./app"]
 ```
 
 Content of the Go application `app.go`:
+
 ```go
 package main
 import (
@@ -124,18 +131,20 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+
 ## Multi-stage builds
 
 With multistage builds you now have the possibility to actually split these two phases, so that you can pass the built artifact from phase one into the runtime phase, without the need of installing build time dependencies in the resulting docker image. Which means that the image will be smaller and consists of less unneeded dependencies.
 
-Read more about Docker multi-stage builds under https://docs.docker.com/develop/develop-images/multistage-build/
+Read more about Docker multi-stage builds under <https://docs.docker.com/develop/develop-images/multistage-build/>
 
 
 ## Lab: create a multi-stage build
 
-Turn the docker build from the first example (Java Spring boot https://github.com/appuio/example-spring-boot-helloworld) into a docker multistage build.
+Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld)> into a docker multistage build.
 
 ---
+
 
 ### Solution
 

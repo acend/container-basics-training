@@ -11,8 +11,10 @@ Ubuntu users need to install the `docker-compose` command:
 ```bash
 sudo apt-get install docker-compose
 ```
+
 On Windows, the Docker installer usually includes `docker-compose` already.
 {{% /alert %}}
+
 
 ## Docker Compose file
 

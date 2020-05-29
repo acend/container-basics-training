@@ -50,6 +50,7 @@ Unrelated to what distribution you use, also have a look at the post-installatio
 
 * [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/)
 
+
 ## Docker architecture
 
 * Docker is a client-server application.
