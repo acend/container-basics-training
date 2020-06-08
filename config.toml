@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Docker Techlabs"
+title = "Container Basics Training"
 
 enableGitInfo = true
 
@@ -45,7 +45,7 @@ anchor = "smart"
 
 [Languages]
 [Languages.en]
-title = "Docker Techlabs"
+title = "Container Basics Training"
 languageName = "English"
 weight = 1
 

@@ -6,24 +6,24 @@ menu:
     weight: 1
 ---
 
-In this Docker Techlab you're going to learn the basics behind the container technology docker.
+In this training, you're going to learn the basics behind the container technology Docker.
 
-* Introduction presentation, what are Containers?
-* How to install Docker on your computer?
-* Run Docker Containers
-* Mount local Volumes into Containers
-* Build Docker Containers
+* Introductory presentation: What are containers?
+* Install Docker on your computer
+* Run Docker containers
+* Mount local volumes into containers
+* Build Docker containers
 * How networking works
 
 
-## Additional Docs
+## Additional docs
 
 * [Official Docker Docs](https://docs.docker.com)
 
 
-## Other Labs or Tutorials
+## Other labs or tutorials
 
 * [Interactive Docker Tutorial](https://www.katacoda.com/courses/docker)
 * [Interactive Docker Tutorial > Docker 1.12](http://training.play-with-docker.com)
 * [Beginners Lab](https://github.com/alexellis/HandsOnDocker/blob/master/Labs.md)
-* [Docker Techlab from Docker itself](https://github.com/docker/labs/blob/master/beginner/readme.md)
+* [Docker for beginners from Docker](https://github.com/docker/labs/blob/master/beginner/readme.md)
