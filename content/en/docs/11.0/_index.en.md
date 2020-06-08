@@ -55,7 +55,7 @@ docker build -t myfirstimage .
 Use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
-docker build -t myfirstimage --build-arg http_proxy=http://<proxy-host>:<proxy-port> .
+docker build -t myfirstimage --build-arg http_proxy=$HTTP_PROXY .
 ```
 
 {{% /alert %}}
@@ -223,7 +223,7 @@ RUN docker-php-ext-install mysqli
 
 {{% alert title="Note" color="warning" %}}
 The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
-You can use the additional parameter `--build-arg http_proxy=http://<proxy-host>:<proxy-port>`.
+You can use the additional parameter `--build-arg http_proxy=$HTTP_PROXY`.
 
 Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs.
 Instead of above Dockerfile you'd use:

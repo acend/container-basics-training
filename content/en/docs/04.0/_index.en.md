@@ -21,7 +21,7 @@ Answer: No! You have just done what was stated in the instructions.
 ## Environment variables
 
 What happened?
-The mariadb server is not able to run without a proper configuration. Docker has the possibility to pass variables into the instantiation process via environment variables.
+The MariaDB server is not able to run without a proper configuration. Docker has the possibility to pass variables into the instantiation process via environment variables.
 Environment variables are passed via the parameter `-e` e.g.
 
 ```bash
@@ -101,6 +101,8 @@ To connect to the container again you can use the following command:
 docker exec -it <container> bash
 ```
 
+Where `<container>` can refer to the `CONTAINER ID` (the first two characters are normally sufficient) or one of the `NAMES` from the output of `docker ps`.
+
 {{% alert title="Tip" color="info" %}}
 The docker exec command needs either the ID or name of the container. Additionally, at the end, an executable.
 {{% /alert %}}
@@ -115,13 +117,13 @@ Once the command is executed you should see this:
 Every time you connect yourself to a container you will always be the user that was defined as user in the Dockerfile.
 {{% /alert %}}
 
-Now that we are connected lets find out if the mariadb is working...
+Now that we are connected let's find out if the MariaDB is working...
 
 ```bash
 mysql -uroot -pmy-secret-pw
 ```
 
-If everything works as expected you should now see the mariadb command line:
+If everything works as expected you should now see the MariaDB command line:
 
 ```
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
@@ -158,6 +160,6 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-> Question: Do we need two running mariadb containers at the same time for this lab?
+> Question: Do we need two running MariaDB containers at the same time for this lab?
 
 Find out in the next lab.

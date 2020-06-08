@@ -5,7 +5,7 @@ weight: 5
 
 Previously in the lab...
 
-> Question: Do we need two running mariadb containers at the same time for this lab?
+> Question: Do we need two running Maria containers at the same time for this lab?
 
 Answer: No!
 
@@ -64,7 +64,7 @@ docker rm <container>
 ```
 
 ```bash
-docker ls --all
+docker ps --all
 ```
 
 ```
