@@ -134,7 +134,7 @@ With this command we now run on our computers our first container. It ran a simp
 
 ## Additional lab: getting familiar with the Docker docs
 
-Browse <https://docs.docker.com> and get familiar with the docs and the references. In this techlab we're using Docker CE so this is the docs section you might want to check out as well.
+Browse <https://docs.docker.com> and get familiar with the docs and the references. In this training we're using Docker CE so this is the docs section you might want to check out as well.
 
 > Question: Is there only a "hello world" Docker image?
 
