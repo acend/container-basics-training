@@ -97,7 +97,7 @@ Sending build context to Docker daemon 84.48 kB
 * The build context is the `.` directory given to docker build
 * It is sent (as an archive) by the Docker client to the Docker daemon
 * This allows to use a remote machine to build using local files
-* Be careful (or patient) if that directory is big, and your link is slow
+* Be careful (or patient) if that directory is big and your connection is slow
 
 
 ### Inspecting step execution
@@ -168,7 +168,7 @@ root@00f0766080ed:/# exit
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default if a container is started:
+With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started:
 
 ```Dockerfile
 FROM ubuntu
@@ -207,7 +207,7 @@ Checkout <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-a
 
 ## Frontend app image build
 
-We now want to include the source code of our frontend app into a built docker image, so we use the Dockerfile within this lab.
+We now want to include the source code of our frontend app into an already built docker image.  so we use the Dockerfile within this lab.
 
 The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory into the Docker image.
 We use this command to add the application source code into the image.
@@ -231,7 +231,7 @@ The `docker-php-ext-install` command might not be able to download the required 
 You can use the additional parameter `--build-arg http_proxy=$HTTP_PROXY`.
 
 Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs.
-Instead of above Dockerfile you'd use:
+Instead of the above Dockerfile you'd use:
 
 ```Dockerfile
 FROM puzzle/php-apache-mysqli
