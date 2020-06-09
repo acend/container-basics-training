@@ -69,16 +69,25 @@ MSYS_NO_PATHCONV=1 docker run -d --network docker-techlab --name apache-php -v $
 docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
-If you now access the containers you should be able to resolve the other's container address with its container name.
+If you access either container you should be able to resolve the other container's address with its container name.
+
+Execute an interactive `bash` shell on the mariadb container.
 
 ``` bash
 docker exec -it mariadb-container-with-existing-external-volume bash
-root@6f08ac657320:/# getent hosts apache-php
 ```
 
-Now the two containers can talk to each other. Let's check this:
+You are now in the Bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
 
-If you now type <http://localhost:8080/db.php> in your browser you should get... an error!
+Get the address of the apache-php container.
+
+``` bash
+getent hosts apache-php
+```
+
+The two containers are now able talk to each other. But let's check this:
+
+If you type <http://localhost:8080/db.php> in your browser you should get... an error!
 Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
