@@ -19,12 +19,17 @@ The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/
 
 ## Write your first Dockerfile
 
-For that we create a new directory and create an empty Dockerfile in there. You can either use vim or the editor of your choice.
+For that we create a new directory and create an empty Dockerfile in there.
 
 ```bash
 mkdir myfirstimage
 cd myfirstimage
-vim Dockerfile # or editor of your choice --> close and save file with vim ESC :wq!
+```
+
+You can either use vim or the editor of your choice.
+
+```bash
+vim Dockerfile
 ```
 
 Add the following content to your Dockerfile:
