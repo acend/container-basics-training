@@ -89,7 +89,7 @@ Successfully tagged myfirstimage:latest
 
 ### Sending the build context to Docker
 
-```bash
+```
 Sending build context to Docker daemon 84.48 kB
 ...
 ```
