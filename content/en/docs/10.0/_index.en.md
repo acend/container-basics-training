@@ -55,8 +55,17 @@ If you now rerun the list command for Docker networks you should see the newly c
 
 To make the backend accessible/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
 
+Linux:
+
 ```bash
 docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+```
+
+Windows (Git Bash):
+
+```bash
+MSYS_NO_PATHCONV=1 docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
 docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 

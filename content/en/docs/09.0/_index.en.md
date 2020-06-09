@@ -24,6 +24,7 @@ Then, inside that directory, create a new file named `index.php` with the follow
 ```php
 <?php
 echo "Welcome to Docker (my young padawan)!";
+?>
 ```
 
 {{% alert title="Note for play-with-docker.com" color="warning" %}}
@@ -44,13 +45,14 @@ $username = "peter";
 $password = "venkman";
 
 // Create connection
-$conn = new \mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully";
+?>
 ```
 
 That's it for the app part.
@@ -69,12 +71,12 @@ You need to set the absolute path on the -v option, e.g. `-v /home/[path]/php-ap
 Linux:
 
 ```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html  php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
 
 Windows (Git Bash):
 
-```
+```bash
 MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
 
@@ -92,7 +94,7 @@ Imagine you had a local httpd service running on port 80, and you are forwarding
 
 But let's not assume this right now! Or simply use a port other than 80.
 
-As you might have guessed it's again a parameter named `-p [HOST_PORT]:[CONTAINER_PORT]` that you can set:
+As you might have guessed it's again a parameter named `-p <host-port>:<container-port>` that you can set:
 
 ```bash
 docker run -it --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache

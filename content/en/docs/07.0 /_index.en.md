@@ -12,11 +12,11 @@ Answer: It's gone. The docker instance has no persistence layer to store data pe
 
 ## Mounting a volume in a container
 
-The mariadb container is fortunately a good example as to why it's good to have an external volume.
+The MariaDB container is fortunately a good example as to why it's good to have an external volume.
 There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume, that is managed by Docker itself.
 
 {{% alert title="Lab" color="secondary" %}}
-Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your MariaDB container to store the persistent data on it.
 {{% /alert %}}
 
 Create the docker managed volume with:
@@ -25,7 +25,7 @@ Create the docker managed volume with:
 docker volume create volume-mariadb
 ```
 
-Now let's use the created volume and attach it to the mariadb database.
+Now let's use the created volume and attach it to the MariaDB database.
 
 With the parameter `-v` you can now state where to attach the volume, e.g.:
 
@@ -33,61 +33,7 @@ With the parameter `-v` you can now state where to attach the volume, e.g.:
 docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-
-### Using a host directory as volume
-
-We need to create a directory named `datastore-mariadb` but don't change into it:
-
-```bash
-mkdir datastore-mariadb
-```
-
-{{% alert title="Hint" color="info" %}}
-The local path as volume sometimes needs an additional configuration parameter on Windows due to the storage driver setup. See below for more information.
-{{% /alert %}}
-
-Linux:
-
-```bash
-docker run --name mariadb-container-with-path-volume -v $(pwd)/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
-```
-
-Windows (Git Bash):
-
-As mentioned in the hint above, add the configuration parameter `--innodb_flush_method=O_DSYNC` to the basic `docker run` command.
-
-```bash
-MSYS_NO_PATHCONV=1 docker run --name mariadb-container-with-path-volume -v $(pwd)/datastore-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb --innodb_flush_method=O_DSYNC
-```
-
-Once the container is up and running let's have a look into the `datastore-mariadb` directory:
-
-{{% alert title="Hint" color="info" %}}
-Use `dir` instead of `ls -la` on Windows when not using Bash.
-{{% /alert %}}
-
-```bash
-ls -la datastore-mariadb/
-```
-
-```
-total 122944
-drwxrwxr-x 4 guest-r0bhvk docker     4096 Mai 31 08:50 .
-drwxrwxr-x 5 user         user       4096 Mai 31 08:49 ..
--rw-rw---- 1 guest-r0bhvk docker    16384 Mai 31 08:50 aria_log.00000001
--rw-rw---- 1 guest-r0bhvk docker       52 Mai 31 08:50 aria_log_control
--rw-rw---- 1 guest-r0bhvk docker      976 Mai 31 08:50 ib_buffer_pool
--rw-rw---- 1 guest-r0bhvk docker 12582912 Mai 31 08:50 ibdata1
--rw-rw---- 1 guest-r0bhvk docker 50331648 Mai 31 08:50 ib_logfile0
--rw-rw---- 1 guest-r0bhvk docker 50331648 Mai 31 08:50 ib_logfile1
--rw-rw---- 1 guest-r0bhvk docker 12582912 Mai 31 08:50 ibtmp1
--rw-rw---- 1 guest-r0bhvk docker        0 Mai 31 08:50 multi-master.info
-drwx------ 2 guest-r0bhvk docker     4096 Mai 31 08:50 mysql
-drwx------ 2 guest-r0bhvk docker     4096 Mai 31 08:50 performance_schema
--rw-rw---- 1 guest-r0bhvk docker    24576 Mai 31 08:50 tc.log
-```
-
-Okay, let's create a new user in the mariadb container:
+Okay, let's create a new user in the MariaDB container:
 
 1. `docker exec -it mariadb-container-with-external-volume bash`
 2. `mysql -uroot -pmy-secret-pw`
@@ -96,7 +42,7 @@ Okay, let's create a new user in the mariadb container:
 
 Once all steps are done you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
 
-Now we have to stop and remove the mariadb-container-with-external-volume container.
+Now we have to stop and remove the `mariadb-container-with-external-volume` container.
 
 ```bash
 docker stop mariadb-container-with-external-volume
@@ -104,7 +50,7 @@ docker rm mariadb-container-with-external-volume
 ```
 
 It's getting interesting...
-We are creating a new mariadb container with the data storage volume:
+We are creating a new MariaDB container with the data storage volume:
 
 ```bash
 docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -161,7 +107,7 @@ When running a lot of Docker containers on a machine you usually need a lot of s
 At the moment, `overlay2` is the [recommended storage driver](https://docs.docker.com/storage/storagedriver/select-storage-driver/#docker-ce).
 
 {{% alert title="Lab" color="secondary" %}}
-Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your mariadb container to store the persistent data on it.
+Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your MariaDB container to store the persistent data on it.
 {{% /alert %}}
 
 {{% alert title="Hint" color="info" %}}

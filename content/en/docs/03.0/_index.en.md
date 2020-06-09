@@ -12,31 +12,11 @@ Answer: No! There are tons of images provided by companies, open source projects
 
 ## Docker images
 
-You can search for images available on [Docker Hub](https://hub.docker.com) by using the Docker command with the `search` sub command. For example, to search for a mariadb image, type:
+You can search for images available on [Docker Hub](https://hub.docker.com) by clicking the **Explore** link or by typing `mariadb` in the search field: <https://hub.docker.com/search/?q=mariadb&type=image>
 
-```bash
-docker search mariadb
-```
+You will get a list of results, and the first hit will probably be the official image: <https://hub.docker.com/_/mariadb>
 
-The script will crawl Docker Hub and return a listing of all images whose name match the search string. In this case, the output will be similar to this:
-
-```
-NAME                                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
-mariadb                                                   MariaDB is a community-developed fork of M...   1516      [OK]
-bitnami/mariadb                                           Bitnami MariaDB Docker Image                    41                   [OK]
-paintedfox/mariadb                                        A docker image for running MariaDB 5.5, a ...   29                   [OK]
-toughiq/mariadb-cluster                                   Dockerized Automated MariaDB Galera Cluste...   20                   [OK]
-linuxserver/mariadb                                       A Mariadb container, brought to you by Lin...   19
-million12/mariadb                                         MariaDB 10 on CentOS-7 with UTF8 defaults       14                   [OK]
-webhippie/mariadb                                         Docker images for mariadb                       11                   [OK]
-colinmollenhour/mariadb-galera-swarm                      MariaDb w/ Galera Cluster, DNS-based servi...   10                   [OK]
-diegomarangoni/mariadb-galera                             Creates a MariaDB Galera Cluster                10                   [OK]
-...
-```
-
-This output is corresponding with the search you can use on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=mariadb&starCount=0).
-
-In the OFFICIAL column, OK indicates an image built and supported by the company behind the project. Once you've identified the image that you would like to use, you can download it to your computer using the pull sub command, like so:
+This page contains instructions how to pull the image. Let's do that:
 
 ```bash
 docker pull mariadb
@@ -78,7 +58,7 @@ hello-world         linux               1815c82652c0        2 months ago        
 
 The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.
 
-As an example, let's run a container using the latest image of mariadb. The combination of the -i and -t switches gives you interactive shell access into the container:
+As an example, let's run a container using the latest image of MariaDB. The combination of the -i and -t switches gives you interactive shell access into the container:
 
 ```bash
 docker run -it mariadb

@@ -31,7 +31,7 @@ You don't have to register for a Docker Cloud account.
 
 ### Proxy configuration
 
-If your organization has a proxy in place you have to configure it in your Docker configuration in order to be able to do `docker search` or `docker pull`.
+If your organization has a proxy in place you have to configure it in your Docker configuration in order to be able to do `docker pull` or `docker push`.
 
 * [Instructions to configure a proxy on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration)
 * [Instructions to configure a proxy on Mac](https://docs.docker.com/docker-for-mac/#proxies)
