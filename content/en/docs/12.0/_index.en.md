@@ -177,7 +177,7 @@ Remember: you can always detach by killing the Docker client (e.g. close the bas
 You can execute a command in a container:
 
 ```bash
-docker exec -it <container>
+docker exec -it <container> <command>
 ```
 
 E.g. if you want to execute a shell, then run the following command:
