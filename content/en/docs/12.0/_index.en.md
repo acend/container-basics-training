@@ -203,7 +203,7 @@ You can re-attach to it if you want to interact with it.
 
 ## Listing images
 
-We already stumbled about the command to list Docker images. See [Lab 02](../02.0/).
+We already stumbled about the command to list Docker images. See [Lab 03](../03.0/).
 
 
 ## Viewing logs of containers
