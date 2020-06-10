@@ -120,7 +120,7 @@ This is helpful for scripting or doing a lot of experimentation where you start 
 
 ## Stopping containers
 
-Take a look at [Lab 04](../04.0).
+Take a look at [Lab 05](../05.0).
 
 
 ## Restarting and attaching to containers
