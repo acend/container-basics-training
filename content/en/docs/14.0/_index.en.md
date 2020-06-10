@@ -53,13 +53,13 @@ nginx                                                    latest              dbf
 
 ### Create a Docker Hub account
 
-Now it's time to prepare for pushing a docker image a Docker Hub repository.
+Now it's time to prepare for pushing a docker image to a Docker Hub repository.
 
-* Create a Docker Hub account if not already available: <https://hub.docker.com/>
-* Create a new public repository: use the **Create Repository** button after you logged in.
+* Create a Docker Hub account, if you don't already have one: <https://hub.docker.com/>
+* Create a new public repository: use the **Create Repository** button after logging in.
 * Check the repository info, the newly created repository is empty.
 
-Now we need to login on our :
+Log in to Docker Hub with your account:
 
 ```bash
 docker login
