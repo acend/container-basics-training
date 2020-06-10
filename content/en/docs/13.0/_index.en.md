@@ -20,13 +20,13 @@ On Windows, the Docker installer usually includes `docker-compose` already.
 
 Previously we ran:
 
-```bash
+```
 docker run --name mariadb-container-with-existing-external-volume -v$(pwd)/datastore-mysql:/var/lib/mysql -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 and:
 
-```bash
+```
 docker run -itd --name php-app -p8080:80 --link mariadb-container-with-existing-external-volume php-app
 ```
 
