@@ -53,13 +53,13 @@ nginx                                                    latest              dbf
 
 ### Create a Docker Hub account
 
-Now it's time to prepare for pushing a docker image a Docker Hub repository.
+Now it's time to prepare for pushing a docker image to a Docker Hub repository.
 
-* Create a Docker Hub account if not already available: <https://hub.docker.com/>
-* Create a new public repository: use the **Create Repository** button after you logged in.
+* Create a Docker Hub account, if you don't already have one: <https://hub.docker.com/>
+* Create a new public repository: use the **Create Repository** button after logging in.
 * Check the repository info, the newly created repository is empty.
 
-Now we need to login on our :
+Log in to Docker Hub with your account:
 
 ```bash
 docker login
@@ -79,7 +79,7 @@ Login Succeeded
 
 ### Push your first image
 
-Let's push our "myfirstimage", we need to tag the image with the same name as the repository we've created previously:
+Let's push our "myfirstimage". But first we need to tag the image with the same name as the repository we've created previously:
 
 ```bash
 docker tag myfirstimage <docker-user>/<docker-repo>
@@ -162,12 +162,12 @@ Docker has its own enterprise features, which are available for Enterprises <htt
 
 ## Docker Hub alternatives
 
-There are a couple of other public registries available, such as for example <https://quay.io/>
+There are a couple of other public registries available, such as <https://quay.io/> for example
 
 
 ## Private registries
 
-A docker registry can be deployed on premises as well. Most of the available artifact repository applications like for example Nexus and Artifactory are also able to manage Docker images.
+A docker registry can be deployed on premises as well. Most of the available artifact repository applications such as Nexus and Artifactory are able to manage Docker images as well.
 
 
 ## Automated integrated Docker build from GitHub
@@ -175,7 +175,7 @@ A docker registry can be deployed on premises as well. Most of the available art
 It's pretty straight-forward to integrate Docker Hub together with projects on GitHub.
 
 * Create a GitHub Repo, you might also want to fork this one
-* Login on Docker Hub go to your dashboard
+* Login on Docker Hub and navigate to your dashboard
 * Click **Create** an automated build
 * Link GitHub account and create the automated build for the given repo
 * Trigger the first build
