@@ -120,7 +120,7 @@ This is helpful for scripting or doing a lot of experimentation where you start 
 
 ## Stopping containers
 
-Take a look at [Lab 04](../04.0).
+Take a look at [Lab 05](../05.0).
 
 
 ## Restarting and attaching to containers
@@ -177,7 +177,7 @@ Remember: you can always detach by killing the Docker client (e.g. close the bas
 You can execute a command in a container:
 
 ```bash
-docker exec -it <container>
+docker exec -it <container> <command>
 ```
 
 E.g. if you want to execute a shell, then run the following command:
@@ -203,7 +203,7 @@ You can re-attach to it if you want to interact with it.
 
 ## Listing images
 
-We already stumbled about the command to list Docker images. See [Lab 02](../02.0/).
+We already stumbled about the command to list Docker images. See [Lab 03](../03.0/).
 
 
 ## Viewing logs of containers
