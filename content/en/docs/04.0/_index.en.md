@@ -137,6 +137,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]>
 ```
 
+Type `exit` to leave the mysql client. Type `exit` one more time to leave the container.
 
 ## Daemons
 
