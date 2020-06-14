@@ -60,7 +60,7 @@ docker build -t myfirstimage .
 Use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
-docker build -t myfirstimage --build-arg http_proxy=$HTTP_PROXY .
+docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
 ```
 
 {{% /alert %}}
@@ -184,6 +184,15 @@ After building the image with
 ```bash
 docker build -t myfirstimagecmd .
 ```
+
+{{% alert title="Note" color="warning" %}}
+Again use the additional parameter `--build-arg` when behind a corporate proxy:
+
+```bash
+docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
+```
+
+{{% /alert %}}
 
 We simply run it:
 
