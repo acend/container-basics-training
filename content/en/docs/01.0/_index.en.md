@@ -31,7 +31,25 @@ You don't have to register for a Docker Cloud account.
 
 ### Proxy configuration
 
-If your organization has a proxy in place you have to configure it in your Docker configuration in order to be able to do `docker pull` or `docker push`.
+If your organization has a proxy in place you have to configure it in order to be able to do `docker pull` or `docker push`.
+
+Linux:
+
+```bash
+export HTTP_PROXY="http://<username>:<password>@<proxy>:<port>"
+export HTTPS_PROXY="http://<username>:<password>@<proxy>:<port>"
+```
+
+Windows (Git Bash):
+
+```bash
+export http_proxy="http://<username>:<password>@<proxy>:<port>"
+export https_proxy="http://<username>:<password>@<proxy>:<port>"
+```
+
+If you have specials chars in your password, you have to escape them with hexadecimal value according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+
+Alternative instructions for setting proxy:
 
 * [Instructions to configure a proxy on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration)
 * [Instructions to configure a proxy on Mac](https://docs.docker.com/docker-for-mac/#proxies)
