@@ -13,11 +13,7 @@ Answer: It's gone. The docker instance has no persistence layer to store data pe
 ## Mounting a volume in a container
 
 The MariaDB container is fortunately a good example as to why it's good to have an external volume.
-There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume, that is managed by Docker itself.
-
-{{% alert title="Lab" color="secondary" %}}
-Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your MariaDB container to store the persistent data on it.
-{{% /alert %}}
+There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume to store the persistent data of our MariaDB. The volume is managed by Docker itself.
 
 Create the docker managed volume with:
 
@@ -32,6 +28,8 @@ With the parameter `-v` you can now state where to attach the volume, e.g.:
 ```bash
 docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
+
+See [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/) for further information.
 
 Okay, let's create a new user in the MariaDB container:
 
@@ -105,11 +103,3 @@ When running a lot of Docker containers on a machine you usually need a lot of s
 <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/managing_storage_with_docker_formatted_containers>
 
 At the moment, `overlay2` is the [recommended storage driver](https://docs.docker.com/storage/storagedriver/select-storage-driver/#docker-ce).
-
-{{% alert title="Lab" color="secondary" %}}
-Checkout [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) and create a Docker volume for your MariaDB container to store the persistent data on it.
-{{% /alert %}}
-
-{{% alert title="Hint" color="info" %}}
-Use `docker volume create <name>` and `docker run -v <name>:<path> …` commands.
-{{% /alert %}}
