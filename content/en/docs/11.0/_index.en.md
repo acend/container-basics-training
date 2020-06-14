@@ -168,7 +168,7 @@ root@00f0766080ed:/# exit
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started:
+With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
 
 ```Dockerfile
 FROM ubuntu
