@@ -38,7 +38,7 @@ export HTTP_PROXY="http://username:password@proxy:port"
 export HTTPS_PROXY="http://username:password@proxy:port"
 ```
 
-If you have specials chars in your password, you have to escape them with hexadecimal value according to https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters
+If you have specials chars in your password, you have to escape them with hexadecimal value according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
 
 Alternative instructions for setting proxy:
 
