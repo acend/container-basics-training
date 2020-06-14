@@ -168,7 +168,7 @@ root@00f0766080ed:/# exit
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started:
+With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
 
 ```Dockerfile
 FROM ubuntu
@@ -207,7 +207,7 @@ Checkout <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-a
 
 ## Frontend app image build
 
-We now want to include the source code of our frontend app into an already built docker image.  so we use the Dockerfile within this lab.
+We now want to include the source code of our frontend app into an already built docker image. In order to achieve this we will create a Dockerfile.
 
 The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory into the Docker image.
 We use this command to add the application source code into the image.
@@ -215,6 +215,8 @@ We use this command to add the application source code into the image.
 {{% alert title="Hint" color="info" %}}
 Use `.dockerignore` to exclude files from the Docker context being added to the container. It works the same as `.gitignore`: <https://docs.docker.com/engine/reference/builder/#dockerignore-file>
 {{% /alert %}}
+
+In the directory containing the subdirectory `php-app` create a Dockerfile with the following content:
 
 ```Dockerfile
 FROM php:7-apache
