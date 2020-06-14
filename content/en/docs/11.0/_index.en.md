@@ -185,6 +185,15 @@ After building the image with
 docker build -t myfirstimagecmd .
 ```
 
+{{% alert title="Note" color="warning" %}}
+Again use the additional parameter `--build-arg` when behind a corporate proxy:
+
+```bash
+docker build -t myfirstimage --build-arg http_proxy=$HTTP_PROXY .
+```
+
+{{% /alert %}}
+
 We simply run it:
 
 ```bash
