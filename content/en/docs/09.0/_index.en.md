@@ -77,7 +77,7 @@ docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 Windows (Git Bash):
 
 ```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
 
 {{% alert title="Note" color="warning" %}}
@@ -96,8 +96,16 @@ But let's not assume this right now! Or simply use a port other than 80.
 
 As you might have guessed it's again a parameter named `-p <host-port>:<container-port>` that you can set:
 
+Linux:
+
 ```bash
-docker run -it --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
+```
+
+Windows (Git Bash):
+
+```bash
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
 
 {{% alert title="Note" color="warning" %}}
