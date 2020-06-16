@@ -16,7 +16,7 @@ This site is built using the static page generator [Hugo](https://gohugo.io/).
 
 The page uses the [docsy theme](https://github.com/google/docsy) which is included as a Git Submodule.
 
-After cloning the main repo, you need to initialize the submodule like this: 
+After cloning the main repo, you need to initialize the submodule like this:
 
 ```bash
 git submodule update --init --recursive
