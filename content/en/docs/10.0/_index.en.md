@@ -79,7 +79,7 @@ docker exec -it mariadb-container-with-existing-external-volume bash
 
 You are now in the Bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
 
-Get the address of the apache-php container.
+Get the address of the `apache-php` container.
 
 ``` bash
 getent hosts apache-php

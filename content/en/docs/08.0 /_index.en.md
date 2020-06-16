@@ -127,7 +127,7 @@ It might be that your local firewall blocks requests to this address.
 And unfortunately we get a "403 Error - Forbidden".
 
 {{% alert title="Note" color="warning" %}}
-Do not forget to remove the existing instance of the apache-php container.
+Do not forget to remove the existing instance of the `apache-php` container.
 {{% /alert %}}
 
 > Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
