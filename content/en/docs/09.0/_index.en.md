@@ -65,7 +65,7 @@ Make sure you're outside that freshly created app directory when you execute the
 Now you can mount the php-app as host directory into your docker container via
 
 {{% alert title="Tip" color="info" %}}
-You need to set the absolute path on the -v option, e.g. `-v /home/[path]/php-app` or `-v C:\Temp\php-app:/var/www/html`
+You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
 {{% /alert %}}
 
 Linux:
@@ -81,7 +81,7 @@ MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/h
 ```
 
 {{% alert title="Note" color="warning" %}}
-Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
+Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
 {{% /alert %}}
 
 You can now check if the error is still present, or you wait until the second question is answered.
@@ -109,7 +109,7 @@ MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/
 ```
 
 {{% alert title="Note" color="warning" %}}
-Do not forget to stop/remove the existing instance of the apache-php container before you start a new one.
+Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
 {{% /alert %}}
 
 If you take a look into `docker ps` you'll find an interesting change for the PORT column
@@ -127,6 +127,12 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
 If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+
+{{% alert title="Note" color="warning" %}}
+
+* Instead of using a browser, you can also use `curl http://localhost:8080/index.php`.
+* <http://localhost:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
+{{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="warning" %}}
 To access the frontend app, you have to use a special URL
