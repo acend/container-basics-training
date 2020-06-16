@@ -129,6 +129,7 @@ You see that every request coming to port 8080 on your local machine is forwarde
 If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
 
 {{% alert title="Note" color="warning" %}}
+
 * Instead of using a browser, you can also use `curl http://localhost:8080/index.php`.
 * <http://localhost:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
 {{% /alert %}}
