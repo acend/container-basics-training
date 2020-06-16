@@ -100,9 +100,14 @@ See:
 * <https://docs.docker.com/docker-for-windows/networking/>
 * <https://docs.docker.com/docker-for-mac/networking/>
 
-If you have already deployed the apache-php container without port forwarding you have to remove it before running it with the following command.
+If you've already started the `apache-php` container without port forwarding you have to stop and remove it first:
 
-Use port forwarding to access the container.
+```bash
+docker stop apache-php
+docker rm apache-php
+```
+
+Now start the container again with port forwarding:
 
 ```bash
 docker run -p 8080:80 -d --name apache-php php:7-apache
