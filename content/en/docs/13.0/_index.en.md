@@ -5,7 +5,7 @@ weight: 13
 
 Instead of managing the containers with the `docker` command, you may use [Docker Compose](https://docs.docker.com/compose/) to handle them.
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Ubuntu users need to install the `docker-compose` command:
 
 ```bash

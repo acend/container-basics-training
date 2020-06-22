@@ -73,7 +73,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
 ```
 
-{{% alert title="Tip" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 Always try to clean up as every container is using space on your disk!
 {{% /alert %}}
 

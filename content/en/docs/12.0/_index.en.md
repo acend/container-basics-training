@@ -66,7 +66,7 @@ Live Restore Enabled: false
 
 ## Listing containers
 
-{{% alert title="Hint" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 `docker ps` and `docker container ls` are equivalent. This also applies to other top-level commands.
 
 For brevity, we are going to use `docker ps` etc. even though the `docker container` commands are more consistent.
@@ -232,7 +232,7 @@ There are various housekeeping commands.
 
 ### Dev environment
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Don't use these commands in production!
 {{% /alert %}}
 

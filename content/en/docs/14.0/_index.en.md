@@ -150,7 +150,7 @@ Tagging an image for a private registry:
 docker tag <image> myregistryhost:5000/puzzlelab/dockertechlab:<tag>
 ```
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Using the `latest` tag can be tricky. First of all it's important to define dependencies explicit and under version control, so that builds are reproducible. Second the latest tag basically means `"the last build/tag that ran without a specific tag/version specified"` <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
 {{% /alert %}}
 

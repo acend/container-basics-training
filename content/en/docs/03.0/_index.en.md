@@ -22,7 +22,7 @@ This page contains instructions how to pull the image. Let's do that:
 docker pull mariadb
 ```
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Care about security! Check the images before you run them.
 {{% /alert %}}
 
@@ -37,7 +37,7 @@ After an image has been downloaded, you may then run a container using the downl
 docker run hello-world:linux
 ```
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Here we use the linux tag of the hello-world image to not use latest again.
 {{% /alert %}}
 
