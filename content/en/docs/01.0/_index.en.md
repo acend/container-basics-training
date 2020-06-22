@@ -21,7 +21,7 @@ Please follow the instructions on Docker's official documentation to install Doc
 
 When asked to use Windows container, choose _NOT_ to.
 
-{{% alert title="Tip" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 You don't have to register for a Docker Cloud account.
 {{% /alert %}}
 

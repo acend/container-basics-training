@@ -78,7 +78,7 @@ Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld
 The problem is that you are now stuck in this console.
 To return to your shell press `CTRL-p` and then `CTRL-q`
 
-{{% alert title="Hint for Windows" color="info" %}}
+{{% alert title="Note for Windows" color="primary" %}}
 This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes.
 {{% /alert %}}
 
@@ -103,7 +103,7 @@ docker exec -it <container> bash
 
 Where `<container>` can refer to the `CONTAINER ID` (the first two characters are normally sufficient) or one of the `NAMES` from the output of `docker ps`.
 
-{{% alert title="Tip" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 The docker exec command needs either the ID or name of the container. Additionally, at the end, an executable.
 {{% /alert %}}
 
@@ -113,7 +113,7 @@ Once the command is executed you should see this:
 
 `root@7cb31f821233:/#`
 
-{{% alert title="Tip" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 Every time you connect yourself to a container you will always be the user that was defined as user in the Dockerfile.
 {{% /alert %}}
 

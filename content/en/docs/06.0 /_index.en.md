@@ -101,7 +101,7 @@ docker inspect mariadb-container
 In the last section (`NetworkSettings`) you will find the `IPAddress` for your container. In this example it's 172.17.0.2.
 Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot -p` (use password from run command)
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 {{% /alert %}}
 

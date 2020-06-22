@@ -56,7 +56,7 @@ docker build -t myfirstimage .
 * `-t` indicates the tag to apply to the image
 * `.` indicates the location of the build context (about which we will talk more later but is basically the directory where our Dockerfile is located)
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
@@ -185,7 +185,7 @@ After building the image with
 docker build -t myfirstimagecmd .
 ```
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Again use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
@@ -221,7 +221,7 @@ We now want to include the source code of our frontend app into an already built
 The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory into the Docker image.
 We use this command to add the application source code into the image.
 
-{{% alert title="Hint" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 Use `.dockerignore` to exclude files from the Docker context being added to the container. It works the same as `.gitignore`: <https://docs.docker.com/engine/reference/builder/#dockerignore-file>
 {{% /alert %}}
 
@@ -237,7 +237,7 @@ ADD ./php-app/ /var/www/html/
 RUN docker-php-ext-install mysqli
 ```
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
 You can use the additional parameter `--build-arg http_proxy=$HTTP_PROXY`.
 
@@ -256,7 +256,7 @@ ADD ./php-app/ /var/www/html/
 
 ### Build the php-app image
 
-{{% alert title="Note" color="warning" %}}
+{{% alert title="Note" color="primary" %}}
 Stop and delete the running `php-app` container first. Leave the database container running.
 {{% /alert %}}
 
@@ -282,7 +282,7 @@ You should get a response saying "Connected successfully".
 Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
 Fix the code in the db.php file. According to the continuous delivery principles we don't want usernames and passwords in our source code.
 
-{{% alert title="Hint" color="info" %}}
+{{% alert title="Note" color="primary" %}}
 Use the PHP function `getenv("WHATEVER_KEY")` to read config values from environment variables inside the frontend container.
 
 You might want to use the `-e` parameter to set an environment variable inside a container while running it: `docker run -e`.
