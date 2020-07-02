@@ -1,27 +1,27 @@
-# Docker Techlab
+# Container Basics Training
 
-In the guided hands-on techlab, we show the participants the Helm basics.
-
-For more see [Docker Techlabs online](https://docker-techlab.k8s.puzzle.ch/).
+In this guided hands-on training, we show the participants the basics of container technologies.
 
 
 ## Content Sections
 
-The Techlab content resides within the [content](content) directory.
+The training content resides within the [content](content) directory.
 
-The main part are the labs, which can be found at [content/labs](content/labs).
+The main part are the labs, which can be found at [content/en/docs](content/en/docs).
+
 
 ## Hugo
 
-Kubernetes Techlab is built using the static page generator [Hugo](https://gohugo.io/) and published under [docker-techlab.k8s.puzzle.ch](https://docker-techlab.k8s.puzzle.ch/).
+This site is built using the static page generator [Hugo](https://gohugo.io/).
 
-The page uses the [dot theme](https://github.com/themefisher/dot) which is included as a Git Submodule.
+The page uses the [docsy theme](https://github.com/google/docsy) which is included as a Git Submodule.
 
-After cloning the main repo, you need to initialize the submodule like this: 
+After cloning the main repo, you need to initialize the submodule like this:
 
 ```bash
 git submodule update --init --recursive
-``` 
+```
+
 
 ## Build using Docker
 
@@ -37,6 +37,30 @@ Run it locally:
 docker run -i -p 8080:8080 acend/docker-techlab
 ```
 
+
+## How to develop locally
+
+To develop locally we don't want to rebuild the entire container image every time something changed, and it is also important to use the same hugo versions like in production.
+We simply mount the working directory into a running container, where hugo is started in the server mode.
+
+```bash
+docker run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src -w /opt/app/src acend/hugo:<version-in-dockerfile> hugo server -p 8080 --bind 0.0.0.0
+```
+
+
+## Linting of Markdown content
+
+Markdown files are linted with <https://github.com/DavidAnson/markdownlint>.
+Custom rules are in `.markdownlint.json`.
+There's a GitHub Action `.github/workflows/markdownlint.yaml` for CI.
+For local checks, you can either use Visual Studio Code with the corresponding extension, or the command line like this:
+
+```shell script
+npm install
+node_modules/.bin/markdownlint content
+```
+
+
 ## Contributions
 
-If you find errors, bugs or missing information please help us improve our techlab and have a look at the [Contribution Guide](CONTRIBUTING.md).
+If you find errors, bugs or missing information please help us improve and have a look at the [Contribution Guide](CONTRIBUTING.md).
