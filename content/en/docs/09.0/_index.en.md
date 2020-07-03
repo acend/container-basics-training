@@ -64,10 +64,6 @@ Make sure you're outside that freshly created app directory when you execute the
 
 Now you can mount the php-app as host directory into your docker container via
 
-{{% alert title="Note" color="primary" %}}
-You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
-{{% /alert %}}
-
 Linux:
 
 ```bash
@@ -82,6 +78,10 @@ MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/h
 
 {{% alert title="Note" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
+{{% /alert %}}
+
+{{% alert title="Note" color="primary" %}}
+You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
 {{% /alert %}}
 
 You can now check if the error is still present, or you wait until the second question is answered.
