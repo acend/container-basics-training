@@ -283,7 +283,7 @@ Configuration should always be separate from the source code, so the database co
 Fix the code in the db.php file. According to the continuous delivery principles we don't want usernames and passwords in our source code.
 
 {{% alert title="Note" color="primary" %}}
-Use the PHP function `getenv("WHATEVER_KEY")` to read config values from environment variables inside the frontend container.
+Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container.
 
 You might want to use the `-e` parameter to set an environment variable inside a container while running it: `docker run -e`.
 {{% /alert %}}
