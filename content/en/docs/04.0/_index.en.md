@@ -79,7 +79,7 @@ The problem is that you are now stuck in this console.
 To return to your shell press `CTRL-p` and then `CTRL-q`
 
 {{% alert title="Note for Windows" color="primary" %}}
-This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes.
+This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a seperate shell to get the container ID and then stop it using `docker stop <container>`
 {{% /alert %}}
 
 This will leave the container running while you are back in your shell. To see that the container is really running use the command:
