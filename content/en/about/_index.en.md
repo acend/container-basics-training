@@ -1,5 +1,5 @@
 ---
-title: "About Docker Techlab"
+title: "About Container Basics Training"
 linkTitle: About
 menu:
   main:
@@ -7,7 +7,7 @@ menu:
 ---
 
 
-{{< blocks/cover title="About Docker Techlab" image_anchor="bottom" height="min" >}}
+{{< blocks/cover title="About Container Basics Training" image_anchor="bottom" height="min" >}}
 
 {{< /blocks/cover >}}
 

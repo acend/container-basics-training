@@ -120,8 +120,8 @@ docker images
 ```
 REPOSITORY                                               TAG                 IMAGE ID            CREATED             SIZE
 myfirstimage                                             latest              ca751384b926        About an hour ago   368MB
-puzzlelab/dockertechlab                                  1                   ca751384b926        About an hour ago   368MB
-puzzlelab/dockertechlab                                  latest              ca751384b926        About an hour ago   368MB
+acend/container-basics-training                          1                   ca751384b926        About an hour ago   368MB
+acend/container-basics-training                          latest              ca751384b926        About an hour ago   368MB
 nginx                                                    latest              dbfc48660aeb        5 hours ago         109MB
 ...
 ```
@@ -129,25 +129,25 @@ nginx                                                    latest              dbf
 Tagging an image by ID:
 
 ```bash
-docker tag <image-id> puzzlelab/dockertechlab:<tag>
+docker tag <image-id> acend/container-basics-training:<tag>
 ```
 
 Tagging an image by name:
 
 ```bash
-docker tag myfirstimage puzzlelab/dockertechlab:<tag>
+docker tag myfirstimage acend/container-basics-training:<tag>
 ```
 
 Tagging an image by name and tag:
 
 ```bash
-docker tag myfirstimage:1 puzzlelab/dockertechlab:<tag>
+docker tag myfirstimage:1 acend/container-basics-training:<tag>
 ```
 
 Tagging an image for a private registry:
 
 ```bash
-docker tag <image> myregistryhost:5000/puzzlelab/dockertechlab:<tag>
+docker tag <image> myregistryhost:5000/acend/container-basics-training:<tag>
 ```
 
 {{% alert title="Note" color="primary" %}}

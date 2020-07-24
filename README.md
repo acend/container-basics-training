@@ -28,13 +28,13 @@ git submodule update --init --recursive
 Build the image:
 
 ```bash
-docker build -t acend/docker-techlab:latest .
+docker build -t acend/container-basics-training:latest .
 ```
 
 Run it locally:
 
 ```bash
-docker run -i -p 8080:8080 acend/docker-techlab
+docker run -i -p 8080:8080 acend/container-basics-training
 ```
 
 

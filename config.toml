@@ -67,7 +67,7 @@ url = "https://www.puzzle.ch"
 [params]
 
 copyright = "Puzzle ITC GmbH"
-github_repo = "https://github.com/acend/docker-techlab"
+github_repo = "https://github.com/acend/container-basics-training"
 
 
 enabledModule = "base"
@@ -90,9 +90,9 @@ footer_about_disable = true
 ############################## social links ##############################
 [params.links]
 [[params.links.developer]]
-name = "Github"
+name = "GitHub"
 icon = "fab fa-github" 
-url = "https://github.com/acend/docker-techlab"
+url = "https://github.com/acend/container-basics-training"
 
 [[params.links.user]]
 name = "Twitter"

@@ -48,7 +48,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 For this exercise we are creating our own network with:
 
 ```bash
-docker network create docker-techlab
+docker network create container-basics-training
 ```
 
 If you now rerun the list command for Docker networks you should see the newly created network.
@@ -58,15 +58,15 @@ To make the backend accessible/visible to the frontend (via Container-NAMES) you
 Linux:
 
 ```bash
-docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
-docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
 Windows (Git Bash):
 
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --network docker-techlab --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
-docker run -d --network docker-techlab --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+MSYS_NO_PATHCONV=1 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
 If you access either container you should be able to resolve the other container's address with its container name.
