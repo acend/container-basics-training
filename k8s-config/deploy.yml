@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   annotations:
     keel.sh/policy: force
+    keel.sh/match-tag: "true"
   labels:
     app: container-basics-training
   name: container-basics-training
