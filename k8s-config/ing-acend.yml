@@ -3,12 +3,13 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx-public
+    kubernetes.io/tls-acme: "true"
   labels:
     app: container-basics-training
-  name: puzzle-container-basics-training
+  name: container-basics-training-acend
 spec:
   rules:
-  - host: container-basics-training.k8s.puzzle.ch
+  - host: container-basics.labs.acend.ch
     http:
       paths:
       - backend:
@@ -16,4 +17,5 @@ spec:
           servicePort: 8080
   tls:
   - hosts:
-    - container-basics.k8s.puzzle.ch
+    - container-basics.labs.acend.ch
+    secretName: container-basics-labs-acend-ch
