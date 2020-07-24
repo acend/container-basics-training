@@ -5,18 +5,17 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
     kubernetes.io/tls-acme: "true"
   labels:
-    app: docker-techlab
-  name: docker-techlab-acend
-  namespace: dreng-dockertechlab-prod
+    app: container-basics-training
+  name: container-basics-training
 spec:
   rules:
-  - host: docker.labs.acend.ch
+  - host: container-basics.labs.acend.ch
     http:
       paths:
       - backend:
-          serviceName: docker-techlab
+          serviceName: container-basics-training
           servicePort: 8080
   tls:
   - hosts:
-    - docker.labs.acend.ch
-    secretName: docker-labs-acend-ch
+    - container-basics.labs.acend.ch
+    secretName: container-basics-labs-acend-ch

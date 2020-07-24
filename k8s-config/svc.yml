@@ -2,15 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: docker-techlab
-  name: docker-techlab
-  namespace: dreng-dockertechlab-prod
+    app: container-basics-training
+  name: container-basics-training
 spec:
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
-    app: docker-techlab
+    app: container-basics-training
   sessionAffinity: None
   type: ClusterIP

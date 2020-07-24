@@ -42,7 +42,7 @@ services:
     ports:
       - '8080:80'
     networks:
-      - docker-techlab
+      - container-basics-training
 
   mariadb-container-with-existing-external-volume:
     image: mariadb
@@ -51,10 +51,10 @@ services:
     volumes:
       - 'volume-mariadb:/var/lib/mysql'
     networks:
-      - docker-techlab
+      - container-basics-training
 
 networks:
-  docker-techlab:
+  container-basics-training:
 
 volumes:
   volume-mariadb:

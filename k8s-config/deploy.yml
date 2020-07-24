@@ -4,14 +4,13 @@ metadata:
   annotations:
     keel.sh/policy: force
   labels:
-    app: docker-techlab
-  name: docker-techlab
-  namespace: dreng-dockertechlab-prod
+    app: container-basics-training
+  name: container-basics-training
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: docker-techlab
+      app: container-basics-training
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -20,10 +19,10 @@ spec:
   template:
     metadata:
       labels:
-        app: docker-techlab
+        app: container-basics-training
     spec:
       containers:
-      - image: acend/docker-techlab:latest
+      - image: acend/container-basics-training:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -35,7 +34,7 @@ spec:
           periodSeconds: 2
           successThreshold: 1
           timeoutSeconds: 2
-        name: helm-techlab
+        name: container-basics-training
         readinessProbe:
           failureThreshold: 3
           httpGet:
