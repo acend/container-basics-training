@@ -83,6 +83,7 @@ SELECT USER();
 
 See [next lab](../08.0/).
 
+
 ## Additional info for working with Docker volumes
 
 An alternative way of working with volumes besides mounting local directories (host folders) by a path into your container is by using Docker volumes.
