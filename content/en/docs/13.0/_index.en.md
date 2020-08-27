@@ -32,8 +32,8 @@ docker run -itd --name php-app -p8080:80 --link mariadb-container-with-existing-
 
 We now create a file called `docker-compose.yml`:
 
-```bash
-version: '2'
+```yaml
+version: '3'
 
 services:
 
