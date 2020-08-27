@@ -3,7 +3,7 @@ title: "11. Building your own Docker image"
 weight: 11
 ---
 
-Previously in the lab...
+From the [previous lab](../10.0/):
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 

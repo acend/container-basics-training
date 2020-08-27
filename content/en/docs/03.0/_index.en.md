@@ -3,7 +3,7 @@ title: "3. Images"
 weight: 3
 ---
 
-Previously in the lab...
+From the [previous lab](../02.0/):
 
 > Question: Is there only a "hello world" Docker image?
 
@@ -73,4 +73,4 @@ error: database is uninitialized and password option is not specified
 
 > Question: What's wrong? Am I an idiot?
 
-Check out the next lab.
+Check out the [next lab](../04.0/).

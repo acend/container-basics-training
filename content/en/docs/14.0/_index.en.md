@@ -6,7 +6,7 @@ weight: 14
 So far we only built and ran the Docker images locally on our computers, but what if we want to integrate them into a CI/CD pipeline or even only distribute the built images?
 Similar to a Maven artifact repo, where the built JARs, WARs, and EARs get deployed to distribute later, there is the concept of a Docker registry.
 
-In this Lab we're going to learn:
+In this lab we're going to learn:
 
 * Docker Hub platform
 * Pull and push images from and to the registry

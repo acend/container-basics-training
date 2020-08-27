@@ -3,7 +3,7 @@ title: "7. Working with volumes"
 weight: 7
 ---
 
-Previously in the lab...
+From the [previous lab](../06.0/):
 
 > Question: I have a container with a database server running. When I remove the container, what happens to my data?
 
@@ -79,7 +79,9 @@ SELECT USER();
 1 row in set (0.00 sec)
 ```
 
-Question: I'm feeling like a docker king... What's next?
+> Question: I'm feeling like a Docker king... What's next?
+
+See [next lab](../08.0/).
 
 
 ## Additional info for working with Docker volumes
