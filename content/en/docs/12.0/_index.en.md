@@ -3,7 +3,7 @@ title: "12. Debugging running containers"
 weight: 12
 ---
 
-In this Lab you'll learn some more advanced features used when debugging, stopping and starting containers
+In this lab, you'll learn some more advanced features used when debugging, stopping and starting containers
 
 
 ## Docker info
@@ -120,7 +120,7 @@ This is helpful for scripting or doing a lot of experimentation where you start 
 
 ## Stopping containers
 
-Take a look at [Lab 05](../05.0/).
+Take a look at [lab 05](../05.0/).
 
 
 ## Restarting and attaching to containers
@@ -203,7 +203,7 @@ You can re-attach to it if you want to interact with it.
 
 ## Listing images
 
-We already stumbled about the command to list Docker images. See [Lab 03](../03.0/).
+We already stumbled about the command to list Docker images. See [lab 03](../03.0/).
 
 
 ## Viewing logs of containers

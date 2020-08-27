@@ -4,18 +4,16 @@ weight: 4
 ---
 
 
-Previously in the lab...
+From the [previous lab](../03.0/):
 
-An error is popping up!
+> Question: What's wrong? Am I an idiot?
+
+Answer: No! You have just done what was stated in the instructions. An error is popping up!
 
 ```
 error: database is uninitialized and password option is not specified
   You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
-
-> Question: What's wrong? Am I an idiot?
-
-Answer: No! You have just done what was stated in the instructions.
 
 
 ## Environment variables
@@ -164,4 +162,4 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 > Question: Do we need two running MariaDB containers at the same time for this lab?
 
-Find out in the next lab.
+Find out in the [next lab](../05.0/).

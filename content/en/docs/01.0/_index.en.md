@@ -80,3 +80,8 @@ Unrelated to what distribution you use, also have a look at the post-installatio
 * The **Docker Hub** Registry
   * Is a collection of public images
   * The Docker daemon talks to it via the registry API
+
+
+> Question: So what's next?
+
+Let's head over to the [next lab](../02.0/).

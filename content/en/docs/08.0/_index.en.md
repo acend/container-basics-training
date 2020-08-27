@@ -3,7 +3,7 @@ title: "8. Frontend container"
 weight: 8
 ---
 
-Previously in the lab...
+From the [previous lab](../07.0/):
 
 > Question: I'm feeling like a Docker king... What's next?
 
@@ -117,7 +117,7 @@ Now you can access the web server at <http://localhost:8080>.
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="primary" %}}
-This is not possible without port forwarding, see next lab.
+This is not possible without port forwarding, see [next lab](../09.0/).
 {{% /alert %}}
 
 {{% alert title="Note" color="primary" %}}
@@ -132,4 +132,4 @@ Do not forget to remove the existing instance of the `apache-php` container.
 
 > Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
 
-Go on and find the answers in the next lab.
+Go on and find the answers in the [next lab](../09.0/).
