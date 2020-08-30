@@ -4,7 +4,7 @@ weight: 4
 ---
 
 
-From the [previous lab](../03.0/):
+From the [previous lab](../03/):
 
 > Question: What's wrong? Am I an idiot?
 
@@ -162,4 +162,4 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 > Question: Do we need two running MariaDB containers at the same time for this lab?
 
-Find out in the [next lab](../05.0/).
+Find out in the [next lab](../05/).

@@ -3,7 +3,7 @@ title: "6. Names"
 weight: 6
 ---
 
-From the [previous lab](../05.0/):
+From the [previous lab](../05/):
 
 > Question: Where do these strange names come from?
 
@@ -107,4 +107,4 @@ The mysql client must be installed on your computer. On Windows, you can use the
 
 > Question: I have a container with a database server running. When I remove the container, what happens to my data?
 
-Let's find out in the [next lab](../07.0/)!
+Let's find out in the [next lab](../07/)!

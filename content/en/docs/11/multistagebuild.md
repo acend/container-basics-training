@@ -1,5 +1,5 @@
 ---
-title: "11.1 - Multi-stage builds"
+title: "11.1 Multi-stage builds"
 weight: 11
 ---
 

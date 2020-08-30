@@ -120,7 +120,7 @@ This is helpful for scripting or doing a lot of experimentation where you start 
 
 ## Stopping containers
 
-Take a look at [lab 05](../05.0/).
+Take a look at [lab 05](../05/).
 
 
 ## Restarting and attaching to containers
@@ -203,7 +203,7 @@ You can re-attach to it if you want to interact with it.
 
 ## Listing images
 
-We already stumbled about the command to list Docker images. See [lab 03](../03.0/).
+We already stumbled about the command to list Docker images. See [lab 03](../03/).
 
 
 ## Viewing logs of containers

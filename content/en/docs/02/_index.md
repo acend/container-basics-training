@@ -3,7 +3,7 @@ title: "2. Getting started"
 weight: 2
 ---
 
-From the [previous lab](../01.0/):
+From the [previous lab](../01/):
 
 > Question: What's next?
 
@@ -138,4 +138,4 @@ Browse <https://docs.docker.com> and get familiar with the docs and the referenc
 
 > Question: Is there only a "hello world" Docker image?
 
-Maybe the [next lab](../03.0/) will provide some answers?
+Maybe the [next lab](../03/) will provide some answers?
