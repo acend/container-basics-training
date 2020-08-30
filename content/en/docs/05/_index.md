@@ -3,7 +3,7 @@ title: "5. Deleting containers"
 weight: 5
 ---
 
-From the [previous lab](../04.0/):
+From the [previous lab](../04/):
 
 > Question: Do we need two running MariaDB containers at the same time for this lab?
 
@@ -79,4 +79,4 @@ Always try to clean up as every container is using space on your disk!
 
 > Question: Where do these strange names come from?
 
-Obviously you will find it out... in the [next lab](../06.0/)!
+Obviously you will find it out... in the [next lab](../06/)!

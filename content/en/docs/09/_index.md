@@ -3,7 +3,7 @@ title: "9. Embedding the source code"
 weight: 9
 ---
 
-From the [previous lab](../08.0/):
+From the [previous lab](../08/):
 
 > Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
 
@@ -144,4 +144,4 @@ To access the frontend app, you have to use a special URL
 
 > Question: Can I somehow link the containers together so that they can talk to each other?
 
-The answer lies in the [next lab](../10.0/).
+The answer lies in the [next lab](../10/).

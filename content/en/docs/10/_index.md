@@ -3,7 +3,7 @@ title: "10. Linking frontend and backend"
 weight: 10
 ---
 
-From the [previous lab](../09.0/):
+From the [previous lab](../09/):
 
 > Question: Can I somehow link the containers together, so they can talk to each other?
 
@@ -92,4 +92,4 @@ Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 
-I'm sure there is, let's check out the [next lab](../11.0/) to find out how.
+I'm sure there is, let's check out the [next lab](../11/) to find out how.
