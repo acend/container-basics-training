@@ -15,9 +15,9 @@ To do this lab with *Play with Docker*:
 * Click *ADD NEW INSTANCE* and you are ready to do this lab.
 
 
-## Installation for Windows and Mac
+## Installation for Windows
 
-Please follow the instructions on Docker's official documentation to install Docker CE.
+Please follow the [instructions](https://docs.docker.com/docker-for-windows/install/#install-docker-for-windows-desktop-app) on Docker's official documentation to install Docker CE for Windows.
 
 When asked to use Windows container, choose _NOT_ to.
 
@@ -25,48 +25,79 @@ When asked to use Windows container, choose _NOT_ to.
 You don't have to register for a Docker Cloud account.
 {{% /alert %}}
 
-* [Windows](https://docs.docker.com/docker-for-windows/install/#install-docker-for-windows-desktop-app)
-* [Mac](https://docs.docker.com/docker-for-mac/install/)
+
+### Shell recommendation for Windows
+
+We highly recommend to use the Bash emulation _Git Bash_ from [Git for Windows](https://gitforwindows.org/) to do the exercises in this training.
 
 
-### Proxy configuration
+### Proxy configuration for Windows
 
-If your organization has a proxy in place you have to configure it in order to be able to do `docker pull` or `docker push`.
+If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
 
-Linux:
-
-```bash
-export http_proxy="http://<username>:<password>@<proxy>:<port>"
-export https_proxy="http://<username>:<password>@<proxy>:<port>"
-```
-
-Windows (Git Bash):
+Git Bash:
 
 ```bash
 export HTTP_PROXY="http://<username>:<password>@<proxy>:<port>"
 export HTTPS_PROXY="http://<username>:<password>@<proxy>:<port>"
 ```
 
-If you have specials chars in your password, you have to escape them with hexadecimal value according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+{{% alert title="Note" color="primary" %}}
+If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+{{% /alert %}}
 
-Alternative instructions for setting proxy:
+See also [setting the proxy environment variables on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration) for alternative instructions on setting proxy environment variables.
 
-* [Instructions to configure a proxy on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration)
-* [Instructions to configure a proxy on Mac](https://docs.docker.com/docker-for-mac/#proxies)
+
+## Installation for Mac
+
+Please follow the [instructions](https://docs.docker.com/docker-for-mac/install/) on Docker's official documentation to install Docker CE for Mac.
+
+{{% alert title="Note" color="primary" %}}
+You don't have to register for a Docker Cloud account.
+{{% /alert %}}
+
+
+### Proxy configuration for Mac
+
+If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
+
+```bash
+export http_proxy="http://<username>:<password>@<proxy>:<port>"
+export https_proxy="http://<username>:<password>@<proxy>:<port>"
+```
+
+{{% alert title="Note" color="primary" %}}
+If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+{{% /alert %}}
+
+See also [setting the proxy environment variables on Mac](https://docs.docker.com/docker-for-mac/#proxies) for alternative instructions on setting proxy environment variables.
 
 
 ## Installation for Linux
 
-Follow the instructions for your appropriate distribution. The recommended way of installing is using the repository, except if you already know you're going to remove the package again soon.
+Please follow the instructions for your appropriate distribution to install Docker. The recommended way of installing is using the repository, except if you already know you're going to remove the package again soon.
 
 * [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
 * [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
 * [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
 
-Unrelated to what distribution you use, also have a look at the post-installation steps. Please note however that these are optional steps, and some are quite advanced, so going with the default might be the most appropriate way to go.
+Unrelated to what distribution you use, also have a look at the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/). Please note however that these are optional steps and some are quite advanced, so going with the default might be the most appropriate way to go.
 
-* [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/)
+
+### Proxy configuration for Linux
+
+If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
+
+```bash
+export http_proxy="http://<username>:<password>@<proxy>:<port>"
+export https_proxy="http://<username>:<password>@<proxy>:<port>"
+```
+
+{{% alert title="Note" color="primary" %}}
+If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+{{% /alert %}}
 
 
 ## Docker architecture
