@@ -13,9 +13,9 @@ jobs:
           submodules: recursive
       - uses: docker/build-push-action@v1
         with:
-          file: ./Dockerfile
+          dockerfile: ./Dockerfile
           push: false
       - uses: docker/build-push-action@v1
         with:
-          file: ./Dockerfile.thttpd
+          dockerfile: ./Dockerfile.thttpd
           push: false
