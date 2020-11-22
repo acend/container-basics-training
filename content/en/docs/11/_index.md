@@ -43,11 +43,11 @@ RUN apt-get update && \
 
 {{% alert title="Note" color="primary" %}}
 Copy the content above. Switch to the vim editor and use the following commands to insert and save everything:
-- "i"
-- "crtl-v"
-- "esc"
-- ":wq"
-- "enter"
+* "i"
+* "crtl-v"
+* "esc"
+* ":wq"
+* "enter"
 {{% /alert %}}
 
 * `FROM` indicates the base image for our build
