@@ -65,7 +65,7 @@ docker run -it mariadb
 ```
 
 {{% alert title="Note" color="primary" %}}
-If you are on a Winows system, be aware of the error:
+If you are on a Windows system, be aware of the error:
 
 ```
 the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
