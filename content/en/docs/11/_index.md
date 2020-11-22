@@ -41,6 +41,15 @@ RUN apt-get update && \
     apt-get clean
 ```
 
+{{% alert title="Note" color="primary" %}}
+Copy the content above. Switch to the vim editor and use the following commands to insert and save everything:
+- "i"
+- "crtl-v"
+- "esc"
+- ":wq"
+- "enter"
+{{% /alert %}}
+
 * `FROM` indicates the base image for our build
 * Each `RUN` line will be executed by Docker during the build
 * Our RUN commands must be non-interactive (no input can be provided to Docker during the build)

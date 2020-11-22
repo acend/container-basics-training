@@ -64,6 +64,17 @@ As an example, let's run a container using the latest image of MariaDB. The comb
 docker run -it mariadb
 ```
 
+{{% alert title="Note" color="primary" %}}
+If you are on a Winows system, be aware of the error:
+```
+the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
+```
+For every following command in this lab which uses the "-it" paramater, you have to use `winpty` in the beginning of each command. E.g.
+```bash
+winpty docker run -it mariadb
+```
+{{% /alert %}}
+
 An error is popping up!
 
 ```
