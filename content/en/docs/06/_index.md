@@ -104,7 +104,7 @@ Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot
 {{% alert title="Note" color="primary" %}}
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 
-Also on Windows you must use port forwarding on the docker container to access the Database:
+Also on Windows you must use port-forwarding to access the database:
 
 ```bash
 docker run --name mariadb-container -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
