@@ -26,13 +26,7 @@ mkdir myfirstimage
 cd myfirstimage
 ```
 
-You can either use vim or the editor of your choice.
-
-```bash
-vim Dockerfile
-```
-
-Add the following content to your Dockerfile:
+Add the following content to the Dockerfile using your editor of choice:
 
 ```Dockerfile
 FROM ubuntu
@@ -40,16 +34,6 @@ RUN apt-get update && \
     apt-get install -y figlet && \
     apt-get clean
 ```
-
-{{% alert title="Note" color="primary" %}}
-Copy the content above. Switch to the vim editor and use the following commands to insert and save everything:
-
-* "i"
-* "crtl-v"
-* "esc"
-* ":wq"
-* "enter"
-{{% /alert %}}
 
 * `FROM` indicates the base image for our build
 * Each `RUN` line will be executed by Docker during the build
