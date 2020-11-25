@@ -26,13 +26,7 @@ mkdir myfirstimage
 cd myfirstimage
 ```
 
-You can either use vim or the editor of your choice.
-
-```bash
-vim Dockerfile
-```
-
-Add the following content to your Dockerfile:
+Add the following content to the Dockerfile using your editor of choice:
 
 ```Dockerfile
 FROM ubuntu
