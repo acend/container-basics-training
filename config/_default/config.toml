@@ -3,7 +3,7 @@ title = "Container Basics Training"
 
 enableGitInfo = true
 
-theme = "docsy"
+theme = ["docsy-acend", "docsy-plus", "docsy"]
 
 languageCode = "en-us"
 
