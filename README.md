@@ -30,7 +30,7 @@ Alternatively you can use the Puzzle setup from [config/puzzle](config/puzzle/co
 `--environment puzzle`.
 
 
-### Docsy Theme Usage
+### Docsy theme usage
 
 * [Official docsy documentation](https://www.docsy.dev/docs/)
 * [Docsy Plus](https://github.com/puzzle/docsy-plus/)
