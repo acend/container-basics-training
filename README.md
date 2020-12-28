@@ -26,7 +26,7 @@ git submodule update --init --recursive
 ```
 
 The default configuration uses the acend setup from [config/_default](config/_default/config.toml).
-Alternatively you can use the Puzzle setup from [config/acend](config/puzzle/config.toml), which is enabled with
+Alternatively you can use the Puzzle setup from [config/puzzle](config/puzzle/config.toml), which is enabled with
 `--environment puzzle`.
 
 
