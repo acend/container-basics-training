@@ -50,7 +50,7 @@ git submodule update --remote
 Build the image:
 
 ```bash
-docker build -t acend/container-basics-training:latest .
+docker build <--build-arg HUGO_ENV=...> -t acend/container-basics-training .
 ```
 
 Run it locally:
@@ -79,7 +79,7 @@ For local checks, you can either use Visual Studio Code with the corresponding e
 
 ```shell script
 npm install
-node_modules/.bin/markdownlint content
+node_modules/.bin/markdownlint content *.md
 ```
 
 
