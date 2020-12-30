@@ -8,30 +8,6 @@ metadata:
     cert-manager.io/cluster-issuer: acend-letsencrypt
   labels:
     app: container-basics-training
-  name: container-basics-labs-acend
-spec:
-  rules:
-  - host: container-basics.labs.acend.ch
-    http:
-      paths:
-      - backend:
-          serviceName: container-basics-training
-          servicePort: 8080
-  tls:
-  - hosts:
-    - container-basics.labs.acend.ch
-    secretName: container-basics-labs-acend-ch
-
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx-public
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: acend-letsencrypt
-  labels:
-    app: container-basics-training
   name: container-basics-training-acend
 spec:
   rules:
