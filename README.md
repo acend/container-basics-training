@@ -50,7 +50,7 @@ git submodule update --remote
 Build the image:
 
 ```bash
-docker build <--build-arg HUGO_ENV=...> -t acend/container-basics-training .
+docker build <--build-arg ACEND_HUGO_ENV=...> -t acend/container-basics-training .
 ```
 
 Run it locally:
@@ -67,6 +67,12 @@ We simply mount the working directory into a running container, where hugo is st
 
 ```bash
 docker run --rm --interactive --publish 8080:8080 -v $(pwd):/src klakegg/hugo:<version-in-dockerfile> server -p 8080 --bind 0.0.0.0
+```
+
+use the following command to set the hugo environment
+
+```bash
+docker run --rm --interactive --publish 8080:8080 -v $(pwd):/src klakegg/hugo:<version-in-dockerfile> server --environment=<environment> -p 8080 --bind 0.0.0.0
 ```
 
 
