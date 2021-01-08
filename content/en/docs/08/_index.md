@@ -1,135 +1,147 @@
 ---
-title: "8. Frontend container"
+title: "8. Embedding the source code"
 weight: 8
 ---
 
 From the [previous lab](../07/):
 
-> Question: I'm feeling like a Docker king... What's next?
+> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
 
-Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
+Answer(s):
+
+1. The Apache web server does not allow to scan its own document root.
+2. There is another way, and you're going to love it.
 
 
-## Deploying a frontend container
+## Get the PHP app
 
-First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
+For this lab you're going to need a small PHP app consisting of two files.
 
-We would recommend the `php:7-apache` image.
+First, let's create a directory for the app's files called `php-app`.
+
+Then, inside that directory, create a new file named `index.php` with the following content:
+
+```php
+<?php
+echo "Welcome to Docker (my young padawan)!";
+?>
+```
+
+{{% alert title="Note for play-with-docker.com" color="primary" %}}
+
+* Create a directory with this shell command: `mkdir php-app`
+* Create a file with this shell command: `touch index.php`
+* Open your editor
+* Select the folder and then the file
+* Add the content and save the changes
+{{% /alert %}}
+
+Lastly, create another file named `db.php` with the following content:
+
+```php
+<?php
+$servername = "mariadb-container-with-existing-external-volume";
+$username = "peter";
+$password = "venkman";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+?>
+```
+
+That's it for the app part.
+
+
+## Mounting the dev environment into your Docker container
+
+Make sure you're outside that freshly created app directory when you execute the next commands.
+
+Now you can mount the php-app as host directory into your docker container via
+
+Linux:
 
 ```bash
-docker pull php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
 
-Once it is pulled let's have a look into `docker images`:
+Windows (Git Bash):
 
 ```bash
-docker images
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
 
-```
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-php                 7.0-apache          b8fe22aeffdf        5 days ago          390MB
-mariadb             latest              58730544b81b        2 weeks ago         397MB
-hello-world         latest              1815c82652c0        2 months ago        1.84kB
-hello-world         linux               1815c82652c0        2 months ago        1.84kB
+{{% alert title="Note" color="primary" %}}
+Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
+{{% /alert %}}
 
-```
+{{% alert title="Note" color="primary" %}}
+You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
+{{% /alert %}}
 
-Beside the known `mariadb` image, there is one new image. Also, the php REPOSITORY has another TAG than the other REPOSITORIES.
-When you use the `pull` command Docker will always pull down the latest versions of the REPOSITORY but by requesting php:7-apache you have pulled a specific TAG.
-So Docker labels it that way.
+You can now check if the error is still present, or you wait until the second question is answered.
 
-> Here's some background info about images and containers.
->
-> Question: What's an image?
->
-> * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
-> * Images are made of layers, conceptually stacked on top of each other
-> * Each layer can add, change, and remove files
-> * Images can share layers to optimize disk usage, transfer times and memory use
->
-> Question: What's the difference between a container and an image?
->
-> * An image is a read-only filesystem
-> * A container is an encapsulated set of processes running in a read-write copy of that filesystem
-> * To optimize container boot time, copy-on-write is used instead of regular copy
-> * docker run starts a container from a given image
->
-> Images are like templates or stencils that you can create containers from.
 
-Now we can deploy the new container using the correct tag.
+## Port forwarding for your Docker container
+
+Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
+Imagine you had a local httpd service running on port 80, and you are forwarding this same port to your Docker instance.
+
+But let's not assume this right now! Or simply use a port other than 80.
+
+As you might have guessed it's again a parameter named `-p <host-port>:<container-port>` that you can set:
+
+Linux:
 
 ```bash
-docker run -d --name apache-php php:7-apache
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
 
-With `docker ps` you see that the new container is running.
+Windows (Git Bash):
+
+```bash
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
+```
+
+{{% alert title="Note" color="primary" %}}
+Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
+{{% /alert %}}
+
+If you take a look into `docker ps` you'll find an interesting change for the PORT column
 
 ```bash
 docker ps
 ```
 
 ```
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-b901d6c0473a        php:7-apache        "docker-php-entryp..."   18 seconds ago      Up 17 seconds       80/tcp              apache-php
-50197361e87b        mariadb             "docker-entrypoint..."   42 minutes ago      Up 42 minutes       3306/tcp            mariadb-container-with-existing-external-volume
-6f08ac657320        mariadb             "docker-entrypoint..."   4 hours ago         Up 2 hours          3306/tcp            mariadb-container
-
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   apache-php
+50197361e87b        mariadb             "docker-entrypoint..."   2 hours ago         Up 2 hours          3306/tcp             mariadb-container-with-existing-external-volume
+6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
 ```
 
-Okay so let's try to connect to the server, via the container assigned docker IP address:
-
-```bash
-docker inspect apache-php | grep IPAddress
-```
-
-```
-...
-            "SecondaryIPAddresses": null,
-            "IPAddress": "172.17.0.4",
-                    "IPAddress": "172.17.0.4",
-...
-```
-
-With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
+You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
+If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
 
 {{% alert title="Note" color="primary" %}}
-As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
-See:
 
-* <https://docs.docker.com/docker-for-windows/networking/>
-* <https://docs.docker.com/docker-for-mac/networking/>
-
-If you've already started the `apache-php` container without port forwarding you have to stop and remove it first:
-
-```bash
-docker stop apache-php
-docker rm apache-php
-```
-
-Now start the container again with port forwarding:
-
-```bash
-docker run -p 8080:80 -d --name apache-php php:7-apache
-```
-
-Now you can access the web server at <http://localhost:8080>.
+* Instead of using a browser, you can also use `curl http://localhost:8080/index.php`.
+* <http://localhost:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="primary" %}}
-This is not possible without port forwarding, see [next lab](../09/).
+To access the frontend app, you have to use a special URL
+
+* Copy the SSH connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
+* Remove *ssh* and replace the **@** with a **.**
+* With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 {{% /alert %}}
 
-{{% alert title="Note" color="primary" %}}
-It might be that your local firewall blocks requests to this address.
-{{% /alert %}}
+> Question: Can I somehow link the containers together so that they can talk to each other?
 
-And unfortunately we get a "403 Error - Forbidden".
-
-{{% alert title="Note" color="primary" %}}
-Do not forget to remove the existing instance of the `apache-php` container.
-{{% /alert %}}
-
-> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
-
-Go on and find the answers in the [next lab](../09/).
+The answer lies in the [next lab](../09/).
