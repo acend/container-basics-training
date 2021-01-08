@@ -1,118 +1,18 @@
 ---
-title: "9. Embedding the source code"
+title: "9. Linking frontend and backend"
 weight: 9
 ---
 
 From the [previous lab](../08/):
 
-> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
+> Question: Can I somehow link the containers together, so they can talk to each other?
 
-Answer(s):
-
-1. The Apache web server does not allow to scan its own document root.
-2. There is another way, and you're going to love it.
+Answer: Yes, you can! Here's how it works.
 
 
-## Get the PHP app
+## Linking containers
 
-For this lab you're going to need a small PHP app consisting of two files.
-
-First, let's create a directory for the app's files called `php-app`.
-
-Then, inside that directory, create a new file named `index.php` with the following content:
-
-```php
-<?php
-echo "Welcome to Docker (my young padawan)!";
-?>
-```
-
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-
-* Create a directory with this shell command: `mkdir php-app`
-* Create a file with this shell command: `touch index.php`
-* Open your editor
-* Select the folder and then the file
-* Add the content and save the changes
-{{% /alert %}}
-
-Lastly, create another file named `db.php` with the following content:
-
-```php
-<?php
-$servername = "mariadb-container-with-existing-external-volume";
-$username = "peter";
-$password = "venkman";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
-?>
-```
-
-That's it for the app part.
-
-
-## Mounting the dev environment into your Docker container
-
-Make sure you're outside that freshly created app directory when you execute the next commands.
-
-Now you can mount the php-app as host directory into your docker container via
-
-Linux:
-
-```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
-```
-
-Windows (Git Bash):
-
-```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
-```
-
-{{% alert title="Note" color="primary" %}}
-Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
-{{% /alert %}}
-
-{{% alert title="Note" color="primary" %}}
-You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
-{{% /alert %}}
-
-You can now check if the error is still present, or you wait until the second question is answered.
-
-
-## Port forwarding for your Docker container
-
-Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
-Imagine you had a local httpd service running on port 80, and you are forwarding this same port to your Docker instance.
-
-But let's not assume this right now! Or simply use a port other than 80.
-
-As you might have guessed it's again a parameter named `-p <host-port>:<container-port>` that you can set:
-
-Linux:
-
-```bash
-docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
-```
-
-Windows (Git Bash):
-
-```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
-```
-
-{{% alert title="Note" color="primary" %}}
-Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
-{{% /alert %}}
-
-If you take a look into `docker ps` you'll find an interesting change for the PORT column
+If you have properly worked through all the previous labs you should now have the following setup:
 
 ```bash
 docker ps
@@ -120,28 +20,76 @@ docker ps
 
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
-6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   apache-php
+6b0721fa6103        php:7-apache        "docker-php-entryp..."   25 minutes ago      Up 25 minutes       0.0.0.0:8080->80/tcp   apache-php
 50197361e87b        mariadb             "docker-entrypoint..."   2 hours ago         Up 2 hours          3306/tcp             mariadb-container-with-existing-external-volume
-6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
+6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 3 hours          3306/tcp             mariadb-container
 ```
 
-You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
-If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+Sadly before we can link the frontend and backend we have to get rid of the existing containers.
 
-{{% alert title="Note" color="primary" %}}
+```bash
+docker stop apache-php mariadb-container mariadb-container-with-existing-external-volume
+docker rm apache-php mariadb-container mariadb-container-with-existing-external-volume
+```
 
-* Instead of using a browser, you can also use `curl http://localhost:8080/index.php`.
-* <http://localhost:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
-{{% /alert %}}
+To enable the communication between two or more Docker containers you have to use Docker network. Per default there are three networks available:
 
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-To access the frontend app, you have to use a special URL
+```bash
+docker network ls
+```
 
-* Copy the SSH connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
-* Remove *ssh* and replace the **@** with a **.**
-* With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
-{{% /alert %}}
+```
+NETWORK ID          NAME                DRIVER              SCOPE
+9233283df4a6        bridge              bridge              local
+640877f8aec4        host                host                local
+72f9a9996909        none                null                local
+```
 
-> Question: Can I somehow link the containers together so that they can talk to each other?
+For this exercise we are creating our own network with:
 
-The answer lies in the [next lab](../10/).
+```bash
+docker network create container-basics-training
+```
+
+If you now rerun the list command for Docker networks you should see the newly created network.
+
+To make the backend accessible/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
+
+Linux:
+
+```bash
+docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+```
+
+Windows (Git Bash):
+
+```bash
+MSYS_NO_PATHCONV=1 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+```
+
+If you access either container you should be able to resolve the other container's address with its container name.
+
+Execute an interactive `bash` shell on the mariadb container.
+
+``` bash
+docker exec -it mariadb-container-with-existing-external-volume bash
+```
+
+You are now in the Bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
+
+Get the address of the `apache-php` container.
+
+``` bash
+getent hosts apache-php
+```
+
+The two containers are now able talk to each other. But let's check this:
+
+If you type <http://localhost:8080/db.php> in your browser you should get... an error!
+Because the mysqli extension is not found.
+
+> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
+
+I'm sure there is, let's check out the [next lab](../10/) to find out how.

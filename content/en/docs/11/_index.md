@@ -1,283 +1,272 @@
 ---
-title: "11. Building your own Docker image"
+title: "11. Debugging running containers"
 weight: 11
 ---
 
-From the [previous lab](../10/):
-
-> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
-
-Answer: Yes there is. Create your own Dockerfile which describes the content of a Docker image.
+In this lab, you'll learn some more advanced features used when debugging, stopping and starting containers
 
 
-## Dockerfile
+## Docker info
 
-Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.
-
-The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/engine/reference/builder/>.
-
-
-## Write your first Dockerfile
-
-For that we create a new directory and create an empty Dockerfile in there.
+To see general info about your docker environment use
 
 ```bash
-mkdir myfirstimage
-cd myfirstimage
+docker system info
 ```
 
-Add the following content to the Dockerfile using your editor of choice:
+```
+Containers: 42
+ Running: 0
+ Paused: 0
+ Stopped: 42
+Images: 75
+Server Version: 18.06.1-ce
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e
+runc version: 69663f0bd4b60df09991c08812a60108003fa340
+init version: fec3683
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.15.0-36-generic
+Operating System: Ubuntu 18.04.1 LTS
+OSType: linux
+Architecture: x86_64
+CPUs: 4
+Total Memory: 15.31GiB
+Name: system-name
+ID: QSH5:AZKW:AZKW:FZLG:AZKW:2WRM:AZKW:OOFU:UUTI:AZKW:YBG5:QI4F
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: philipona
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
 
-```Dockerfile
-FROM ubuntu
-RUN apt-get update && \
-    apt-get install -y figlet && \
-    apt-get clean
 ```
 
-* `FROM` indicates the base image for our build
-* Each `RUN` line will be executed by Docker during the build
-* Our RUN commands must be non-interactive (no input can be provided to Docker during the build)
-* Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write nice Dockerfiles
 
-
-## Build the image
-
-```bash
-docker build -t myfirstimage .
-```
-
-* `-t` indicates the tag to apply to the image
-* `.` indicates the location of the build context (about which we will talk more later but is basically the directory where our Dockerfile is located)
+## Listing containers
 
 {{% alert title="Note" color="primary" %}}
-Use the additional parameter `--build-arg` when behind a corporate proxy:
+`docker ps` and `docker container ls` are equivalent. This also applies to other top-level commands.
 
-```bash
-docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
-```
-
+For brevity, we are going to use `docker ps` etc. even though the `docker container` commands are more consistent.
+See `docker container --help` for a full list of sub-commands.
 {{% /alert %}}
 
-Please note that the tag can be omitted in most Docker commands and instructions. In that case the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name it does not necessarily identify the latest version of an image.
-Depending on the build system it can point to the last image pushed, to the last image built from some branch or to some old image. It can even not exist at all.
-Because of this you must never use the `latest` tag in production, always use a specific image version.
-
-Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
-
-
-### What happens when we build the image
-
-The output of the Docker build looks like this:
-
-```
-Sending build context to Docker daemon  2.048kB
-Step 1/2 : FROM ubuntu
- ---> ea4c82dcd15a
-Step 2/2 : RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean
- ---> b3c08112fd1c
-Successfully built b3c08112fd1c
-Successfully tagged myfirstimage:latest
-```
-
-
-### Sending the build context to Docker
-
-```
-Sending build context to Docker daemon 84.48 kB
-...
-```
-
-* The build context is the `.` directory given to docker build
-* It is sent (as an archive) by the Docker client to the Docker daemon
-* This allows to use a remote machine to build using local files
-* Be careful (or patient) if that directory is big and your connection is slow
-
-
-### Inspecting step execution
-
-```
-...
-Step 1/2 : FROM ubuntu
- ---> ea4c82dcd15a
-Step 2/2 : RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean
- ---> b3c08112fd1c
-Successfully built b3c08112fd1c
-Successfully tagged myfirstimage:latest
-```
-
-* A container (ea4c82dcd15a) is created from the base image
-  * The base image will be pulled, if it was not pulled before
-* The `RUN` command is executed in this container
-* The container is committed into an image (b3c08112fd1c)
-* The build container (ea4c82dcd15a) is removed
-* The output of this step will be the base image for the next one
-* ...
-
-
-### The caching system
-
-If you run the same build again, it will be instantaneous.
-Why?
-
-* After each build step, Docker takes a snapshot
-* Before executing a step, Docker checks if it has already built the same sequence
-* Docker uses the exact strings defined in your Dockerfile:
-  * `RUN apt-get install figlet cowsay` is different from
-  * `RUN apt-get install cowsay figlet`
-  * `RUN apt-get update` is not re-executed when the mirrors are updated
-* All steps after a modified step are re-executed since the filesystem it's based on may have changed
-
-You can force a rebuild with docker build --no-cache ...
-
-If you only want to trigger a partial rebuild, e.g. run `apt-get update` to install the latest updates,
-you can use the following pattern:
-
-```Dockerfile
-ENV REFRESHED_AT 2020-03-13
-RUN apt-get update
-```
-
-If you update the value of `REFRESHED_AT` it will invalidate the Docker build cache of that and all
-the following steps, thus installing the latest updates.
-
-
-### Run it
+To see all running containers:
 
 ```bash
-docker run -ti myfirstimage
+docker ps
 ```
 
-```
-root@00f0766080ed:/# figlet hello
- _          _ _
-| |__   ___| | | ___
-| '_ \ / _ \ | |/ _ \
-| | | |  __/ | | (_) |
-|_| |_|\___|_|_|\___/
-
-root@00f0766080ed:/# exit
-```
-
-
-## The CMD instruction in Dockerfile
-
-With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
-
-```Dockerfile
-FROM ubuntu
-RUN apt-get update && \
-    apt-get install -y figlet && \
-    apt-get clean
-
-CMD ["figlet", "hello"]
-```
-
-After building the image with
+To see all containers, also exited containers:
 
 ```bash
-docker build -t myfirstimagecmd .
+docker ps --all
 ```
+
+To see only the last container that was started:
+
+```bash
+docker ps -l
+```
+
+To see only the ID of containers:
+
+```bash
+docker ps -q
+```
+
+To see only the ID of the last started container:
+
+```bash
+docker ps -ql
+```
+
+To see the size of the containers:
+
+```bash
+docker ps -s
+```
+
+To see the general docker storage usage:
+
+```bash
+docker system df
+```
+
+This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
+
+
+## Stopping containers
+
+Take a look at [lab 04](../04/).
+
+
+## Restarting and attaching to containers
+
+We have started containers in the foreground, and in the background.
+Now we will see how to:
+
+* Put a container in the background.
+* Attach to a background container to bring it to the foreground.
+* Restart a stopped container
+
+
+### Background and foreground
+
+From Docker's point of view, all containers are the same. All containers run the same way, whether there is a client attached to them or not.
+
+It is always possible to detach from a container, and to re-attach to a container.
+
+
+### Detaching from a container
+
+If you have started an interactive container (with option -it), you can detach from it.
+
+* The detach key sequence is `CTRL-p CTRL-q`.
+* Or you can detach by killing the Docker client.
+
+Don’t hit `CTRL-c`, as this would deliver SIGINT to the container
+
+What does `-it` stand for?
+
+* `-t` means "terminal" as in "allocate a terminal."
+* `-i` means "interactive" as in "connect stdin to the terminal."
+
+
+### Attaching to a container
+
+You can attach to a container:
+
+```bash
+docker attach <container>
+```
+
+* The container must be running.
+* There can be multiple clients attached to the same container.
+* Warning: if the container was started without `-it`:
+  * You won't be able to detach with `CTRL-p CTRL-q`.
+  * If you hit `CTRL-c`, the signal will be proxied to the container.
+
+Remember: you can always detach by killing the Docker client (e.g. close the bash window).
+
+
+### Executing a command in a container
+
+You can execute a command in a container:
+
+```bash
+docker exec -it <container> <command>
+```
+
+E.g. if you want to execute a shell, then run the following command:
+
+```bash
+docker exec -it <container> /bin/bash
+```
+
+
+### Checking container output
+
+Use `docker attach` if you intend to send input to the container.
+If you just want to see the output of a container, use `docker logs`.
+
+
+### Restarting a container
+
+When a container has exited, it is in stopped state. It can then be restarted with the start command: `docker start <container>`
+
+The container will be restarted using the same options you launched it with.
+You can re-attach to it if you want to interact with it.
+
+
+## Listing images
+
+We already stumbled about the command to list Docker images. See [lab 02](../02/).
+
+
+## Viewing logs of containers
+
+```bash
+docker logs <container>
+```
+
+This will show the whole log of that container, sometimes it's enough to display only a few lines:
+
+```bash
+docker logs --tail 3 <container>
+```
+
+With the `-follow` option you can tell the `docker logs` command to follow the log file in real time:
+
+```bash
+docker logs --tail 3 --follow <container>
+```
+
+
+## Housekeeping
+
+There are various housekeeping commands.
+
+
+### Dev environment
 
 {{% alert title="Note" color="primary" %}}
-Again use the additional parameter `--build-arg` when behind a corporate proxy:
-
-```bash
-docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
-```
-
-{{% /alert %}}
-
-We simply run it:
-
-```bash
-docker run -ti myfirstimagecmd
-```
-
-It directly executes the defined command and prints out
-
-```
- _          _ _
-| |__   ___| | | ___
-| '_ \ / _ \ | |/ _ \
-| | | |  __/ | | (_) |
-|_| |_|\___|_|_|\___/
-
-```
-
-Checkout <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact> for more information.
-
-
-## Frontend app image build
-
-We now want to include the source code of our frontend app into an already built docker image. In order to achieve this we will create a Dockerfile.
-
-The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory into the Docker image.
-We use this command to add the application source code into the image.
-
-{{% alert title="Note" color="primary" %}}
-Use `.dockerignore` to exclude files from the Docker context being added to the container. It works the same as `.gitignore`: <https://docs.docker.com/engine/reference/builder/#dockerignore-file>
-{{% /alert %}}
-
-In the directory containing the subdirectory `php-app` create a Dockerfile with the following content:
-
-```Dockerfile
-FROM php:7-apache
-
-# Copies the php source code to the correct location
-ADD ./php-app/ /var/www/html/
-
-# Install additional php extension
-RUN docker-php-ext-install mysqli
-```
-
-{{% alert title="Note" color="primary" %}}
-The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
-You can use the additional parameter `--build-arg http_proxy=$HTTP_PROXY`.
-
-Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs.
-Instead of the above Dockerfile you'd use:
-
-```Dockerfile
-FROM puzzle/php-apache-mysqli
-
-# Copies the php source code to the correct location
-ADD ./php-app/ /var/www/html/
-```
-
+Don't use these commands in production!
 {{% /alert %}}
 
 
-### Build the php-app image
-
-{{% alert title="Note" color="primary" %}}
-Stop and delete the running `php-app` container first. Leave the database container running.
-{{% /alert %}}
-
-If you're not still inside the php-app directory, now's the time to change into it. Let's build the image:
+Stop all running containers and then delete them:
 
 ```bash
-docker build -t php-app .
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
+
+Delete all images:
+
+```bash
+docker rmi $(docker images -q)
 ```
 
 
-### Run the php-app container
+### Pruning
+
+Remove unused data:
 
 ```bash
-docker run -d --network container-basics-training --name php-app -p8080:80 php-app
+docker system prune
 ```
 
-Now open a browser and navigate to <http://localhost:8080/db.php>.
-You should get a response saying "Connected successfully".
+Remove all stopped containers:
 
+```bash
+docker container prune
+```
 
-## Additional lab
+Remove unused images:
 
-Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
-Fix the code in the db.php file. According to the continuous delivery principles we don't want usernames and passwords in our source code.
-
-{{% alert title="Note" color="primary" %}}
-Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container.
-
-You might want to use the `-e` parameter to set an environment variable inside a container while running it: `docker run -e`.
-{{% /alert %}}
+```bash
+docker image prune
+```

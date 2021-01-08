@@ -1,118 +1,134 @@
 ---
-title: "1. Installation"
+title: "1. Getting started"
 weight: 1
 ---
 
-## Try Docker without installation
+## The command line tool
 
-The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this training using a browser-based Docker shell.
-
-To do this lab with *Play with Docker*:
-
-* Go to <https://labs.play-with-docker.com>
-* Click on *Login*
-* Enter your Docker login or register first.
-* Click *ADD NEW INSTANCE* and you are ready to do this lab.
-
-
-## Installation for Windows
-
-Please follow the [instructions](https://docs.docker.com/docker-for-windows/install/#install-docker-for-windows-desktop-app) on Docker's official documentation to install Docker CE for Windows.
-
-When asked to use Windows container, choose _NOT_ to.
-
-{{% alert title="Note" color="primary" %}}
-You don't have to register for a Docker Cloud account.
-{{% /alert %}}
-
-
-### Shell recommendation for Windows
-
-We highly recommend to use the Bash emulation _Git Bash_ from [Git for Windows](https://gitforwindows.org/) to do the exercises in this training.
-
-
-### Proxy configuration for Windows
-
-If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
-
-Git Bash:
+With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least a command. `docker --help` shows the available options:
 
 ```bash
-export HTTP_PROXY="http://<username>:<password>@<proxy>:<port>"
-export HTTPS_PROXY="http://<username>:<password>@<proxy>:<port>"
+docker --help
 ```
 
-{{% alert title="Note" color="primary" %}}
-If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
-{{% /alert %}}
+```
+Usage: docker COMMAND
 
-See also [setting the proxy environment variables on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration) for alternative instructions on setting proxy environment variables.
+A self-sufficient runtime for containers
 
+Options:
+      --config string      Location of client config files (default "/home/user/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/user/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/user/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/user/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
 
-## Installation for Mac
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
 
-Please follow the [instructions](https://docs.docker.com/docker-for-mac/install/) on Docker's official documentation to install Docker CE for Mac.
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
 
-{{% alert title="Note" color="primary" %}}
-You don't have to register for a Docker Cloud account.
-{{% /alert %}}
+Run 'docker COMMAND --help' for more information on a command.
+```
 
-
-### Proxy configuration for Mac
-
-If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
+To view the switches available to a specific command, type:
 
 ```bash
-export http_proxy="http://<username>:<password>@<proxy>:<port>"
-export https_proxy="http://<username>:<password>@<proxy>:<port>"
+docker <command> --help
 ```
 
-{{% alert title="Note" color="primary" %}}
-If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
-{{% /alert %}}
-
-See also [setting the proxy environment variables on Mac](https://docs.docker.com/docker-for-mac/#proxies) for alternative instructions on setting proxy environment variables.
-
-
-## Installation for Linux
-
-Please follow the instructions for your appropriate distribution to install Docker. The recommended way of installing is using the repository, except if you already know you're going to remove the package again soon.
-
-* [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-* [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
-* [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
-* [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
-
-Unrelated to what distribution you use, also have a look at the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/). Please note however that these are optional steps and some are quite advanced, so going with the default might be the most appropriate way to go.
-
-
-### Proxy configuration for Linux
-
-If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
+To view system-wide information about Docker, use:
 
 ```bash
-export http_proxy="http://<username>:<password>@<proxy>:<port>"
-export https_proxy="http://<username>:<password>@<proxy>:<port>"
+docker info
 ```
 
-{{% alert title="Note" color="primary" %}}
-If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
-{{% /alert %}}
+
+## Hello world (with Docker images)
+
+Docker containers are run from Docker images. By default, it pulls these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
+
+To check whether you can access and download images from Docker Hub, type:
+
+```bash
+docker run hello-world
+```
+
+The output, which should include the following, indicates that Docker appears to be working correctly:
+
+```
+Hello from Docker.
+This message shows that your installation appears to be working correctly.
+...
+```
 
 
-## Docker architecture
+## Your first container :)
 
-* Docker is a client-server application.
-* The **Docker daemon** (or "Engine")
-  * Receives and processes incoming Docker API requests
-* The **Docker client**
-  * Talks to the Docker daemon via the Docker API
-  * We'll use mostly the CLI embedded within the Docker binary
-* The **Docker Hub** Registry
-  * Is a collection of public images
-  * The Docker daemon talks to it via the registry API
+With this command we now run on our computers our first container. It ran a simple process that printed a message to standard out. The container is not very useful though.
 
 
-> Question: So what's next?
+## Additional lab: getting familiar with the Docker docs
 
-Let's head over to the [next lab](../02/).
+Browse <https://docs.docker.com> and get familiar with the docs and the references. In this training we're using Docker CE so this is the docs section you might want to check out as well.
+
+> Question: Is there only a "hello world" Docker image?
+
+Maybe the [next lab](../02/) will provide some answers?

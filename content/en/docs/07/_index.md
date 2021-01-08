@@ -1,107 +1,135 @@
 ---
-title: "7. Working with volumes"
+title: "7. Frontend container"
 weight: 7
 ---
 
 From the [previous lab](../06/):
 
-> Question: I have a container with a database server running. When I remove the container, what happens to my data?
-
-Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set, so you can store your data outside of the container.
-
-
-## Mounting a volume in a container
-
-The MariaDB container is fortunately a good example as to why it's good to have an external volume.
-There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume to store the persistent data of our MariaDB. The volume is managed by Docker itself.
-
-Create the docker managed volume with:
-
-```bash
-docker volume create volume-mariadb
-```
-
-Now let's use the created volume and attach it to the MariaDB database.
-
-With the parameter `-v` you can now state where to attach the volume, e.g.:
-
-```bash
-docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
-```
-
-See [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/) for further information.
-
-Okay, let's create a new user in the MariaDB container:
-
-1. `docker exec -it mariadb-container-with-external-volume bash`
-2. `mysql -uroot -pmy-secret-pw`
-3. In the mysql-client: `use mysql`
-4. In the mysql-client: `CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';`
-
-Once all steps are done you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
-
-Now we have to stop and remove the `mariadb-container-with-external-volume` container.
-
-```bash
-docker stop mariadb-container-with-external-volume
-docker rm mariadb-container-with-external-volume
-```
-
-It's getting interesting...
-We are creating a new MariaDB container with the data storage volume:
-
-```bash
-docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
-```
-
-The moment of truth... Connect to the database server:
-
-```bash
-docker exec -it mariadb-container-with-existing-external-volume bash
-```
-
-```
-root@6f08ac657320:/# mysql -upeter -pvenkman
-```
-
-If everything worked as expected you should now have been connected as peter to your database instance. You can test this by using the `SELECT USER();` statement in the sql client.
-
-```bash
-SELECT USER();
-```
-
-```
-+-----------------+
-| USER()          |
-+-----------------+
-| peter@localhost |
-+-----------------+
-1 row in set (0.00 sec)
-```
-
 > Question: I'm feeling like a Docker king... What's next?
 
-See [next lab](../08/).
+Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
 
 
-## Additional info for working with Docker volumes
+## Deploying a frontend container
 
-An alternative way of working with volumes besides mounting local directories (host folders) by a path into your container is by using Docker volumes.
+First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-Docker volumes can be used:
+We would recommend the `php:7-apache` image.
 
-* Decouple the data that is stored from the container which created the data
-* Bypassing the copy-on-write system to obtain native disk I/O performance
-* Bypassing copy-on-write to leave some files out of docker commit
-* Sharing a directory between multiple containers
-* Sharing a directory between the host and a container
-* Sharing a single file between the host and a container
+```bash
+docker pull php:7-apache
+```
 
+Once it is pulled let's have a look into `docker images`:
 
-### Docker storage driver
+```bash
+docker images
+```
 
-When running a lot of Docker containers on a machine you usually need a lot of storage. Docker volumes and container storage are provided on a filesystem. The following link provides additional information on how to choose the correct storage setup:
+```
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+php                 7.0-apache          b8fe22aeffdf        5 days ago          390MB
+mariadb             latest              58730544b81b        2 weeks ago         397MB
+hello-world         latest              1815c82652c0        2 months ago        1.84kB
+hello-world         linux               1815c82652c0        2 months ago        1.84kB
 
-<https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/managing_storage_with_docker_formatted_containers>
+```
 
-At the moment, `overlay2` is the [recommended storage driver](https://docs.docker.com/storage/storagedriver/select-storage-driver/#docker-ce).
+Beside the known `mariadb` image, there is one new image. Also, the php REPOSITORY has another TAG than the other REPOSITORIES.
+When you use the `pull` command Docker will always pull down the latest versions of the REPOSITORY but by requesting php:7-apache you have pulled a specific TAG.
+So Docker labels it that way.
+
+> Here's some background info about images and containers.
+>
+> Question: What's an image?
+>
+> * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
+> * Images are made of layers, conceptually stacked on top of each other
+> * Each layer can add, change, and remove files
+> * Images can share layers to optimize disk usage, transfer times and memory use
+>
+> Question: What's the difference between a container and an image?
+>
+> * An image is a read-only filesystem
+> * A container is an encapsulated set of processes running in a read-write copy of that filesystem
+> * To optimize container boot time, copy-on-write is used instead of regular copy
+> * docker run starts a container from a given image
+>
+> Images are like templates or stencils that you can create containers from.
+
+Now we can deploy the new container using the correct tag.
+
+```bash
+docker run -d --name apache-php php:7-apache
+```
+
+With `docker ps` you see that the new container is running.
+
+```bash
+docker ps
+```
+
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+b901d6c0473a        php:7-apache        "docker-php-entryp..."   18 seconds ago      Up 17 seconds       80/tcp              apache-php
+50197361e87b        mariadb             "docker-entrypoint..."   42 minutes ago      Up 42 minutes       3306/tcp            mariadb-container-with-existing-external-volume
+6f08ac657320        mariadb             "docker-entrypoint..."   4 hours ago         Up 2 hours          3306/tcp            mariadb-container
+
+```
+
+Okay so let's try to connect to the server, via the container assigned docker IP address:
+
+```bash
+docker inspect apache-php | grep IPAddress
+```
+
+```
+...
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.4",
+                    "IPAddress": "172.17.0.4",
+...
+```
+
+With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
+
+{{% alert title="Note" color="primary" %}}
+As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
+See:
+
+* <https://docs.docker.com/docker-for-windows/networking/>
+* <https://docs.docker.com/docker-for-mac/networking/>
+
+If you've already started the `apache-php` container without port forwarding you have to stop and remove it first:
+
+```bash
+docker stop apache-php
+docker rm apache-php
+```
+
+Now start the container again with port forwarding:
+
+```bash
+docker run -p 8080:80 -d --name apache-php php:7-apache
+```
+
+Now you can access the web server at <http://localhost:8080>.
+{{% /alert %}}
+
+{{% alert title="Note for play-with-docker.com" color="primary" %}}
+This is not possible without port forwarding, see [next lab](../08/).
+{{% /alert %}}
+
+{{% alert title="Note" color="primary" %}}
+It might be that your local firewall blocks requests to this address.
+{{% /alert %}}
+
+And unfortunately we get a "403 Error - Forbidden".
+
+{{% alert title="Note" color="primary" %}}
+Do not forget to remove the existing instance of the `apache-php` container.
+{{% /alert %}}
+
+> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
+
+Go on and find the answers in the [next lab](../08/).
