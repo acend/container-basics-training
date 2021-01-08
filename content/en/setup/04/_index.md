@@ -31,6 +31,6 @@ If you have special characters in your password, you have to encode them accordi
 {{% /alert %}}
 
 
-## Ready?
+## Next steps
 
 When you're ready to go, head on over to the [labs](../../docs/) and begin with the training!

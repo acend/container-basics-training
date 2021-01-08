@@ -17,6 +17,6 @@ To do this lab with *Play with Docker*:
 * Click *ADD NEW INSTANCE* and you are ready to do this training
 
 
-## Ready?
+## Next steps
 
 When you're ready to go, head on over to the [labs](../../docs/) and begin with the training!

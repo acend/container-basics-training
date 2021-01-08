@@ -39,6 +39,6 @@ If you have special characters in your password, you have to encode them accordi
 See also [setting the proxy environment variables on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration) for alternative instructions on setting proxy environment variables.
 
 
-## Ready?
+## Next steps
 
 When you're ready to go, head on over to the [labs](../../docs/) and begin with the training!
