@@ -1,20 +1,42 @@
 ---
-title: "Try Docker without installation"
+title: "Installation for Windows"
 weight: 3
 type: docs
 sectionnumber: 1
 ---
 
-## Try Docker without installation
+## Installation for Windows
 
-The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this training using a browser-based Docker shell.
+Please follow the [instructions](https://docs.docker.com/docker-for-windows/install/#install-docker-for-windows-desktop-app) on Docker's official documentation to install Docker CE for Windows.
 
-To do this lab with *Play with Docker*:
+When asked to use Windows container, choose _NOT_ to.
 
-* Go to <https://labs.play-with-docker.com>
-* Click on *Login*
-* Enter your Docker login or register first
-* Click *ADD NEW INSTANCE* and you are ready to do this training
+{{% alert title="Note" color="primary" %}}
+You don't have to register for a Docker Cloud account.
+{{% /alert %}}
+
+
+### Shell recommendation for Windows
+
+We highly recommend to use the Bash emulation _Git Bash_ from [Git for Windows](https://gitforwindows.org/) to do the exercises in this training.
+
+
+### Proxy configuration for Windows
+
+If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
+
+Git Bash:
+
+```bash
+export HTTP_PROXY="http://<username>:<password>@<proxy>:<port>"
+export HTTPS_PROXY="http://<username>:<password>@<proxy>:<port>"
+```
+
+{{% alert title="Note" color="primary" %}}
+If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
+{{% /alert %}}
+
+See also [setting the proxy environment variables on Windows](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#proxy-configuration) for alternative instructions on setting proxy environment variables.
 
 
 ## Next steps
