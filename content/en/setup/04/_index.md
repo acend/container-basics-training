@@ -1,34 +1,20 @@
 ---
-title: "Installation for Linux"
-weight: 3
+title: "Try Docker without installation"
+weight: 6
 type: docs
 sectionnumber: 1
 ---
 
-## Installation for Linux
+## Try Docker without installation
 
-Please follow the instructions for your appropriate distribution to install Docker. The recommended way of installing is using the repository, except if you already know you're going to remove the package again soon.
+The page <https://training.play-with-docker.com> offers additional tutorials which also come with an interactive shell. The disadvantage is that you have to create an account, but if you don't want to install Docker locally, this is a great way to do the exercises in this training using a browser-based Docker shell.
 
-* [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-* [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
-* [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
-* [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
+To do this lab with *Play with Docker*:
 
-Unrelated to what distribution you use, also have a look at the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/). Please note however that these are optional steps and some are quite advanced, so going with the default might be the most appropriate way to go.
-
-
-### Proxy configuration for Linux
-
-If your organization has a proxy in place you have to set the proxy environment variables in order to be able to do `docker pull` or `docker push`.
-
-```bash
-export http_proxy="http://<username>:<password>@<proxy>:<port>"
-export https_proxy="http://<username>:<password>@<proxy>:<port>"
-```
-
-{{% alert title="Note" color="primary" %}}
-If you have special characters in your password, you have to encode them according to [Percent-encoding reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters).
-{{% /alert %}}
+* Go to <https://labs.play-with-docker.com>
+* Click on *Login*
+* Enter your Docker login or register first
+* Click *ADD NEW INSTANCE* and you are ready to do this training
 
 
 ## Next steps
