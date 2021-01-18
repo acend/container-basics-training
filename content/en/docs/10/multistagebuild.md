@@ -141,7 +141,7 @@ Read more about Docker multi-stage builds under <https://docs.docker.com/develop
 
 ## Lab: create a multi-stage build
 
-Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld)> into a docker multistage build.
+Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld>) into a docker multistage build.
 
 ---
 
