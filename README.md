@@ -132,6 +132,7 @@ For debugging purposes use the `--dry-run` parameter
 
 ```bash
 helm install --dry-run --repo https://acend.github.io/helm-charts/  <release> acend-training-chart --values helm-chart/values.yaml -n <namespace>
+```
 
 
 ## Contributions
