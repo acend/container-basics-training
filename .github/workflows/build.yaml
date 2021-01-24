@@ -50,7 +50,7 @@ jobs:
             ACEND_HUGO_ENV=mobi
           push: true
           tags: |
-            quay.io/acend/container-basics-training::pr-${{ github.event.pull_request.number }}mobi
+            quay.io/acend/container-basics-training:pr-${{ github.event.pull_request.number }}-mobi
       - 
         name: 'Deploy'
         uses: 'deliverybot/helm@v1'
