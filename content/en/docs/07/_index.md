@@ -79,6 +79,11 @@ b901d6c0473a        php:7-apache        "docker-php-entryp..."   18 seconds ago 
 
 Okay so let's try to connect to the server, via the container assigned docker IP address:
 
+{{% alert title="Note" color="primary" %}}
+If you are working on Windows with anything else than Git Bash, `grep` will probably not be available.
+In this case, use `findstr` instead.
+{{% /alert %}}
+
 ```bash
 docker inspect apache-php | grep IPAddress
 ```
