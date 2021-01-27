@@ -3,7 +3,7 @@ title: "13. Registry and Docker Hub"
 weight: 13
 ---
 
-So far we only built and ran the Docker images locally on our computers, but what if we want to integrate them into a CI/CD pipeline or even only distribute the built images?
+So far, we only built and ran the Docker images locally on our computers, but what if we want to integrate them into a CI/CD pipeline or even only distribute the built images?
 Similar to a Maven artifact repo, where the built JARs, WARs, and EARs get deployed to distribute later, there is the concept of a Docker registry.
 
 In this lab we're going to learn:
@@ -15,9 +15,9 @@ In this lab we're going to learn:
 
 ## Docker Hub
 
-You might be wondering where the images and base images you ran in the previous labs came from, when not already present on your computer. They all came from the Docker Hub!
+You might be wondering where the images and base images you ran in the previous labs came from, when not already present on your computer. They all came from Docker Hub!
 
-Docker Hub is an online Docker registry, repository management and build platform. It consists of public and private repositories. Docker Hub integrates with various online services such as GitHub or GitLab.
+Docker Hub is an online Docker registry, repository management, and build platform. It consists of public and private repositories. Docker Hub integrates with various online services such as GitHub or GitLab.
 
 Publicly available images can be pulled without logging into the platform.
 
@@ -157,12 +157,12 @@ Using the `latest` tag can be tricky. First of all it's important to define depe
 
 ## Docker Enterprise
 
-Docker has its own enterprise features, which are available for Enterprises <https://www.docker.com/products/docker-enterprise>
+Docker has its own enterprise features, which are available for Enterprises at <https://www.docker.com/products/docker-enterprise>.
 
 
 ## Docker Hub alternatives
 
-There are a couple of other public registries available, such as <https://quay.io/> for example
+There are a couple of other public registries available, such as <https://quay.io/> for example.
 
 
 ## Private registries
@@ -175,7 +175,7 @@ A docker registry can be deployed on premises as well. Most of the available art
 It's pretty straight-forward to integrate Docker Hub together with projects on GitHub.
 
 * Create a GitHub Repo, you might also want to fork this one
-* Login on Docker Hub and navigate to your dashboard
+* Login to Docker Hub and navigate to your dashboard
 * Click **Create** an automated build
 * Link GitHub account and create the automated build for the given repo
 * Trigger the first build

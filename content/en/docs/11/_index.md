@@ -8,7 +8,7 @@ In this lab, you'll learn some more advanced features used when debugging, stopp
 
 ## Docker info
 
-To see general info about your docker environment use
+To receive general info about your docker environment use
 
 ```bash
 docker system info
@@ -115,7 +115,7 @@ To see the general docker storage usage:
 docker system df
 ```
 
-This is helpful for scripting or doing a lot of experimentation where you start and delete quite a lot of times a container. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
+This is helpful for scripting or doing a lot of experimentation where you start and delete a container quite a lot of times. As an example `docker rm -f $(docker ps -ql)`, which will delete the last started container.
 
 
 ## Stopping containers
@@ -125,7 +125,7 @@ Take a look at [lab 04](../04/).
 
 ## Restarting and attaching to containers
 
-We have started containers in the foreground, and in the background.
+We have started containers in the foreground and in the background.
 Now we will see how to:
 
 * Put a container in the background.
@@ -203,7 +203,7 @@ You can re-attach to it if you want to interact with it.
 
 ## Listing images
 
-We already stumbled about the command to list Docker images. See [lab 02](../02/).
+We already stumbled upon the command to list Docker images. See [lab 02](../02/).
 
 
 ## Viewing logs of containers
@@ -212,7 +212,7 @@ We already stumbled about the command to list Docker images. See [lab 02](../02/
 docker logs <container>
 ```
 
-This will show the whole log of that container, sometimes it's enough to display only a few lines:
+This will show the whole log of that container, sometimes it's enough to display just a few lines:
 
 ```bash
 docker logs --tail 3 <container>
@@ -233,7 +233,7 @@ There are various housekeeping commands.
 ### Dev environment
 
 {{% alert title="Note" color="primary" %}}
-Don't use these commands in production!
+Do not use these commands in production!
 {{% /alert %}}
 
 

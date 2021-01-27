@@ -5,7 +5,7 @@ weight: 1
 
 ## The command line tool
 
-With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least a command. `docker --help` shows the available options:
+With Docker installed and working, now's the time to become familiar with the command line utility. Using Docker consists of passing at least one command. `docker --help` shows the available options:
 
 ```bash
 docker --help
@@ -103,7 +103,7 @@ docker info
 
 ## Hello world (with Docker images)
 
-Docker containers are run from Docker images. By default, it pulls these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
+Docker containers are run from Docker images. By default, they pull these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
 
 To check whether you can access and download images from Docker Hub, type:
 
@@ -122,12 +122,12 @@ This message shows that your installation appears to be working correctly.
 
 ## Your first container :)
 
-With this command we now run on our computers our first container. It ran a simple process that printed a message to standard out. The container is not very useful though.
+With this command we just ran our first container on our computers. It ran a simple process that printed a message to standard out, the container itself is not very useful though.
 
 
 ## Additional lab: getting familiar with the Docker docs
 
-Browse <https://docs.docker.com> and get familiar with the docs and the references. In this training we're using Docker CE so this is the docs section you might want to check out as well.
+Browse <https://docs.docker.com> and get familiar with the docs as well as the references. In this training we're going to use Docker CE, so this is the docs section you might want to check out as well.
 
 > Question: Is there only a "hello world" Docker image?
 

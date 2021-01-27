@@ -5,7 +5,7 @@ weight: 7
 
 From the [previous lab](../06/):
 
-> Question: I'm feeling like a Docker king... What's next?
+> Question: I'm feeling like a Docker king/queen... What's next?
 
 Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
 
@@ -14,7 +14,7 @@ Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-We would recommend the `php:7-apache` image.
+We recommend the `php:7-apache` image.
 
 ```bash
 docker pull php:7-apache
@@ -35,7 +35,7 @@ hello-world         linux               1815c82652c0        2 months ago        
 
 ```
 
-Beside the known `mariadb` image, there is one new image. Also, the php REPOSITORY has another TAG than the other REPOSITORIES.
+Besides the known `mariadb` image, there is one new image. Furthermore, the php REPOSITORY has a different TAG than the other REPOSITORIES.
 When you use the `pull` command Docker will always pull down the latest versions of the REPOSITORY but by requesting php:7-apache you have pulled a specific TAG.
 So Docker labels it that way.
 
@@ -135,6 +135,6 @@ And unfortunately we get a "403 Error - Forbidden".
 Do not forget to remove the existing instance of the `apache-php` container.
 {{% /alert %}}
 
-> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
+> Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
 
 Go on and find the answers in the [next lab](../08/).

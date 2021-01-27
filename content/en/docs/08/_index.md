@@ -5,11 +5,11 @@ weight: 8
 
 From the [previous lab](../07/):
 
-> Question: Why? Why do I get this error? Is there no other way to access the web server via the private IP?
+> Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
 
 Answer(s):
 
-1. The Apache web server does not allow to scan its own document root.
+1. The Apache web server does not allow you to scan its own document root.
 2. There is another way, and you're going to love it.
 
 
@@ -62,7 +62,7 @@ That's it for the app part.
 
 Make sure you're outside that freshly created app directory when you execute the next commands.
 
-Now you can mount the php-app as host directory into your docker container via
+Now you can mount the php-app as the host directory into your docker container via
 
 Linux:
 
@@ -84,17 +84,17 @@ Do not forget to stop/remove the existing instance of the `apache-php` container
 You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
 {{% /alert %}}
 
-You can now check if the error is still present, or you wait until the second question is answered.
+You can now check whether the error is still present, or wait until the second question is answered.
 
 
 ## Port forwarding for your Docker container
 
 Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
-Imagine you had a local httpd service running on port 80, and you are forwarding this same port to your Docker instance.
+Imagine you have a local httpd service running on port 80, and you are forwarding this same port to your Docker instance.
 
 But let's not assume this right now! Or simply use a port other than 80.
 
-As you might have guessed it's again a parameter named `-p <host-port>:<container-port>` that you can set:
+As you might have guessed, it's a parameter called `-p <host-port>:<container-port>` that you can set:
 
 Linux:
 
@@ -142,6 +142,6 @@ To access the frontend app, you have to use a special URL
 * With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 {{% /alert %}}
 
-> Question: Can I somehow link the containers together so that they can talk to each other?
+> Question: Can I somehow link the containers together, so that they can talk to each other?
 
 The answer lies in the [next lab](../09/).

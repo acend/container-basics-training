@@ -5,7 +5,7 @@ weight: 9
 
 From the [previous lab](../08/):
 
-> Question: Can I somehow link the containers together, so they can talk to each other?
+> Question: Can I somehow link the containers together, so that they can talk to each other?
 
 Answer: Yes, you can! Here's how it works.
 
@@ -25,7 +25,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 3 hours          3306/tcp             mariadb-container
 ```
 
-Sadly before we can link the frontend and backend we have to get rid of the existing containers.
+Sadly, before we can link the frontend and backend we have to get rid of the existing containers.
 
 ```bash
 docker stop apache-php mariadb-container mariadb-container-with-existing-external-volume
@@ -85,7 +85,7 @@ Get the address of the `apache-php` container.
 getent hosts apache-php
 ```
 
-The two containers are now able talk to each other. But let's check this:
+The two containers are now able to talk to each other. But let's check this:
 
 If you type <http://localhost:8080/db.php> in your browser you should get... an error!
 Because the mysqli extension is not found.

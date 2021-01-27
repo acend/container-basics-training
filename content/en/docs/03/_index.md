@@ -8,7 +8,7 @@ From the [previous lab](../02/):
 
 > Question: What's wrong? Am I an idiot?
 
-Answer: No! You have just done what was stated in the instructions. An error is popping up!
+Answer: No! You've just done what was stated in the instructions. As a result, an error has popped up!
 
 ```
 error: database is uninitialized and password option is not specified
@@ -74,13 +74,13 @@ Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld
 ```
 
 The problem is that you are now stuck in this console.
-To return to your shell press `CTRL-p` and then `CTRL-q`
+To return to your shell press `CTRL-p` and then `CTRL-q`.
 
 {{% alert title="Note for Windows" color="primary" %}}
 This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a seperate shell to get the container ID and then stop it using `docker stop <container>`
 {{% /alert %}}
 
-This will leave the container running while you are back in your shell. To see that the container is really running use the command:
+This will leave the container running while you are back in your shell. To verify that the container is really running use the command:
 
 ```bash
 docker ps
@@ -102,7 +102,7 @@ docker exec -it <container> bash
 Where `<container>` can refer to the `CONTAINER ID` (the first two characters are normally sufficient) or one of the `NAMES` from the output of `docker ps`.
 
 {{% alert title="Note" color="primary" %}}
-The docker exec command needs either the ID or name of the container. Additionally, at the end, an executable.
+The docker exec command needs either the ID or NAME of the container. Additionally, at the end, an executable.
 {{% /alert %}}
 
 In this example it's `bash` as we want to do something interactively in the container.
@@ -121,7 +121,7 @@ Now that we are connected let's find out if the MariaDB is working...
 mysql -uroot -pmy-secret-pw
 ```
 
-If everything works as expected you should now see the MariaDB command line:
+If everything works as expected, you should now see the MariaDB command line:
 
 ```
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
@@ -148,7 +148,7 @@ You just have to add the parameter `-d` to the Docker `run` command e.g.:
 docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-If you now have a look into the container list you should come up with two running containers:
+If you now have a look into the container list, you should come up with two running containers:
 
 ```bash
 docker ps
