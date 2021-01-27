@@ -5,21 +5,21 @@ weight: 10
 
 Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application, that are not necessary during the execution time of the container. Since we want to keep the actual artifact as independent and small as possible, we often remove these dependencies in the docker build phase after the application itself is built.
 
-Since docker 17.05 they implemented a solution for that problem, the so called multi stage-builds.
+With docker 17.05 they implemented a solution for that problem, the so called multi stage-builds.
 
 In this lab you're going to learn how to use multistage builds and what they are good for.
 
 
 ## Purpose
 
-If the application is not available as prebuilt artifact, in many cases, the application itself gets built directly during the docker build process `docker build -t ...`
+If the application is not available as a prebuilt artifact, in many cases, the application itself gets built directly during the docker build process `docker build -t ...`
 
 Let's have a look at the following example:
 
 
 ### Java Spring Boot Gradle build
 
-The complete example can be found under <https://github.com/appuio/example-spring-boot-helloworld>
+The complete example can be found at <https://github.com/appuio/example-spring-boot-helloworld>
 
 ```Dockerfile
 FROM fabric8/java-centos-openjdk11-jdk
@@ -82,14 +82,14 @@ Oracle Java in Docker without the official image.
 
 A docker image that serves  static content like HTML, CSS, JS which will only be served via a simple web server like nginx or Apache. We don't want/need the build tools to be in the resulting docker image.
 
-During Build phase tools are needed to do:
+During the build phase, tools are needed to do:
 
 * Creating HTML from templates, for example with a rendering framework
 * Installing Javascript dependencies with Yarn, NPM, ...
-* compiling CSS with less, Sass, ...
-* minify, uglify, caching
-* optimizing images, creating different sizes of the images
-* and so on ...
+* Compiling CSS with less, Sass, ...
+* Minify, uglify, caching
+* Optimizing images, creating different sizes of the images
+* And so on ...
 
 during the execution time of the image, actually only the created static content must be available.
 
@@ -134,9 +134,9 @@ func hello(w http.ResponseWriter, r *http.Request) {
 
 ## Multi-stage builds
 
-With multistage builds you now have the possibility to actually split these two phases, so that you can pass the built artifact from phase one into the runtime phase, without the need of installing build time dependencies in the resulting docker image. Which means that the image will be smaller and consists of less unneeded dependencies.
+With multistage builds you now have the possibility to actually split these two phases, so that you can pass the built artifact from phase one into the runtime phase, without the need of installing build time dependencies in the resulting docker image. Which means that the image will be smaller and consist of less unneeded dependencies.
 
-Read more about Docker multi-stage builds under <https://docs.docker.com/develop/develop-images/multistage-build/>
+Read more about Docker multi-stage builds at <https://docs.docker.com/develop/develop-images/multistage-build/>
 
 
 ## Lab: create a multi-stage build

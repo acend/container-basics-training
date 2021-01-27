@@ -7,14 +7,14 @@ From the [previous lab](../04/):
 
 > Question: Where do these strange names come from?
 
-Answer: Docker (what a surprise!)... Beside the CONTAINER_ID the NAME is a unique identifier for a container.
+Answer: Docker (what a surprise!)... Besides the CONTAINER ID the NAME is a unique identifier for a container.
 
 
 ## Naming a container
 
-Unlike the CONTAINER_ID the NAME is something we can manipulate. The name is handy not only for starting/connecting/stopping/destroying a container but also for the networking (which comes later in the lab).
+Unlike the CONTAINER ID the NAME is something we can manipulate. The name is handy not only for starting/connecting/stopping/destroying a container, but also for the networking (which comes later in the lab).
 
-To do so, you have to add a parameter in the `run` command of Docker
+To do so, you have to add a parameter to the `run` command of Docker
 
 ```bash
 docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -35,7 +35,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 If you want to access your DB server there are two ways:
 
 1) Using `docker exec -it mariadb-container bash`
-   This will connect you into the remote `bash` shell from where you can connect to the server via `mysql -uroot -pmy-secret-pw`.
+   This will connect you to the remote `bash` shell from where you can connect to the server via `mysql -uroot -pmy-secret-pw`.
 
 1) Using a local mysqlclient
    This is a bit tricky. First you have to find out the IP address of your docker container. Therefore, use this command:
@@ -113,6 +113,6 @@ docker run --name mariadb-container -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secre
 Now you should be able to access the database by: `winpty mysql.exe -hlocalhost -uroot -p`.
 {{% /alert %}}
 
-> Question: I have a container with a database server running. When I remove the container, what happens to my data?
+> Question: I have a container with a database server running. What happens to my data when I remove the container?
 
 Let's find out in the [next lab](../06/)!

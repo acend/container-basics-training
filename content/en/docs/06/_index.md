@@ -5,15 +5,15 @@ weight: 6
 
 From the [previous lab](../05/):
 
-> Question: I have a container with a database server running. When I remove the container, what happens to my data?
+> Question: I have a container with a database server running. What happens to my data when I remove the container?
 
 Answer: It's gone. The docker instance has no persistence layer to store data permanently but (as always) there are parameters to set, so you can store your data outside of the container.
 
 
 ## Mounting a volume in a container
 
-The MariaDB container is fortunately a good example as to why it's good to have an external volume.
-There are several possibilities on how to work with volumes on Docker, in this case, we're going to create a docker volume to store the persistent data of our MariaDB. The volume is managed by Docker itself.
+The MariaDB container is a good example as to why it's good to have an external volume.
+There are several possibilities on how to work with volumes in Docker, in this case, we're going to create a docker volume to store the persistent data of our MariaDB. The volume is managed by Docker itself.
 
 Create the docker managed volume with:
 
@@ -38,7 +38,7 @@ Okay, let's create a new user in the MariaDB container:
 3. In the mysql-client: `use mysql`
 4. In the mysql-client: `CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';`
 
-Once all steps are done you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
+Once all steps are completed you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
 
 Now we have to stop and remove the `mariadb-container-with-external-volume` container.
 
@@ -64,7 +64,7 @@ docker exec -it mariadb-container-with-existing-external-volume bash
 root@6f08ac657320:/# mysql -upeter -pvenkman
 ```
 
-If everything worked as expected you should now have been connected as peter to your database instance. You can test this by using the `SELECT USER();` statement in the sql client.
+If everything worked as expected, you should now be connected to your database instance as peter. You can test this by using the `SELECT USER();` statement in the sql client.
 
 ```bash
 SELECT USER();
@@ -79,18 +79,18 @@ SELECT USER();
 1 row in set (0.00 sec)
 ```
 
-> Question: I'm feeling like a Docker king... What's next?
+> Question: I'm feeling like a Docker king/queen... What's next?
 
 See [next lab](../07/).
 
 
 ## Additional info for working with Docker volumes
 
-An alternative way of working with volumes besides mounting local directories (host folders) by a path into your container is by using Docker volumes.
+An alternative way of working with volumes, besides mounting local directories (host folders) by a path into your container, is by using Docker volumes.
 
-Docker volumes can be used:
+Docker volumes can be used for:
 
-* Decouple the data that is stored from the container which created the data
+* Decoupling the data that is stored from the container which created the data
 * Bypassing the copy-on-write system to obtain native disk I/O performance
 * Bypassing copy-on-write to leave some files out of docker commit
 * Sharing a directory between multiple containers

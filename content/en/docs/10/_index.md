@@ -7,7 +7,7 @@ From the [previous lab](../09/):
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 
-Answer: Yes there is. Create your own Dockerfile which describes the content of a Docker image.
+Answer: Yes, there is. Create your own Dockerfile which describes the content of a Docker image.
 
 
 ## Dockerfile
@@ -48,7 +48,7 @@ docker build -t myfirstimage .
 ```
 
 * `-t` indicates the tag to apply to the image
-* `.` indicates the location of the build context (about which we will talk more later but is basically the directory where our Dockerfile is located)
+* `.` indicates the location of the build context (which we will talk more about later but is basically the directory where our Dockerfile is located)
 
 {{% alert title="Note" color="primary" %}}
 Use the additional parameter `--build-arg` when behind a corporate proxy:
@@ -61,7 +61,7 @@ docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>
 
 Please note that the tag can be omitted in most Docker commands and instructions. In that case the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name it does not necessarily identify the latest version of an image.
 Depending on the build system it can point to the last image pushed, to the last image built from some branch or to some old image. It can even not exist at all.
-Because of this you must never use the `latest` tag in production, always use a specific image version.
+Because of this, you must never use the `latest` tag in production, always use a specific image version.
 
 Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
 
@@ -89,8 +89,8 @@ Sending build context to Docker daemon 84.48 kB
 ```
 
 * The build context is the `.` directory given to docker build
-* It is sent (as an archive) by the Docker client to the Docker daemon
-* This allows to use a remote machine to build using local files
+* It is sent (as an archive) to the Docker daemon by the Docker client
+* This allows you to use a remote machine to build using local files
 * Be careful (or patient) if that directory is big and your connection is slow
 
 
@@ -180,7 +180,7 @@ docker build -t myfirstimagecmd .
 ```
 
 {{% alert title="Note" color="primary" %}}
-Again use the additional parameter `--build-arg` when behind a corporate proxy:
+Again, use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
 docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
@@ -205,14 +205,14 @@ It directly executes the defined command and prints out
 
 ```
 
-Checkout <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact> for more information.
+Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact> for more information.
 
 
 ## Frontend app image build
 
 We now want to include the source code of our frontend app into an already built docker image. In order to achieve this we will create a Dockerfile.
 
-The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory into the Docker image.
+The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
 We use this command to add the application source code into the image.
 
 {{% alert title="Note" color="primary" %}}
