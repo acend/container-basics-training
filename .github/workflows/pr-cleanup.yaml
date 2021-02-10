@@ -26,3 +26,10 @@ jobs:
           helm: 'helm3'
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBECONFIG_TEST }}'
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      uses: wei/curl@v1.1.1
+      with:
+        args: '-X DELETE -H "Authorization: Bearer ${{ secrets.FIXME }}" https://quay.io/api/v1/repository/${{ github.repository }}/tag/pr-${{ github.event.pull_request.number }}'
