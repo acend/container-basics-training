@@ -73,7 +73,7 @@ style = "tango"
 
 
 [params]
-replaceLabContent = true
+replaceLabContent = "LOCALHOST"
 copyright = "acend gmbh"
 github_repo = "https://github.com/acend/container-basics-training"
 github_branch = "main"
