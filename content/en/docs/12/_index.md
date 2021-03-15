@@ -68,4 +68,4 @@ Having this file, you can run both containers with a simple command:
 docker-compose up
 ```
 
-Then again, check <http://localhost:8080/db.php> in a browser.
+Then again, check <http://LOCALHOST:8080/db.php> in a browser.

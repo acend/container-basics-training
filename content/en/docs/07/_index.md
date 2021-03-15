@@ -118,7 +118,7 @@ Now start the container again with port forwarding:
 docker run -p 8080:80 -d --name apache-php php:7-apache
 ```
 
-Now you can access the web server at <http://localhost:8080>.
+Now you can access the web server at <http://LOCALHOST:8080>.
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="primary" %}}

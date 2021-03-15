@@ -126,12 +126,12 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 ```
 
 You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
-If you now type <http://localhost:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+If you now type <http://LOCALHOST:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
 
 {{% alert title="Note" color="primary" %}}
 
-* Instead of using a browser, you can also use `curl http://localhost:8080/index.php`.
-* <http://localhost:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
+* Instead of using a browser, you can also use `curl http://LOCALHOST:8080/index.php`.
+* <http://LOCALHOST:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="primary" %}}

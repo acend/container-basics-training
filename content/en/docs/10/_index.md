@@ -267,7 +267,7 @@ docker build -t php-app .
 docker run -d --network container-basics-training --name php-app -p8080:80 php-app
 ```
 
-Now open a browser and navigate to <http://localhost:8080/db.php>.
+Now open a browser and navigate to <http://LOCALHOST:8080/db.php>.
 You should get a response saying "Connected successfully".
 
 
