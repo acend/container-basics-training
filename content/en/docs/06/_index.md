@@ -64,10 +64,10 @@ docker exec -it mariadb-container-with-existing-external-volume bash
 root@6f08ac657320:/# mysql -upeter -pvenkman
 ```
 
-If everything worked as expected, you should now be connected to your database instance as peter. You can test this by using the `SELECT USER();` statement in the sql client.
+If everything worked as expected, you should now be connected to your database instance as peter. You can test this by using the `SELECT User FROM mysql.user;` statement in the sql client.
 
 ```bash
-SELECT USER();
+SELECT User FROM mysql.user;
 ```
 
 ```
