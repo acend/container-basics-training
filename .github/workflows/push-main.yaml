@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.QUAYIO_USERNAME }}
           password: ${{ secrets.QUAYIO_TOKEN }}
       -
-        name: Build and Push Acend Version
+        name: Build and Push acend Version
         uses: docker/build-push-action@v2
         with:
           context: .
