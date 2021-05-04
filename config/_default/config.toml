@@ -16,7 +16,6 @@ disableSVG = true
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 
-
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
 # Highlighting config
@@ -45,13 +44,11 @@ resampleFilter = "CatmullRom"
 quality = 75
 anchor = "smart"
 
-
 [Languages]
 [Languages.en]
 title = "Container Basics Training"
 languageName = "English"
 weight = 1
-
 
 # navigation
 [Languages.en.menu]
@@ -65,18 +62,18 @@ url = "https://www.acend.ch"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-[markup.highlight]
-# See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
-style = "tango"
-# Uncomment if you want your chosen highlight style used for code blocks without a specified language
-# guessSyntax = "true"
+  [markup.highlight]
+  # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+  style = "tango"
+  # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+  # guessSyntax = "true"
 
 
 [params]
-replaceLabContent = "LOCALHOST"
 copyright = "acend gmbh"
 github_repo = "https://github.com/acend/container-basics-training"
 github_branch = "main"
+replaceLabContent = "LOCALHOST"
 
 enabledModule = "base"
 
@@ -99,14 +96,14 @@ footer_about_disable = true
 [params.links]
 [[params.links.developer]]
 name = "GitHub"
-icon = "fab fa-github" 
+icon = "fab fa-github"
 url = "https://github.com/acend/container-basics-training"
 
 [[params.links.user]]
 name = "Twitter"
 icon = "fab fa-twitter"
 url = "https://twitter.com/acendch"
-  
+
 [[params.links.user]]
 name = "LinkedIn"
 icon = "fab fa-linkedin-in"
