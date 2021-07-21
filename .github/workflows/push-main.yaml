@@ -120,5 +120,5 @@ jobs:
           TRAINING_HELM_RELEASE: 'latest'
           TRAINING_NAMESPACE: 'acend-container-basics-training-prod'
         run: |
-          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-kubernetes-basics-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
-          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-kubernetes-basics-mobi --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-container-basics-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-container-basics-mobi --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
