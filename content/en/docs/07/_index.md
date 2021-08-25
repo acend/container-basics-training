@@ -37,6 +37,7 @@ Okay, let's create a new user in the MariaDB container:
 2. `mysql -uroot -pmy-secret-pw`
 3. In the mysql-client: `use mysql`
 4. In the mysql-client: `CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';`
+5. Grant rights to peter: `GRANT SELECT ON * . * TO 'peter'@'%';`
 
 Once all steps are done you can quit(`exit;`) the mysql session and exit the container(`crtl d`). (If you want to test if peter has been created correctly just login using his credentials).
 
