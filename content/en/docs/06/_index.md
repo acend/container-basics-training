@@ -35,7 +35,7 @@ Okay, let's create a new user in the MariaDB container:
 
 1. `docker exec -it mariadb-container-with-external-volume bash`
 2. `mysql -uroot -pmy-secret-pw`
-3. In the mysql-client: 
+3. In the mysql-client:
 
 ```bash
 use mysql
