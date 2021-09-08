@@ -87,7 +87,7 @@ getent hosts apache-php
 
 The two containers are now able to talk to each other. But let's check this:
 
-If you type <http://LOCALHOST:8080/db.php> in your browser you should get... an error!
+If you type <http://localhost:8080/db.php> in your browser (or with `curl`) on your Docker host, you should get ... an error!
 Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
