@@ -77,7 +77,7 @@ The problem is that you are now stuck in this console.
 To return to your shell press `CTRL-p` and then `CTRL-q`.
 
 {{% alert title="Note for Windows" color="primary" %}}
-This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a seperate shell to get the container ID and then stop it using `docker stop <container>`
+This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a seperate shell to get the container ID and then stop it using `docker stop <container>`. After that, you have to restart the container with `docker start <container>` or start a new container with `docker run -d ...` as described in the section _Deamons_ below.
 {{% /alert %}}
 
 This will leave the container running while you are back in your shell. To verify that the container is really running use the command:
