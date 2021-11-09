@@ -98,6 +98,10 @@ docker inspect apache-php | grep IPAddress
 
 With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
 
+{{% alert title="Note for Webshell" color="primary" %}}
+As we don't have a browser in the webshell use `curl` to open the page in your terminal.
+{{% /alert %}}
+
 {{% alert title="Note" color="primary" %}}
 As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
 See:
