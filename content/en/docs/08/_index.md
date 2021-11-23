@@ -66,15 +66,31 @@ Now you can mount the php-app as the host directory into your docker container v
 
 Linux:
 
+{{% onlyWhenNot mobi %}}
 ```bash
 docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 Windows (Git Bash):
 
+{{% onlyWhenNot mobi %}}
 ```bash
 MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 {{% alert title="Note" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
@@ -98,14 +114,29 @@ As you might have guessed, it's a parameter called `-p <host-port>:<container-po
 
 Linux:
 
+{{% onlyWhenNot mobi %}}
 ```bash
 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 Windows (Git Bash):
 
+{{% onlyWhenNot mobi %}}
 ```bash
 MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
+```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
 ```
 
 {{% alert title="Note" color="primary" %}}

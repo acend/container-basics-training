@@ -16,9 +16,17 @@ First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](ht
 
 We recommend the `php:7-apache` image.
 
+{{% onlyWhenNot mobi %}}
 ```bash
 docker pull php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+docker pull docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 Once it is pulled let's have a look into `docker images`:
 
@@ -59,9 +67,17 @@ So Docker labels it that way.
 
 Now we can deploy the new container using the correct tag.
 
+{{% onlyWhenNot mobi %}}
 ```bash
 docker run -d --name apache-php php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+docker run -d --name apache-php docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 With `docker ps` you see that the new container is running.
 
@@ -118,9 +134,17 @@ docker rm apache-php
 
 Now start the container again with port forwarding:
 
+{{% onlyWhenNot mobi %}}
 ```bash
 docker run -p 8080:80 -d --name apache-php php:7-apache
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```bash
+docker run -p 8080:80 -d --name apache-php docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+```
+{{% /onlyWhen %}}
 
 Now you can access the web server at <http://LOCALHOST:8080>.
 {{% /alert %}}

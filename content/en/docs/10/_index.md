@@ -183,7 +183,7 @@ docker build -t myfirstimagecmd .
 Again, use the additional parameter `--build-arg` when behind a corporate proxy:
 
 ```bash
-docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
+docker build -t myfirstimagecmd --build-arg http_proxy=http://<username>:<password>@<proxy>:<port> .
 ```
 
 {{% /alert %}}
@@ -221,6 +221,7 @@ Use `.dockerignore` to exclude files from the Docker context being added to the 
 
 In the directory containing the subdirectory `php-app` create a Dockerfile with the following content:
 
+{{% onlyWhenNot mobi %}}
 ```Dockerfile
 FROM php:7-apache
 
@@ -230,6 +231,19 @@ ADD ./php-app/ /var/www/html/
 # Install additional php extension
 RUN docker-php-ext-install mysqli
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen mobi %}}
+```Dockerfile
+FROM docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+
+# Copies the php source code to the correct location
+ADD ./php-app/ /var/www/html/
+
+# Install additional php extension
+RUN docker-php-ext-install mysqli
+```
+{{% /onlyWhen %}}
 
 {{% alert title="Note" color="primary" %}}
 The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
@@ -254,7 +268,7 @@ ADD ./php-app/ /var/www/html/
 Stop and delete the running `php-app` container first. Leave the database container running.
 {{% /alert %}}
 
-If you're not still inside the php-app directory, now's the time to change into it. Let's build the image:
+Let's build the image:
 
 ```bash
 docker build -t php-app .
