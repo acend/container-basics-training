@@ -74,7 +74,7 @@ docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html REGISTRY/puzzle/k8s/kurs/php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html <docker-registry>/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
@@ -88,7 +88,7 @@ MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/h
 
 {{% onlyWhen mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html REGISTRY/puzzle/k8s/kurs/php:7-apache
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html <docker-registry>/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
@@ -122,7 +122,7 @@ docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html REGISTRY/puzzle/k8s/kurs/php:7-apache
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html <docker-registry>/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
@@ -136,7 +136,7 @@ MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/
 
 {{% onlyWhen mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html REGISTRY/puzzle/k8s/kurs/php:7-apache
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html <docker-registry>/puzzle/k8s/kurs/php:7-apache
 ```
 
 {{% alert title="Note" color="primary" %}}
