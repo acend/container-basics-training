@@ -10,6 +10,14 @@ enabledModule = "base mobi"
 copyright = "Puzzle ITC GmbH"
 url = "https://www.puzzle.ch"
 
+[params.replaceContent]
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+
+[[params.replaceContent.placeholders]]
+placeholder = "REGISTRY"
+queryParam = "r"
+defaultValue = "REGISTRY"
+
 ############################## social links ##############################
 [params.links]
 [[params.links.developer]]

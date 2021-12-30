@@ -24,7 +24,7 @@ docker pull php:7-apache
 
 {{% onlyWhen mobi %}}
 ```bash
-docker pull docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+docker pull REGISTRY/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
@@ -75,7 +75,7 @@ docker run -d --name apache-php php:7-apache
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -d --name apache-php docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+docker run -d --name apache-php REGISTRY/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
@@ -142,7 +142,7 @@ docker run -p 8080:80 -d --name apache-php php:7-apache
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -p 8080:80 -d --name apache-php docker-registry.mobicorp.ch/puzzle/k8s/kurs/php:7-apache
+docker run -p 8080:80 -d --name apache-php REGISTRY/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
