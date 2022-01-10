@@ -10,6 +10,19 @@ enabledModule = "base mobi"
 copyright = "Puzzle ITC GmbH"
 url = "https://www.puzzle.ch"
 
+[params.replaceContent]
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+
+[[params.replaceContent.placeholders]]
+placeholder = "<docker-registry>"
+queryParam = "r"
+defaultValue = "<docker-registry>"
+
+[[params.replaceContent.placeholders]]
+placeholder = "<proxy>:<port>"
+queryParam = "p"
+defaultValue = "<proxy>:<port>"
+
 ############################## social links ##############################
 [params.links]
 [[params.links.developer]]
