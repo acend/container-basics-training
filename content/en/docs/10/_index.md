@@ -235,7 +235,7 @@ RUN docker-php-ext-install mysqli
 
 {{% onlyWhen mobi %}}
 ```Dockerfile
-FROM <docker-registry>/puzzle/k8s/kurs/php:7-apache
+FROM <registry-url>/puzzle/k8s/kurs/php:7-apache
 
 # Copies the php source code to the correct location
 ADD ./php-app/ /var/www/html/

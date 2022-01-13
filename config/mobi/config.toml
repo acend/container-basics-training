@@ -14,9 +14,9 @@ url = "https://www.puzzle.ch"
 allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
 
 [[params.replaceContent.placeholders]]
-placeholder = "<docker-registry>"
+placeholder = "<registry-url>"
 queryParam = "r"
-defaultValue = "<docker-registry>"
+defaultValue = "<registry-url>"
 
 [[params.replaceContent.placeholders]]
 placeholder = "<proxy>:<port>"
