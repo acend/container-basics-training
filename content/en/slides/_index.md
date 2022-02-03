@@ -18,4 +18,7 @@ menu:
 {{% /blocks/feature %}}
 {{% /onlyWhen %}}
 
+{{% blocks/feature icon="fa-chalkboard-teacher" url="pdf/pdf.pdf" title="Container Basics Lab" %}}
+{{% /blocks/feature %}}
+
 {{< /blocks/section >}}
