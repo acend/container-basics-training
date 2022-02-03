@@ -115,7 +115,7 @@ docker inspect apache-php | grep IPAddress
 With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
 
 {{% alert title="Note for Webshell" color="primary" %}}
-As we don't have a browser in the webshell use `curl` to open the page in your terminal.
+As we don't have a browser in the webshell use `curl http://172.17.0.4` to open the page in your terminal.
 {{% /alert %}}
 
 {{% alert title="Note" color="primary" %}}
@@ -147,14 +147,6 @@ docker run -p 8080:80 -d --name apache-php <registry-url>/puzzle/k8s/kurs/php:7-
 {{% /onlyWhen %}}
 
 Now you can access the web server at <http://LOCALHOST:8080>.
-{{% /alert %}}
-
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-This is not possible without port forwarding, see [next lab](../08/).
-{{% /alert %}}
-
-{{% alert title="Note" color="primary" %}}
-It might be that your local firewall blocks requests to this address.
 {{% /alert %}}
 
 And unfortunately we get a "403 Error - Forbidden".
