@@ -144,7 +144,7 @@ Type `exit` to leave the mysql client. Type `exit` one more time to leave the co
 
 ## Daemons
 
-One might think: *This whole starting process is a bit freaky with `CTRL-p` and then `CTRL-q`*.
+One might think: _This whole starting process is a bit freaky with `CTRL-p` and then `CTRL-q`_.
 Therefore, you can run a Docker container "daemonized".
 You just have to add the parameter `-d` to the Docker `run` command e.g.:
 
