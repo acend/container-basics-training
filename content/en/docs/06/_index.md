@@ -65,8 +65,8 @@ The moment of truth... Connect to the database server:
 docker exec -it mariadb-container-with-existing-external-volume bash
 ```
 
-```
-root@6f08ac657320:/# mysql -upeter -pvenkman
+```bash
+mysql -upeter -pvenkman
 ```
 
 If everything worked as expected, you should now be connected to your database instance as peter. You can test this by using the `SELECT User FROM mysql.user;` statement in the sql client.
