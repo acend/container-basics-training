@@ -51,6 +51,7 @@ trivy image debian:stable-slim
 
 As you can see, the output is now much larger than before. You could use Trivy in pipelines where it can break the build if the image has serious severities like HIGH or CRITICAL. For more information check the `trivy --help` page.
 
+
 ## Scan Filesystem for Vulnerabilities, Secrets and Misconfigurations
 
 You are also able to scan projects locally on disc for several things. This scan check your code for best practises and gives you hints about configurations issues / mistakes which can help you to improve your codebase.
