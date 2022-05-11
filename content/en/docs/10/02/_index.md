@@ -6,7 +6,7 @@ sectionnumber: 10.2
 
 A lot of the container images contains security issues. I you wan't to use images from public registries you should be able to scan them, to verify the image is clean.
 
-There are some tools on the market which can help you to check these images. 
+There are some tools on the market which can help you to check these images.
 
 In this lab you will learn how to scann an image with the tool Trivy.
 
@@ -74,4 +74,4 @@ Tests: 23 (SUCCESSES: 23, FAILURES: 0, EXCEPTIONS: 0)
 Failures: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 ```
 
-For more informations checkout the [Trivy Github page](https://github.com/aquasecurity/trivy)
+For more informations checkout the [Trivy Github page](https://github.com/aquasecurity/trivy).
