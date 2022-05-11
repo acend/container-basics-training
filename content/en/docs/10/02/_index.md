@@ -4,18 +4,20 @@ weight: 12
 sectionnumber: 10.2
 ---
 
-A lot of the container images contains security issues. I you wan't to use images from public registries you should be able to scan them, to verify the image is clean.
+A lot of the container images contains security issues. If you wan't to use images from public registries you should be able to scan them, to verify the image is clean.
 
 There are some tools on the market which can help you to check these images.
 
-In this lab you will learn how to scann an image with the tool Trivy.
+In this lab you will learn how to scan an image with the tool Trivy.
 
 
 ## Scan Image for Vulnerabilities and Secrets
 
 Trivy is as simply as it sounds! you can just point on your image and trivy will do the rest.
 
-When Trivy is running the very first time, it is downloading the latest vulnerbility database from the internet. Without this, Trivy is not able to scan anything. You could also predownload this database and point to it during the runtime if you have this need.
+When Trivy is running the very first time, it is downloading the latest vulnerability database from the internet. Without this, Trivy is not able to scan anything.
+
+> Info: You could also predownload this database and point to it during the runtime, if you have this need.
 
 ```bash
 trivy image quay.io/acend/example-web-python:latest
@@ -43,7 +45,7 @@ Python (python-pkg)
 Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 ```
 
-As you can see we have no issues here (as this text was written). Let's check another image:
+No issues over here (as this text was written). So let's check another image:
 
 ```bash
 trivy image debian:stable-slim
