@@ -1,6 +1,7 @@
 ---
 title: "10.1 Multi-stage builds"
-weight: 10
+weight: 11
+sectionnumber: 10.1
 ---
 
 Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application, that are not necessary during the execution time of the container. Since we want to keep the actual artifact as independent and small as possible, we often remove these dependencies in the docker build phase after the application itself is built.
