@@ -82,8 +82,11 @@ winpty docker run -it mariadb
 An error has popped up!
 
 ```
-error: database is uninitialized and password option is not specified
-  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
+2022-08-09 08:19:21+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.8.3+maria~jammy started.
+2022-08-09 08:19:21+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2022-08-09 08:19:21+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.8.3+maria~jammy started.
+2022-08-09 08:19:21+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+        You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 ```
 
 > Question: What's wrong? Am I an idiot?
