@@ -12,7 +12,7 @@ Answer: No! You've just done what was stated in the instructions. As a result, a
 
 ```
 error: database is uninitialized and password option is not specified
-  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
+        You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 ```
 
 
@@ -23,7 +23,7 @@ The MariaDB server is not able to run without a proper configuration. Docker has
 Environment variables are passed via the parameter `-e` e.g.
 
 ```bash
-docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
 Once you run the command you will see an output like this:
@@ -149,7 +149,7 @@ Therefore, you can run a Docker container "daemonized".
 You just have to add the parameter `-d` to the Docker `run` command e.g.:
 
 ```bash
-docker run -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 If you now have a look into the container list, you should come up with two running containers:
