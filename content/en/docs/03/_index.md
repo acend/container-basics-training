@@ -77,7 +77,7 @@ The problem is that you are now stuck in this console.
 To return to your shell press `CTRL-p` and then `CTRL-q`.
 
 {{% alert title="Note for Webshell" color="primary" %}}
-In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround. You could also start your mariadb container with `docker run -dit -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb`, note the `d` in `-dit` which starts the container in detached mode. Afterward you can open a shell into the detached container as desribed below.
+In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround. You could also start your mariadb container with `docker run -dit -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb`, note the `d` in `-dit` which starts the container in detached mode. Afterward you can open a shell into the detached container as desribed below.
 {{% /alert %}}
 
 {{% alert title="Note for Windows" color="primary" %}}

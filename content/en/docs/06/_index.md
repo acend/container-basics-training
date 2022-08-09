@@ -26,7 +26,7 @@ Now let's use the created volume and attach it to the MariaDB database.
 With the parameter `-v` you can now state where to attach the volume, e.g.:
 
 ```bash
-docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 See [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/) for further information.
@@ -56,7 +56,7 @@ It's getting interesting...
 We are creating a new MariaDB container with the data storage volume:
 
 ```bash
-docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 The moment of truth... Connect to the database server:
