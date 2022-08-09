@@ -21,7 +21,7 @@ On Windows, the Docker installer usually includes `docker-compose` already.
 Previously we ran:
 
 ```bash
-docker run --name mariadb-container-with-existing-external-volume -v$(pwd)/datastore-mysql:/var/lib/mysql -it -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
+docker run --name mariadb-container-with-existing-external-volume -v$(pwd)/datastore-mysql:/var/lib/mysql -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
 and:
@@ -47,7 +47,7 @@ services:
   mariadb-container-with-existing-external-volume:
     image: mariadb
     environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MARIADB_ROOT_PASSWORD=my-secret-pw
     volumes:
       - 'volume-mariadb:/var/lib/mysql'
     networks:
