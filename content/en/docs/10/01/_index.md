@@ -25,7 +25,7 @@ The complete example can be found at <https://github.com/appuio/example-spring-b
 ```Dockerfile
 FROM fabric8/java-centos-openjdk11-jdk
 
-MAINTAINER Thomas Philipona <philipona@puzzle.ch>
+MAINTAINER acend <info@acend.ch>
 
 EXPOSE 8080 9000
 
@@ -152,7 +152,7 @@ Turn the docker build from the first example (Java Spring boot <https://github.c
 ```Dockerfile
 FROM fabric8/java-centos-openjdk11-jdk
 
-MAINTAINER Thomas Philipona <philipona@puzzle.ch>
+MAINTAINER acend <info@acend.ch>
 
 EXPOSE 8080 9000
 
