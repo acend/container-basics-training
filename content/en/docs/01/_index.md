@@ -120,15 +120,17 @@ This message shows that your installation appears to be working correctly.
 ```
 
 
-## Your first container :)
+## Your first container 😃
 
-With this command we just ran our first container on our computers. It ran a simple process that printed a message to standard out, the container itself is not very useful though.
+With this command, we just ran our first container on our computers. It ran a simple process that printed a message to standard out, the container itself is not very useful though.
 
 
-## Additional lab: getting familiar with the Docker docs
+## Getting familiar with the Docker docs
 
-Browse <https://docs.docker.com> and get familiar with the docs as well as the references. In this training we're going to use Docker CE, so this is the docs section you might want to check out as well.
+Browse <https://docs.docker.com> and get familiar with the docs as well as the references. In this training, we're going to use Docker CE, so this is the docs section you might want to check out as well.
 
-> Question: Is there only a "hello world" Docker image?
-
-Maybe the [next lab](../02/) will provide some answers?
+{{% details title="Question: Do I need to know the docker images by name?" %}}
+No! There are tons of images provided by companies, open source projects, and individuals.
+You can search for this images in various registries, the most famous one beeing [Docker Hub](https://hub.docker.com).
+Checkout the [next lab](../02/) for more details.
+{{% /details %}}

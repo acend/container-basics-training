@@ -3,24 +3,11 @@ title: "3. Environment variables"
 weight: 3
 ---
 
-
-From the [previous lab](../02/):
-
-> Question: What's wrong? Am I an idiot?
-
-Answer: No! You've just done what was stated in the instructions. As a result, an error has popped up!
-
-```
-error: database is uninitialized and password option is not specified
-        You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
-```
-
-
 ## Environment variables
 
 What happened?
-The MariaDB server is not able to run without a proper configuration. Docker has the possibility to pass variables into the instantiation process via environment variables.
-Environment variables are passed via the parameter `-e` e.g.
+The MariaDB server is not able to run without a proper configuration. Docker can pass variables into the instantiation process via environment variables.
+Environment variables are passed via the parameter `-e` e.g.:
 
 ```bash
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
@@ -73,18 +60,18 @@ MySQL init process in progress...
 Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 ```
 
-The problem is that you are now stuck in this console.
-To return to your shell press `CTRL-p` and then `CTRL-q`.
+If you re-read the command above you will notify, that we used the arguments -it (interactive/detached). And you might have found out that mariadb does not react to the usual `CTRL-c`.
+So how do we exit this terminal? Docker has an escape sequence to detach from a container and leave it running. For this you have to press `CTRL-p` and then `CTRL-q` in bash.
 
 {{% alert title="Note for Webshell" color="primary" %}}
-In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround. You could also start your mariadb container with `docker run -dit -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb`, note the `d` in `-dit` which starts the container in detached mode. Afterward you can open a shell into the detached container as desribed below.
+In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround. You could also start your mariadb container with `docker run -dit -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb`, note the `d` in `-dit` which starts the container in detached mode. Afterward, you can open a shell into the detached container as described below.
 {{% /alert %}}
 
 {{% alert title="Note for Windows" color="primary" %}}
-This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a seperate shell to get the container ID and then stop it using `docker stop <container>`. After that, you have to restart the container with `docker start <container>` or start a new container with `docker run -d ...` as described in the section _Deamons_ below.
+This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a separate shell to get the container ID and then stop it using `docker stop <container>`. After that, you have to restart the container with `docker start <container>` or start a new container with `docker run -d ...` as described in the section _Detached_ below.
 {{% /alert %}}
 
-This will leave the container running while you are back in your shell. To verify that the container is really running use the command:
+This will leave the container running while you are back in your shell. To verify that the container is running use the following command:
 
 ```bash
 docker ps
@@ -109,14 +96,14 @@ Where `<container>` can refer to the `CONTAINER ID` (the first two characters ar
 The docker exec command needs either the ID or NAME of the container. Additionally, at the end, an executable.
 {{% /alert %}}
 
-In this example it's `bash` as we want to do something interactively in the container.
+In this example, it's `bash` as we want to do something interactively in the container.
 
 Once the command is executed you should see this:
 
 `root@7cb31f821233:/#`
 
 {{% alert title="Note" color="primary" %}}
-Every time you connect yourself to a container you will always be the user that was defined as user in the Dockerfile.
+Every time you connect yourself to a container you will always be the user that was defined in the Dockerfile.
 {{% /alert %}}
 
 Now that we are connected let's find out if the MariaDB is working...
@@ -142,17 +129,17 @@ MariaDB [(none)]>
 Type `exit` to leave the mysql client. Type `exit` one more time to leave the container.
 
 
-## Daemons
+## Detached
 
-One might think: _This whole starting process is a bit freaky with `CTRL-p` and then `CTRL-q`_.
-Therefore, you can run a Docker container "daemonized".
-You just have to add the parameter `-d` to the Docker `run` command e.g.:
+One might think: _This whole starting process is a bit cumbersome with `CTRL-p` and then `CTRL-q`_.
+Therefore, you can run a Docker container directly run with -d "detached" mode e.g.:
 
 ```bash
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-If you now have a look into the container list, you should come up with two running containers:
+Instead of the output of the container itself you will now only get the ID of the started container.
+If you have a look into the container list, you should see two running containers:
 
 ```bash
 docker ps
@@ -164,6 +151,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-> Question: Do we need two running MariaDB containers at the same time for this lab?
 
-Find out in the [next lab](../04/).
+{{% details title="Question: Do we need two running MariaDB containers at the same time for this lab?" %}}
+Answer: No!
+
+So let’s delete a container in the [next lab](../04/).
+
+{{% /details %}}

@@ -3,18 +3,9 @@ title: "4. Deleting containers"
 weight: 4
 ---
 
-From the [previous lab](../03/):
-
-> Question: Do we need two running MariaDB containers at the same time for this lab?
-
-Answer: No!
-
-So let's delete a container!
-
-
 ## Deleting a container
 
-As for every OS you can barely delete a container when it is running!
+There are two ways to stop a container, we start with the recommended way.
 You first have to stop the container. Some might still know the CONTAINER ID or the NAME of the container but for those who don't:
 
 ```bash
@@ -41,8 +32,7 @@ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 699e82ed8f1f        mariadb             "docker-entrypoint..."   9 minutes ago       Up 9 minutes        3306/tcp            jolly_bardeen
 ```
-
-As an alternative you can also kill a container with the `docker kill <container>` command. This stops the container immediately by using the KILL signal.
+We just exited the container "gracefully", but as an alternative you can also kill a container with the `docker kill <container>` command. This stops the container immediately by using the KILL signal.
 
 You may recognize that the container *upbeat_blackwell* is not present in the container list anymore. That is because `docker ps` only shows running containers, but as always you have a parameter that helps:
 
