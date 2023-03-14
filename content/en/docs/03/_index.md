@@ -68,7 +68,7 @@ In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply clos
 {{% /alert %}}
 
 {{% alert title="Note for Windows" color="primary" %}}
-This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a separate shell to get the container ID and then stop it using `docker stop <container>`. After that, you have to restart the container with `docker start <container>` or start a new container with `docker run -d ...` as described in the section _Detached_ below.
+This might not work on Windows since the shortcuts `CTRL-p` and `CTRL-q` are already used for other purposes. Use `docker ps` in a separate shell to get the container ID and then stop it using `docker stop <container>`. After that, you have to restart the container with `docker start <container>` or start a new container with `docker run -d ...` as described in the section _Detached containers_ below.
 {{% /alert %}}
 
 This will leave the container running while you are back in your shell. To verify that the container is running use the following command:
@@ -84,6 +84,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   5 minutes ago       Up 5 minutes        3306/tcp            upbeat_blackwell
 ```
 
+
+## Access the container
+
 To connect to the container again you can use the following command:
 
 ```bash
@@ -91,6 +94,7 @@ docker exec -it <container> bash
 ```
 
 Where `<container>` can refer to the `CONTAINER ID` (the first two characters are normally sufficient) or one of the `NAMES` from the output of `docker ps`.
+In the above output this would be `7cb31f821233` or `upbeat_blackwell`.
 
 {{% alert title="Note" color="primary" %}}
 The docker exec command needs either the ID or NAME of the container. Additionally, at the end, an executable.
@@ -106,7 +110,7 @@ Once the command is executed you should see this:
 Every time you connect yourself to a container you will always be the user that was defined in the Dockerfile.
 {{% /alert %}}
 
-Now that we are connected let's find out if the MariaDB is working...
+Now that we are connected, let's find out if the MariaDB is working...
 
 ```bash
 mysql -uroot -pmy-secret-pw
@@ -126,13 +130,24 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]>
 ```
 
-Type `exit` to leave the mysql client. Type `exit` one more time to leave the container.
+Type
+
+```bash
+exit;
+```
+
+to leave the mysql client. Type
+
+```bash
+exit
+```
+one more time to leave the container.
 
 
-## Detached
+## Detached containers
 
 One might think: _This whole starting process is a bit cumbersome with `CTRL-p` and then `CTRL-q`_.
-Therefore, you can run a Docker container directly run with -d "detached" mode e.g.:
+Therefore, you can run a Docker container directly run with -d (detached) mode e.g.:
 
 ```bash
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -152,7 +167,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 ```
 
 
-{{% details title="Question: Do we need two running MariaDB containers at the same time for this lab?" %}}
+{{% details title="🤔 Do we need two running MariaDB containers at the same time for this lab?" %}}
 Answer: No!
 
 So let’s delete a container in the [next lab](../04/).

@@ -82,7 +82,7 @@ An error has popped up!
         You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 ```
 
-{{% details title="Question: Why do I get an error? Is this a bug in the image?" %}}
+{{% details title="🤔 Why do I get an error? Is this a bug in the image?" %}}
 Everything is fine, to run this image there is some configuration needed. Read the following exerpt carefully.
 
 ```
@@ -90,4 +90,25 @@ error: database is uninitialized and password option is not specified
         You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 ```
 More on passing configuration to containers in the [next lab](../03/).
+{{% /details %}}
+
+{{% details title="🤔 What's an image?" %}}
+
+Think of an image like a blueprint of what will be in a container when it runs.
+
+* An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
+* Images are made of layers, conceptually stacked on top of each other
+* Each layer can add, change, and remove files
+* Images can share layers to optimize disk usage, transfer times and memory use
+* You build these images using Dockerfiles (in later Labs).
+* Images are immutable, you cannot change them after creation.
+{{% /details %}}
+
+{{% details title="🤔 What's the difference between a container and an image?" %}}
+When you run an image, it becomes a container.
+
+* An image is a read-only filesystem
+* A container is an encapsulated set of processes running in a read-write copy of that filesystem
+* To optimize container boot time, copy-on-write is used instead of regular copy
+* docker run starts a container from a given image
 {{% /details %}}

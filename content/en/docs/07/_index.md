@@ -3,18 +3,14 @@ title: "7. Frontend container"
 weight: 7
 ---
 
-From the [previous lab](../06/):
-
-> Question: I'm feeling like a Docker king/queen... What's next?
-
-Answer: Now we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak with each other?
+Now that we have a "backend", why not deploy a frontend container (e.g. httpd & php) and make them speak to each other?
 
 
 ## Deploying a frontend container
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-We recommend the `php:7-apache` image.
+We use the `php:7-apache` image.
 
 {{% onlyWhenNot mobi %}}
 ```bash
@@ -43,27 +39,9 @@ hello-world         linux               1815c82652c0        2 months ago        
 
 ```
 
-Besides the known `mariadb` image, there is one new image. Furthermore, the php REPOSITORY has a different TAG than the other REPOSITORIES.
-When you use the `pull` command Docker will always pull down the latest versions of the REPOSITORY but by requesting php:7-apache you have pulled a specific TAG.
-So Docker labels it that way.
-
-> Here's some background info about images and containers.
->
-> Question: What's an image?
->
-> * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
-> * Images are made of layers, conceptually stacked on top of each other
-> * Each layer can add, change, and remove files
-> * Images can share layers to optimize disk usage, transfer times and memory use
->
-> Question: What's the difference between a container and an image?
->
-> * An image is a read-only filesystem
-> * A container is an encapsulated set of processes running in a read-write copy of that filesystem
-> * To optimize container boot time, copy-on-write is used instead of regular copy
-> * docker run starts a container from a given image
->
-> Images are like templates or stencils that you can create containers from.
+This will show us the images in our local registry with their respective name and tags.
+When you use the `pull` command Docker will always pull down the latest versions of the repository but by requesting php:7-apache you have pulled a specific tag.
+For the hello-world image we see, that we have the same image (read same image id) but two different tags (linux/latest).
 
 Now we can deploy the new container using the correct tag.
 
@@ -95,21 +73,15 @@ b901d6c0473a        php:7-apache        "docker-php-entryp..."   18 seconds ago 
 
 Okay so let's try to connect to the server, via the container assigned docker IP address:
 
-{{% alert title="Note" color="primary" %}}
-If you are working on Windows with anything else than Git Bash, `grep` will probably not be available.
-In this case, use `findstr` instead.
-{{% /alert %}}
+We use the familiar command from Lab 5:
 
 ```bash
-docker inspect apache-php | grep IPAddress
+docker inspect apache-php -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
 ```
+Which will show us only the IP as output:
 
 ```
-...
-            "SecondaryIPAddresses": null,
-            "IPAddress": "172.17.0.4",
-                    "IPAddress": "172.17.0.4",
-...
+172.17.0.4
 ```
 
 With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
@@ -118,7 +90,7 @@ With the IP from the inspection we can now navigate to the web server at <http:/
 As we don't have a browser in the webshell use `curl http://172.17.0.4` to open the page in your terminal.
 {{% /alert %}}
 
-{{% alert title="Note" color="primary" %}}
+{{% alert title="Note for Windows and MacOS" color="primary" %}}
 As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
 See:
 
@@ -149,12 +121,20 @@ docker run -p 8080:80 -d --name apache-php <registry-url>/puzzle/k8s/kurs/php:7-
 Now you can access the web server at <http://LOCALHOST:8080>.
 {{% /alert %}}
 
-And unfortunately we get a "403 Error - Forbidden".
+Unfortunately we get a "403 Error - Forbidden".
 
-{{% alert title="Note" color="primary" %}}
-Do not forget to remove the existing instance of the `apache-php` container.
-{{% /alert %}}
+{{% details title="🤔 Where is this error from? Docker?" %}}
+403 is the error code from the apache container. There is some configuration missing:
+The Apache web server does not allow you to scan its own document root.
+{{% /details %}}
 
-> Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
+{{% details title="🤔 Can I only access the webserver through its local IP?" %}}
+Docker can port-forward your request to a running containter. In the windows environment you have just used this feature. But more explanation in the next lab.
+{{% /details %}}
 
-Go on and find the answers in the [next lab](../08/).
+For now let us stop and remove this container:
+
+```bash
+docker stop apache-php
+docker rm apache-php
+```

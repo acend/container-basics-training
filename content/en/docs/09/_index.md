@@ -3,11 +3,7 @@ title: "9. Linking frontend and backend"
 weight: 9
 ---
 
-From the [previous lab](../08/):
-
-> Question: Can I somehow link the containers together, so that they can talk to each other?
-
-Answer: Yes, you can! Here's how it works.
+Now it is time to link your frontend and our backend together.
 
 
 ## Linking containers
@@ -32,7 +28,7 @@ docker stop apache-php mariadb-container mariadb-container-with-existing-externa
 docker rm apache-php mariadb-container mariadb-container-with-existing-external-volume
 ```
 
-To enable the communication between two or more Docker containers you have to use Docker network. Per default there are three networks available:
+To enable communication between two or more Docker containers you have to use Docker network. Per default there are three networks available:
 
 ```bash
 docker network ls
