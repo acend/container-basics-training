@@ -21,14 +21,14 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 3 hours          3306/tcp             mariadb-container
 ```
 
-Sadly, before we can link the frontend and backend we have to get rid of the existing containers.
+Sadly, before we can link the frontend and backend, we have to get rid of the existing containers.
 
 ```bash
 docker stop apache-php mariadb-container mariadb-container-with-existing-external-volume
 docker rm apache-php mariadb-container mariadb-container-with-existing-external-volume
 ```
 
-To enable communication between two or more Docker containers you have to use Docker network. Per default there are three networks available:
+To enable communication between Docker containers you have to use Docker network. Per default there are three networks available:
 
 ```bash
 docker network ls
@@ -47,11 +47,11 @@ For this exercise we are creating our own network with:
 docker network create container-basics-training
 ```
 
-If you now rerun the list command for Docker networks you should see the newly created network.
+If you now rerun the list command for Docker networks you should see the created network.
 
-To make the backend accessible/visible to the frontend (via Container-NAMES) you have to run both containers with the `--network` option:
+To make the backend accessible/visible to the frontend you have to run both containers with the `--network` option:
 
-Linux:
+Linux/Webshell:
 
 {{% onlyWhenNot mobi %}}
 ```bash
@@ -82,7 +82,7 @@ docker run -d --network container-basics-training --name mariadb-container-with-
 ```
 {{% /onlyWhen %}}
 
-If you access either container you should be able to resolve the other container's address with its container name.
+If you access either container, you should be able to resolve the other container's address with its container name.
 
 Execute an interactive `bash` shell on the mariadb container.
 
@@ -100,9 +100,10 @@ getent hosts apache-php
 
 The two containers are now able to talk to each other. But let's check this:
 
-If you type <http://LOCALHOST:8080/db.php> in your browser you should get... an error!
-Because the mysqli extension is not found.
+If you type <http://localhost:8080/db.php> in your browser or use `curl http://localhost:8080/db.php` in the webshell you get... an error!
+This is because the mysqli extension is not installed in the container.
 
-> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
-
-I'm sure there is, let's check out the [next lab](../10/) to find out how.
+{{% details title="🤔 I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?" %}}
+Yes, there is. Create your own Dockerfile which describes the content of a Docker image.
+Let's check out the [next lab](../10/) to find out how.
+{{% /details %}}

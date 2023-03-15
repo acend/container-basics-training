@@ -3,13 +3,6 @@ title: "10. Building your own Docker image"
 weight: 10
 ---
 
-From the [previous lab](../09/):
-
-> Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
-
-Answer: Yes, there is. Create your own Dockerfile which describes the content of a Docker image.
-
-
 ## Dockerfile
 
 Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.
@@ -19,7 +12,8 @@ The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/
 
 ## Write your first Dockerfile
 
-For that we create a new directory and create an empty Dockerfile in there.
+Before we extend our php image we have a more general look on how to build a Docker image.
+For that, we create a new directory and create an empty Dockerfile in there.
 
 ```bash
 mkdir myfirstimage
@@ -38,7 +32,7 @@ RUN apt-get update && \
 * `FROM` indicates the base image for our build
 * Each `RUN` line will be executed by Docker during the build
 * Our RUN commands must be non-interactive (no input can be provided to Docker during the build)
-* Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write nice Dockerfiles
+* Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write Dockerfiles
 
 
 ## Build the image
@@ -59,8 +53,8 @@ docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>
 
 {{% /alert %}}
 
-Please note that the tag can be omitted in most Docker commands and instructions. In that case the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name it does not necessarily identify the latest version of an image.
-Depending on the build system it can point to the last image pushed, to the last image built from some branch or to some old image. It can even not exist at all.
+Please note that the tag can be omitted in most Docker commands and instructions. In that case, the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name, it does not necessarily identify the latest version of an image.
+Depending on the build system it can point to the last image pushed, to the last image built from some branch, or to some old image. It can even not exist at all.
 Because of this, you must never use the `latest` tag in production, always use a specific image version.
 
 Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
@@ -162,7 +156,7 @@ root@00f0766080ed:/# exit
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile we have the possibility to define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
+With the `CMD` instruction in the Dockerfile can define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
 
 ```Dockerfile
 FROM ubuntu
@@ -210,7 +204,7 @@ Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-
 
 ## Frontend app image build
 
-We now want to include the source code of our frontend app into an already built docker image. In order to achieve this we will create a Dockerfile.
+We now want to include the source code of our frontend app into an already built docker image. To achieve this we will create a Dockerfile.
 
 The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
 We use this command to add the application source code into the image.
@@ -249,7 +243,7 @@ RUN docker-php-ext-install mysqli
 The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.
 You can use the additional parameter `--build-arg http_proxy=$HTTP_PROXY`.
 
-Alternatively, you can use the already built image `puzzle/php-apache-mysqli` for the following labs.
+Alternatively, you can use the already-built image `puzzle/php-apache-mysqli` for the following labs.
 Instead of the above Dockerfile you'd use:
 
 ```Dockerfile
@@ -281,14 +275,14 @@ docker build -t php-app .
 docker run -d --network container-basics-training --name php-app -p8080:80 php-app
 ```
 
-Now open a browser and navigate to <http://LOCALHOST:8080/db.php>.
+Now open a browser and navigate to <http://localhost:8080/db.php> (or in the webshell use `curl http://localhost:8080/db.php`).
 You should get a response saying "Connected successfully".
 
 
 ## Additional lab
 
 Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
-Fix the code in the db.php file. According to the continuous delivery principles we don't want usernames and passwords in our source code.
+Fix the code in the db.php file. According to the continuous delivery principles, we don't want usernames and passwords in our source code.
 
 {{% alert title="Note" color="primary" %}}
 Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container.
