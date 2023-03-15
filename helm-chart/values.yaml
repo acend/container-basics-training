@@ -3,32 +3,28 @@ acendTraining:
   deployments:
     - 
       name: acend
-      replicaCount: 1
+      replicaCount: 2
       image:
         repository: quay.io/acend/container-basics-training
         pullPolicy: Always
         tag: ""
         tagsuffix: ""
       ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
         appname: container-basics
         domain: training.acend.ch
     - 
       name: mobi
-      replicaCount: 1
+      replicaCount: 2
       image:
         repository: quay.io/acend/container-basics-training
         pullPolicy: Always
         tag: ""
         tagsuffix: "-mobi"
       ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
-        useDefaultSecret: true
+        secretOverride: acend-wildcard
         appname: container-basics-mobi
-        domain: k8s.puzzle.ch
+        domain: training.puzzle.ch
 
 
 
