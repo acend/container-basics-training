@@ -4,9 +4,9 @@ weight: 11
 sectionnumber: 10.1
 ---
 
-Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application that are not necessary during the execution time of the container. Since we want to keep the actual artifact as independent and small as possible, we often remove these dependencies in the docker build phase after the application itself is built.
+Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application that are not necessary during the execution time of the container. We want to keep the actual artifact as independent and small as possible. So we often remove these dependencies in the docker build phase after the application itself is built.
 
-With docker 17.05 they implemented a solution for that problem, the so called multi stage-builds.
+Since docker version 17.05 there is a solution for that problem: the so called multi stage-builds.
 
 In this lab you're going to learn how to use multistage builds and what they are good for.
 
@@ -15,32 +15,33 @@ In this lab you're going to learn how to use multistage builds and what they are
 
 If the application is not available as a prebuilt artifact, in many cases, the application itself gets built directly during the docker build process `docker build -t ...`
 
+
+### Examples
+
 Let's have a look at the following example:
 
 
-### Java Spring Boot Gradle build
+#### Java Spring Boot Gradle build
 
 The complete example can be found at <https://github.com/appuio/example-spring-boot-helloworld>
 
 ```Dockerfile
-FROM fabric8/java-centos-openjdk11-jdk
+FROM registry.access.redhat.com/ubi9/openjdk-17
 
-MAINTAINER acend <info@acend.ch>
-
-EXPOSE 8080 9000
-
-
-LABEL io.k8s.description="Example Spring Boot App" \
+LABEL org.opencontainers.image.authors="midcicd@puzzle.ch" \
+      io.k8s.description="APPUiO Example Spring Boot App" \
       io.k8s.display-name="APPUiO Spring Boot App" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,springboot"
+      io.openshift.tags="springboot"
+
+EXPOSE 8080 9000
 
 RUN mkdir -p /tmp/src/
 ADD . /tmp/src/
 
-RUN cd /tmp/src && sh gradlew build
+RUN cd /tmp/src && sh gradlew build --no-daemon
 
-RUN cp -a  /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
+RUN ln -s /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
 
 ```
 
@@ -57,29 +58,7 @@ Runtime phase dependencies:
 * Java
 
 
-#### Notes regarding Java in Docker
-
-Java is not yet fully container-aware and by default configures itself according to the memory
-available on the host instead of the memory available to the container. Red Hat images contain
-logic to work around this limitation. For other images you may have to specify suitable heap size
-options through an environment variable when starting containers.
-The precise environment variable depends on the image, usually `JAVA_OPTIONS`.
-The `_JAVA_OPTIONS` (yes, with leading underscore) environment variable, which is picked up directly
-by the JDK, should also work. See also: <https://developers.redhat.com/blog/2017/03/14/java-inside-docker/>
-and <https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits.>
-
-Note that only Java Docker images from [Azul](https://hub.docker.com/u/azul/),
-[Red Hat](https://access.redhat.com/containers/),
-[Oracle](https://store.docker.com/images/oracle-serverjre-8) (with costs)
-and images based on the [CentOS image](https://hub.docker.com/_/centos/),
-e.g. the [JBoss Java base image](https://hub.docker.com/r/jboss/base-jdk/) and
-[Fabric8 Java base image](https://hub.docker.com/r/fabric8/java-jboss-openjdk8-jdk/)
-are TCK certified and therefore guaranteed to work as specified in the various Java specifications.
-In addition, there are [legal concerns](https://www.infoq.com/news/2016/03/docker-java) when running
-Oracle Java in Docker without the official image.
-
-
-### Static HTML, CSS, JS example
+#### Static HTML, CSS, JS example
 
 A docker image that serves  static content like HTML, CSS, JS which will only be served via a simple web server like nginx or Apache. We don't want/need the build tools to be in the resulting docker image.
 
@@ -95,7 +74,7 @@ During the build phase, tools are needed to do:
 during the execution time of the image, actually only the created static content must be available.
 
 
-### Go application
+#### Go application
 
 A go application is a great use case for multi-stage builds, since the resulting artifact is an executable binary containing every dependency that is needed to run the application. That means that the resulting docker image can be very small, so the base image we use is a simple alpine linux.
 
@@ -140,36 +119,34 @@ With multistage builds you now have the possibility to actually split these two 
 Read more about Docker multi-stage builds at <https://docs.docker.com/develop/develop-images/multistage-build/>
 
 
-## Lab: create a multi-stage build
+## Optional Lab: Create a multi-stage build
 
 Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld>) into a docker multistage build.
 
----
+As a second image you can use `registry.access.redhat.com/ubi9/openjdk-17-runtime`. Try to find the solution before looking at it.
 
-
-### Solution
-
+{{% details title="Show me the solution" %}}
 ```Dockerfile
-FROM fabric8/java-centos-openjdk11-jdk
+FROM registry.access.redhat.com/ubi9/openjdk-17
 
-MAINTAINER acend <info@acend.ch>
-
-EXPOSE 8080 9000
-
-
-LABEL io.k8s.description="Example Spring Boot App" \
+LABEL org.opencontainers.image.authors="midcicd@puzzle.ch" \
+      io.k8s.description="APPUiO Example Spring Boot App" \
       io.k8s.display-name="APPUiO Spring Boot App" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,springboot"
+      io.openshift.tags="springboot"
+
+EXPOSE 8080 9000
 
 RUN mkdir -p /tmp/src/
 ADD . /tmp/src/
 
-RUN cd /tmp/src && sh gradlew build
+RUN cd /tmp/src && sh gradlew build --no-daemon
 
-FROM fabric8/java-alpine-openjdk11-jre
+FROM registry.access.redhat.com/ubi9/openjdk-17-runtime
 
 EXPOSE 8080 9000
 
 COPY --from=0 /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
 ```
+{{% /details %}}
+
