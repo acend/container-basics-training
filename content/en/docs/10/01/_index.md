@@ -18,7 +18,7 @@ If the application is not available as a prebuilt artifact, in many cases, the a
 
 ### Examples
 
-Let's have a look at the following example:
+Let's have a look at some examples:
 
 
 #### Java Spring Boot Gradle build

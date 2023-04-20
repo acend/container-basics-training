@@ -5,7 +5,7 @@ weight: 3
 
 ## Environment variables
 
-What happened?
+So why was there an error in the previous lab?
 The MariaDB server is not able to run without a proper configuration. Docker can pass variables into the instantiation process via environment variables.
 Environment variables are passed via the parameter `-e` e.g.:
 
@@ -60,11 +60,11 @@ MySQL init process in progress...
 Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 ```
 
-If you re-read the command above you will notify, that we used the arguments -it (interactive/detached). And you might have found out that mariadb does not react to the usual `CTRL-c`.
+If you re-read the command above you will notify, that we used the arguments -it (interactive/terminal). And you might have found out that mariadb does not react to the usual `CTRL-c`.
 So how do we exit this terminal? Docker has an escape sequence to detach from a container and leave it running. For this you have to press `CTRL-p` and then `CTRL-q` in bash.
 
 {{% alert title="Note for Webshell" color="primary" %}}
-In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround. You could also start your mariadb container with `docker run -dit -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb`, note the `d` in `-dit` which starts the container in detached mode. Afterward, you can open a shell into the detached container as described below.
+In the webshell the shortcuts `CTRL-p` and `CTRL-q` are not working. Simply close the terminal and open a new one as a workaround.
 {{% /alert %}}
 
 {{% alert title="Note for Windows" color="primary" %}}
@@ -153,7 +153,7 @@ Therefore, you can run a Docker container directly run with -d (detached) mode e
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-Instead of the output of the container itself you will now only get the ID of the started container.
+Instead of the output of the container itself, you will now only get the ID of the started container.
 If you have a look into the container list, you should see two running containers:
 
 ```bash
@@ -166,10 +166,4 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-
-{{% details title="🤔 Do we need two running MariaDB containers at the same time for this lab?" %}}
-Answer: No!
-
-So let’s delete a container in the [next lab](../04/).
-
-{{% /details %}}
+We don't need both of them running, let us take care of that in the next lab.

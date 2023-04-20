@@ -18,17 +18,17 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-To stop a container you can use the command:
+To stop a container use the command:
 
 ```bash
 docker stop <container>
 ```
-Then we check the new state with
+After that, check the new state with
 
 ```bash
 docker ps
 ```
-This should show only one container running now:
+This should show only one container running:
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 699e82ed8f1f        mariadb             "docker-entrypoint..."   9 minutes ago       Up 9 minutes        3306/tcp            jolly_bardeen
@@ -48,13 +48,13 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
 ```
 
-Now that the *upbeat_blackwell* container is stopped we can delete it:
+Now that the *upbeat_blackwell* container is stopped delete it:
 
 ```bash
 docker rm <container>
 ```
 
-Now the container had disappeared from the list:
+Now the container has disappeared from the list:
 
 ```bash
 docker ps --all

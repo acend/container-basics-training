@@ -34,7 +34,7 @@ docker run hello-world:linux
 Here we use the `linux` tag of the hello-world image instead of using `latest` again.
 {{% /alert %}}
 
-To see the images that have been downloaded to your computer, type:
+To see the images that have been downloaded to your computer type:
 
 ```bash
 docker images
@@ -57,8 +57,8 @@ As an example, let's run a container using the latest image of MariaDB. The comb
 docker run -it mariadb
 ```
 
-{{% alert title="Note" color="primary" %}}
-If you are on a Windows system, be aware of the error:
+{{% alert title="Note for Windows" color="primary" %}}
+If you are on a Windows system (so you are using `git-bash`, `cmd` or `powershell` but not the Webgui), be aware of the error:
 
 ```
 the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
@@ -83,7 +83,7 @@ An error has popped up!
 ```
 
 {{% details title="🤔 Why do I get an error? Is this a bug in the image?" %}}
-Everything is fine, to run this image there is some configuration needed. Read the following exerpt carefully.
+Everything is fine, to run this image there is some configuration needed. Read the following excerpt carefully.
 
 ```
 error: database is uninitialized and password option is not specified

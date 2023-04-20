@@ -10,7 +10,7 @@ Now that we have a "backend", why not deploy a frontend container (e.g. httpd & 
 
 First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](https://hub.docker.com).
 
-We use the `php:7-apache` image.
+Use the `php:7-apache` image.
 
 {{% onlyWhenNot mobi %}}
 ```bash
@@ -24,7 +24,7 @@ docker pull <registry-url>/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
-Once it is pulled let's have a look into `docker images`:
+Once it is pulled check your local `docker images`:
 
 ```bash
 docker images
@@ -39,11 +39,14 @@ hello-world         linux               1815c82652c0        2 months ago        
 
 ```
 
-This will show us the images in our local registry with their respective name and tags.
-When you use the `pull` command Docker will always pull down the latest versions of the repository but by requesting php:7-apache you have pulled a specific tag.
+This will show the images in the local registry with their name and tags.
+
+By using `docker pull php:7-apache` Docker downloaded the `php` image with the `7-apache` tag. If you omit the tag
+(so here `docker pull php`) docker would try to download the image with the `latest` tag.
+
 For the hello-world image we see, that we have the same image (read same image id) but two different tags (linux/latest).
 
-Now we can deploy the new container using the correct tag.
+Now deploy the new container using the correct tag:
 
 {{% onlyWhenNot mobi %}}
 ```bash
@@ -57,7 +60,7 @@ docker run -d --name apache-php <registry-url>/puzzle/k8s/kurs/php:7-apache
 ```
 {{% /onlyWhen %}}
 
-With `docker ps` you see that the new container is running.
+`docker ps` shows all running containers, check that `apache-php` is running:
 
 ```bash
 docker ps
@@ -71,20 +74,20 @@ b901d6c0473a        php:7-apache        "docker-php-entryp..."   18 seconds ago 
 
 ```
 
-Okay so let's try to connect to the server, via the container assigned docker IP address:
+Okay now try to connect to the server using the container assigned docker IP address:
 
-We use the familiar command from Lab 5:
+Use the familiar command from Lab 5:
 
 ```bash
 docker inspect apache-php -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
 ```
-Which will show us only the IP as output:
+Which will show only the IP of the container as output:
 
 ```
 172.17.0.4
 ```
 
-With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
+With this IP navigate to the web server at <http://172.17.0.4>.
 
 {{% alert title="Note for Webshell" color="primary" %}}
 As we don't have a browser in the webshell use `curl http://172.17.0.4` to open the page in your terminal.
@@ -129,10 +132,10 @@ The Apache web server does not allow you to scan its own document root.
 {{% /details %}}
 
 {{% details title="🤔 Can I only access the webserver through its local IP?" %}}
-Docker can port-forward your request to a running containter. In the windows environment you have just used this feature. But more explanation in the next lab.
+Docker can port-forward your request to a running container. In a windows environment you have just used this feature. But more explanation in the next lab.
 {{% /details %}}
 
-For now let us stop and remove this container:
+For now stop and remove this container:
 
 ```bash
 docker stop apache-php

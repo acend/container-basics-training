@@ -5,15 +5,14 @@ weight: 10
 
 ## Dockerfile
 
-Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.
-
+Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.  
 The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/engine/reference/builder/>.
 
 
 ## Write your first Dockerfile
 
 Before we extend our php image we have a more general look on how to build a Docker image.
-For that, we create a new directory and create an empty Dockerfile in there.
+For that, create a new directory with an empty Dockerfile in there.
 
 ```bash
 mkdir myfirstimage
@@ -37,12 +36,14 @@ RUN apt-get update && \
 
 ## Build the image
 
+Just run
+
 ```bash
 docker build -t myfirstimage .
 ```
 
 * `-t` indicates the tag to apply to the image
-* `.` indicates the location of the build context (which we will talk more about later but is basically the directory where our Dockerfile is located)
+* `.` indicates the location of the build context (which we will talk more about later, but is basically the directory where our Dockerfile is located)
 
 {{% alert title="Note" color="primary" %}}
 Use the additional parameter `--build-arg` when behind a corporate proxy:
@@ -53,10 +54,9 @@ docker build -t myfirstimage --build-arg http_proxy=http://<username>:<password>
 
 {{% /alert %}}
 
-Please note that the tag can be omitted in most Docker commands and instructions. In that case, the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name, it does not necessarily identify the latest version of an image.
-Depending on the build system it can point to the last image pushed, to the last image built from some branch, or to some old image. It can even not exist at all.
-Because of this, you must never use the `latest` tag in production, always use a specific image version.
-
+Please note that the tag can be omitted in most Docker commands and instructions. In that case, the tag defaults to `latest`. Besides being the default tag there's nothing special about `latest`. Despite its name, it does not necessarily identify the latest version of an image.  
+Depending on the build system it can point to the last image pushed, to the last image built from some branch, or to some old image. It can even not exist at all.  
+Because of this, you must never use the `latest` tag in production, always use a specific image version.  
 Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375>
 
 
@@ -138,9 +138,18 @@ the following steps, thus installing the latest updates.
 
 ### Run it
 
+Now run your image
+
 ```bash
 docker run -ti myfirstimage
 ```
+
+You'll find yourself inside a bash in the container, execute
+
+```bash
+figlet hello
+```
+and you will see the following output:
 
 ```
 root@00f0766080ed:/# figlet hello
@@ -150,13 +159,24 @@ root@00f0766080ed:/# figlet hello
 | | | |  __/ | | (_) |
 |_| |_|\___|_|_|\___/
 
-root@00f0766080ed:/# exit
+root@00f0766080ed:/#
+```
+exit the container by executing:
+
+```bash
+exit
 ```
 
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile can define the command that is executed by default when a container is started. Modify the previously created Dockerfile as follows:
+With the `CMD` instruction in the Dockerfile can define the command that is executed by default when a container is started.
+
+{{% details title="🤔 Can you say which CMD instruction the ubuntu image has by default?" %}}
+You did find yourself in a shell, so the instruction must either be /usr/bin/bash oder /usr/bin/sh
+{{% /details %}}
+
+Modify the previously created Dockerfile as follows:
 
 ```Dockerfile
 FROM ubuntu
@@ -167,7 +187,7 @@ RUN apt-get update && \
 CMD ["figlet", "hello"]
 ```
 
-After building the image with
+Build the image with
 
 ```bash
 docker build -t myfirstimagecmd .
@@ -182,7 +202,7 @@ docker build -t myfirstimagecmd --build-arg http_proxy=http://<username>:<passwo
 
 {{% /alert %}}
 
-We simply run it:
+And run it:
 
 ```bash
 docker run -ti myfirstimagecmd
@@ -204,7 +224,7 @@ Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-
 
 ## Frontend app image build
 
-We now want to include the source code of our frontend app into an already built docker image. To achieve this we will create a Dockerfile.
+After we got grip of the image building basics. We now want to include the source code of our frontend app into an already built docker image. To achieve this we will create a Dockerfile.
 
 The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
 We use this command to add the application source code into the image.
@@ -262,7 +282,7 @@ ADD ./php-app/ /var/www/html/
 Stop and delete the running `php-app` container first. Leave the database container running.
 {{% /alert %}}
 
-Let's build the image:
+Now build the image:
 
 ```bash
 docker build -t php-app .
@@ -270,6 +290,8 @@ docker build -t php-app .
 
 
 ### Run the php-app container
+
+After a succesful build, run it:
 
 ```bash
 docker run -d --network container-basics-training --name php-app -p8080:80 php-app
@@ -279,13 +301,25 @@ Now open a browser and navigate to <http://localhost:8080/db.php> (or in the web
 You should get a response saying "Connected successfully".
 
 
-## Additional lab
+## Optional lab
 
-Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
-Fix the code in the db.php file. According to the continuous delivery principles, we don't want usernames and passwords in our source code.
+Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.  
+Fix the code in the db.php file. According to the continuous delivery principles, we don't want usernames and passwords in our source code. Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container. Challenge yourself, this time the code is hidden. Try to find the solution before looking at it.
 
-{{% alert title="Note" color="primary" %}}
-Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container.
+{{% details title="Show me the solution" %}}
+Replace the line
 
-You might want to use the `-e` parameter to set an environment variable inside a container while running it: `docker run -e`.
-{{% /alert %}}
+```php
+$password = "venkman";
+```
+with
+
+```php
+$password = $_ENV["password">];
+```
+and run the container by passing the necessary env var:
+```bash
+docker run -d --name apache-php -e password=venkman -v $(pwd)/php-app:/var/www/html php:7-apache
+```
+
+{{% /details %}}

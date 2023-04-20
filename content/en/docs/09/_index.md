@@ -8,7 +8,7 @@ Now it is time to link your frontend and our backend together.
 
 ## Linking containers
 
-If you have properly worked through all the previous labs you should now have the following setup:
+If you have properly worked through all the previous labs you have the following setup now:
 
 ```bash
 docker ps
@@ -21,19 +21,19 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 3 hours          3306/tcp             mariadb-container
 ```
 
-Sadly, before we can link the frontend and backend, we have to get rid of the existing containers.
+We will link the containers in a new network. But first get rid of the currently running ones:
 
 ```bash
 docker stop apache-php mariadb-container mariadb-container-with-existing-external-volume
 docker rm apache-php mariadb-container mariadb-container-with-existing-external-volume
 ```
 
-To enable communication between Docker containers you have to use Docker network. Per default there are three networks available:
+To enable communication between Docker containers, use `docker network`. Per default Docker has three networks available. Verify that:
 
 ```bash
 docker network ls
 ```
-
+Will output the following:
 ```
 NETWORK ID          NAME                DRIVER              SCOPE
 9233283df4a6        bridge              bridge              local
@@ -41,15 +41,15 @@ NETWORK ID          NAME                DRIVER              SCOPE
 72f9a9996909        none                null                local
 ```
 
-For this exercise we are creating our own network with:
+For this exercise create a new network with:
 
 ```bash
 docker network create container-basics-training
 ```
 
-If you now rerun the list command for Docker networks you should see the created network.
+If you now rerun the list command for Docker networks `container-basics-training` will show up.
 
-To make the backend accessible/visible to the frontend you have to run both containers with the `--network` option:
+To make the backend accessible from the frontend run both containers with the `--network` option:
 
 Linux/Webshell:
 
@@ -103,7 +103,4 @@ The two containers are now able to talk to each other. But let's check this:
 If you type <http://localhost:8080/db.php> in your browser or use `curl http://localhost:8080/db.php` in the webshell you get... an error!
 This is because the mysqli extension is not installed in the container.
 
-{{% details title="🤔 I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?" %}}
-Yes, there is. Create your own Dockerfile which describes the content of a Docker image.
-Let's check out the [next lab](../10/) to find out how.
-{{% /details %}}
+Off course we will not install it in the running container but change the image. More on that in the next lab.
