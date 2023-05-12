@@ -5,9 +5,9 @@ weight: 5
 
 ## Naming a container
 
-Unlike the CONTAINER ID, the NAME is something we can manipulate. The name is handy, not only for starting/connecting/stopping/destroying a container, but also for networking (which we will see in a later lab).
+Unlike the `CONTAINER ID`, the `NAME` is something we can manipulate. The name is handy, not only for starting/connecting/stopping/destroying a container, but also for networking (which we will see in a later lab).
 
-To set a name add the `--name` parameter to the `run` command of Docker
+To set a name, add the `--name` parameter to Docker's `run` command:
 
 ```bash
 docker run --name mariadb-container -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
@@ -30,7 +30,7 @@ Instead of accessing the database from inside the container like in the last lab
 This is a bit tricky. First find out the IP address of your docker container. Therefore, use this command:
 
 ```bash
-docker inspect mariadb-container  -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+docker inspect mariadb-container  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}'
 ```
 
 `docker inspect <container>` shows you details about a running container in JSON format (run it yourself and take a look at it). We filtered the json to only get the IP address of the container.  
@@ -57,7 +57,8 @@ Also on Windows, you must use port-forwarding to access the database:
 docker run --name mariadb-container -p 3306:3306 -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-Now you should be able to access the database with
+Now you should be able to access the database with:
+
 ```bash
 winpty mysql.exe -hlocalhost -uroot -pmy-secret-pw
 ```
@@ -65,6 +66,6 @@ winpty mysql.exe -hlocalhost -uroot -pmy-secret-pw
 {{% /alert %}}
 
 {{% details title="🤔 Can you imagine another way to access the database?" %}}
-Instead of entering the container with bash, we could also directly run mysql inside the container
+Instead of entering the container with bash, we could also directly run mysql inside the container:
 `docker exec -it mariadb-container mysql -uroot -pmy-secret-pw`
 {{% /details %}}

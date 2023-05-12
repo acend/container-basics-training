@@ -103,7 +103,7 @@ docker info
 
 ## Hello world (with Docker images)
 
-Docker containers are run from Docker images. By default, they pull these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so most applications and Linux distributions you'll need to run Docker containers have images that are hosted on Docker Hub.
+Docker containers are run from Docker images. By default, they pull these images from Docker Hub, a Docker registry managed by Docker Inc, the company behind the Docker project. Anybody can build and host their Docker images on Docker Hub, so for many applications and Linux distributions you'll find Docker images that are hosted on Docker Hub.
 
 To check whether you can access and download images from Docker Hub, type:
 
@@ -131,6 +131,6 @@ Browse <https://docs.docker.com> and get familiar with the docs as well as the r
 
 {{% details title="Question: Do I need to know the docker images by name?" %}}
 No! There are tons of images provided by companies, open source projects, and individuals.
-You can search for this images in various registries, the most famous one beeing [Docker Hub](https://hub.docker.com).
+You can search for these images in various registries, some of the better-known are [Docker Hub](https://hub.docker.com) and [Quay](https://quay.io).
 Checkout the [next lab](../02/) for more details.
 {{% /details %}}

@@ -8,17 +8,17 @@ A lot of the container images contain security issues. If you want to use images
 
 There are some tools on the market which can help you to check these images.
 
-In this lab you will learn how to scan an image with the tool Trivy.
+In this lab you will learn how to scan an image with the tool [Trivy](https://trivy.dev/).
 
 
 ## Scan image for vulnerabilities and secrets
 
-We will use a tool named [Trivy](https://trivy.dev/). Trivy is as simple as it sounds! Just point it to your image and it will do the rest.
+Trivy is as simple as it sounds! Just point it to your image and it will do the rest.
 
 When Trivy runs for the very first time, it will download the latest vulnerability database from the internet. Without this, Trivy is not able to scan anything.
 
 {{% alert title="Note" color="primary" %}}
-[Pre-download](https://aquasecurity.github.io/trivy/v0.40/docs/advanced/air-gap/) of the database is possible if Trivy has no direct access to the internet.
+A [pre-download](https://aquasecurity.github.io/trivy/v0.40/docs/advanced/air-gap/) of the database is possible if Trivy has no direct access to the internet.
 {{% /alert %}}
 
 Scan an image for vulnerabilities:

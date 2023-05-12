@@ -47,7 +47,8 @@ Once all steps are completed quit the mysql session and exit the container:
 ```bash
 exit;
 ```
-(To test if peter has been created correctly, just login using his credentials).
+
+To test if Peter has been created correctly, just login using his credentials.
 
 Now stop and remove the `mariadb-container-with-external-volume` container.
 
@@ -56,7 +57,7 @@ docker stop mariadb-container-with-external-volume
 docker rm mariadb-container-with-external-volume
 ```
 
-Now check if the data is still be available.
+Next, check if the data is still available.
 Create a new MariaDB container with the previous volume:
 
 ```bash
@@ -66,17 +67,14 @@ docker run --name mariadb-container-with-existing-external-volume \
             -d mariadb
 ```
 
-The moment of truth... Connect to the database server using peters credentials:
-
+The moment of truth... Connect to the database server using Peter's credentials:
 ```bash
 docker exec -it mariadb-container-with-existing-external-volume mysql -upeter -pvenkman
 ```
 
 ```bash
 mysql -upeter -pvenkman
-```
-
-You should now be connected to your database instance as `peter`. You can test this by using the listing users in the sql client:
+You should now be connected to your database instance as `peter`. You can test this by listing the users with the sql client:
 
 ```bash
 SELECT User FROM mysql.user;
@@ -107,7 +105,6 @@ Docker volumes can be used for:
 * Sharing a directory between multiple containers
 * Sharing a directory between the host and a container
 * Sharing a single file between the host and a container
-
 An alternative to working with volumes would be to mount local directories (host folders) by a path into your container. We will use this in chapter 08.
 
 

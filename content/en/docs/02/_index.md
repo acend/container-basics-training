@@ -58,13 +58,13 @@ docker run -it mariadb
 ```
 
 {{% alert title="Note for Windows" color="primary" %}}
-If you are on a Windows system (so you are using `git-bash`, `cmd` or `powershell` but not the Webgui), be aware of the error:
+If you are using `git-bash`, `cmd` or `powershell` on a Windows system, be aware of the error:
 
 ```
 the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
 ```
 
-Put `winpty` at the beginning of every command that uses the `-it` paramaters. E.g.:
+Put `winpty` at the beginning of every command that uses the `-it` paramaters. e.g.:
 
 ```bash
 winpty docker run -it mariadb
@@ -98,10 +98,10 @@ Think of an image like a blueprint of what will be in a container when it runs.
 
 * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
 * Images are made of layers, conceptually stacked on top of each other
-* Each layer can add, change, and remove files
+* Each layer can add, change or remove files
 * Images can share layers to optimize disk usage, transfer times and memory use
-* You build these images using Dockerfiles (in later Labs).
-* Images are immutable, you cannot change them after creation.
+* You build these images using Dockerfiles (in later labs)
+* Images are immutable, you cannot change them after creation
 {{% /details %}}
 
 {{% details title="🤔 What's the difference between a container and an image?" %}}

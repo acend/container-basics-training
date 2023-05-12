@@ -7,7 +7,7 @@ weight: 3
 
 So why was there an error in the previous lab?
 The MariaDB server is not able to run without a proper configuration. Docker can pass variables into the instantiation process via environment variables.
-Environment variables are passed via the parameter `-e` e.g.:
+Environment variables are passed via the parameter `-e`, e.g.:
 
 ```bash
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
@@ -60,7 +60,7 @@ MySQL init process in progress...
 Version: '10.3.7-MariaDB-1:10.3.7+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 ```
 
-If you re-read the command above you will notify, that we used the arguments -it (interactive/terminal). And you might have found out that mariadb does not react to the usual `CTRL-c`.
+If you re-read the command above you will notify that we used the arguments `-it` (interactive/terminal). And you might have also found out that mariadb does not react to the usual `CTRL-c`.
 So how do we exit this terminal? Docker has an escape sequence to detach from a container and leave it running. For this you have to press `CTRL-p` and then `CTRL-q` in bash.
 
 {{% alert title="Note for Webshell" color="primary" %}}
@@ -147,7 +147,7 @@ one more time to leave the container.
 ## Detached containers
 
 One might think: _This whole starting process is a bit cumbersome with `CTRL-p` and then `CTRL-q`_.
-Therefore, you can run a Docker container directly run with -d (detached) mode e.g.:
+Therefore, you can run a Docker container directly with `-d` (detached) mode, e.g.:
 
 ```bash
 docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb

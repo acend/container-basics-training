@@ -70,7 +70,7 @@ docker-compose up
 
 Then again, check <http://LOCALHOST:8080/db.php> in a browser (or curl in another terminal in the webshell).
 
-To stop the containers hit CTRL+C followed by
+To stop the containers, hit CTRL+c followed by
 
 ```bash
 docker-compose down

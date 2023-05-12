@@ -4,9 +4,7 @@ weight: 11
 sectionnumber: 10.1
 ---
 
-Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application that are not necessary during the execution time of the container. We want to keep the actual artifact as independent and small as possible. So we often remove these dependencies in the docker build phase after the application itself is built.
-
-Since docker version 17.05 there is a solution for that problem: the so called multi stage-builds.
+Often you're going to use some kind of libraries, tools or dependencies during the build phase of your application that are not necessary during the runtime of the container. We want to keep the actual artifact as independent and small as possible. So we often remove these dependencies in the build phase after the application itself has been built.
 
 In this lab you're going to learn how to use multistage builds and what they are good for.
 
@@ -23,7 +21,8 @@ Let's have a look at some examples:
 
 #### Java Spring Boot Gradle build
 
-The complete example can be found at <https://github.com/appuio/example-spring-boot-helloworld>
+
+The complete example can be found at <https://github.com/appuio/example-spring-boot-helloworld>.
 
 ```Dockerfile
 FROM registry.access.redhat.com/ubi9/openjdk-17
@@ -80,7 +79,7 @@ A go application is a great use case for multi-stage builds, since the resulting
 
 Multi stage Docker build:
 
-```bash
+```Dockerfile
 FROM golang:1.9
 WORKDIR /go/src/myapp
 RUN go get -d -v golang.org/x/net/html
@@ -119,19 +118,18 @@ With multistage builds you now have the possibility to actually split these two 
 Read more about Docker multi-stage builds at <https://docs.docker.com/develop/develop-images/multistage-build/>
 
 
-## Optional Lab: Create a multi-stage build
+## Optional lab: Create a multi-stage build
 
 Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld>) into a docker multistage build.
-
 As a second image you can use `registry.access.redhat.com/ubi9/openjdk-17-runtime`. Try to find the solution before looking at it.
 
 {{% details title="Show me the solution" %}}
 ```Dockerfile
 FROM registry.access.redhat.com/ubi9/openjdk-17
 
-LABEL org.opencontainers.image.authors="midcicd@puzzle.ch" \
-      io.k8s.description="APPUiO Example Spring Boot App" \
-      io.k8s.display-name="APPUiO Spring Boot App" \
+LABEL org.opencontainers.image.authors="noreply@acend.ch" \
+      io.k8s.description="acend example spring boot app" \
+      io.k8s.display-name="acend spring boot app" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="springboot"
 

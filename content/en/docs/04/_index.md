@@ -71,7 +71,7 @@ It is a good idea to delete unused containers to save disk space.
 {{% /alert %}}
 
 {{% details title="🤔 Where do these strange names of the containers come from?" %}}
-The CONTAINER ID and the NAME is a unique identifier for a container. If we don't provide one, `docker` will come up with a unique name.
+The `CONTAINER ID` and `NAME` values are unique identifiers for a container. If we don't provide one, `docker` will come up with a unique name.
 More on that in the [next lab](../05/)!
 
 {{% /details %}}

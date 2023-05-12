@@ -5,13 +5,13 @@ weight: 10
 
 ## Dockerfile
 
-Docker can build Docker images by reading the instructions on how to build the image from a so called Dockerfile.  
+Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile.
 The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/engine/reference/builder/>.
 
 
 ## Write your first Dockerfile
 
-Before we extend our php image we have a more general look on how to build a Docker image.
+Before we extend our php image we are going to have a more general look at how to build a container image.
 For that, create a new directory with an empty Dockerfile in there.
 
 ```bash
@@ -31,12 +31,12 @@ RUN apt-get update && \
 * `FROM` indicates the base image for our build
 * Each `RUN` line will be executed by Docker during the build
 * Our RUN commands must be non-interactive (no input can be provided to Docker during the build)
-* Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write Dockerfiles
+* Check <https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/> for further best practices on how to write Dockerfiles.
 
 
 ## Build the image
 
-Just run
+Just run:
 
 ```bash
 docker build -t myfirstimage .
@@ -144,7 +144,7 @@ Now run your image
 docker run -ti myfirstimage
 ```
 
-You'll find yourself inside a bash in the container, execute
+You'll find yourself inside a Bash shell in the container, execute
 
 ```bash
 figlet hello
@@ -170,10 +170,10 @@ exit
 
 ## The CMD instruction in Dockerfile
 
-With the `CMD` instruction in the Dockerfile can define the command that is executed by default when a container is started.
+With the `CMD` instruction in the Dockerfile, we can define the command that is executed when a container is started.
 
-{{% details title="🤔 Can you say which CMD instruction the ubuntu image has by default?" %}}
-You did find yourself in a shell, so the instruction must either be /usr/bin/bash oder /usr/bin/sh
+{{% details title="🤔 Can you find out which CMD instruction the ubuntu image has?" %}}
+You did find yourself in a shell, so the instruction must either be `/usr/bin/bash` or `/usr/bin/sh`.
 {{% /details %}}
 
 Modify the previously created Dockerfile as follows:
@@ -187,7 +187,7 @@ RUN apt-get update && \
 CMD ["figlet", "hello"]
 ```
 
-Build the image with
+Build the image with:
 
 ```bash
 docker build -t myfirstimagecmd .
@@ -224,9 +224,9 @@ Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-
 
 ## Frontend app image build
 
-After we got grip of the image building basics. We now want to include the source code of our frontend app into an already built docker image. To achieve this we will create a Dockerfile.
+After we got to grips with the image building basics, we now want to include the source code of our frontend app in an already-built container image. To achieve this we will create a Dockerfile.
 
-The base image is our `php:7-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
+The base image is our `php:8-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
 We use this command to add the application source code into the image.
 
 {{% alert title="Note" color="primary" %}}
@@ -237,7 +237,7 @@ In the directory containing the subdirectory `php-app` create a Dockerfile with 
 
 {{% onlyWhenNot mobi %}}
 ```Dockerfile
-FROM php:7-apache
+FROM php:8-apache
 
 # Copies the php source code to the correct location
 ADD ./php-app/ /var/www/html/
@@ -249,7 +249,7 @@ RUN docker-php-ext-install mysqli
 
 {{% onlyWhen mobi %}}
 ```Dockerfile
-FROM <registry-url>/puzzle/k8s/kurs/php:7-apache
+FROM <registry-url>/puzzle/k8s/kurs/php:8-apache
 
 # Copies the php source code to the correct location
 ADD ./php-app/ /var/www/html/
@@ -303,7 +303,7 @@ You should get a response saying "Connected successfully".
 
 ## Optional lab
 
-Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.  
+Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
 Fix the code in the db.php file. According to the continuous delivery principles, we don't want usernames and passwords in our source code. Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container. Challenge yourself, this time the code is hidden. Try to find the solution before looking at it.
 
 {{% details title="Show me the solution" %}}
@@ -319,7 +319,7 @@ $password = $_ENV["password">];
 ```
 and run the container by passing the necessary env var:
 ```bash
-docker run -d --name apache-php -e password=venkman -v $(pwd)/php-app:/var/www/html php:7-apache
+docker run -d --name apache-php -e password=venkman -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
 
 {{% /details %}}
