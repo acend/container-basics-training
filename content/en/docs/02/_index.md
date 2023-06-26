@@ -3,13 +3,6 @@ title: "2. Images"
 weight: 2
 ---
 
-From the [previous lab](../01/):
-
-> Question: Is there only a "hello world" Docker image?
-
-Answer: No! There are tons of images provided by companies, open source projects, and boys/girls like you and me.
-
-
 ## Docker images
 
 You can search for images available on [Docker Hub](https://hub.docker.com) by clicking the **Explore** link or by typing `mariadb` into the search field: <https://hub.docker.com/search/?q=mariadb&type=image>
@@ -26,22 +19,22 @@ docker pull mariadb
 Care about security! Check the images before you run them.
 {{% /alert %}}
 
-* Is it an official image?
-* What is installed?
+* Is it an [official image](https://docs.docker.com/docker-hub/official_images/)?
+* What is installed in the image?
   * Read the Dockerfile that was used to build the image
   * Check the base image
 
-After an image has been downloaded, you may then run a container using the downloaded image with the sub command `run`. If an image has not been downloaded when Docker is executed with the sub command `run`, the Docker client will first download the image, then run a container using it:
+After an image has been downloaded, you may then run a container using the downloaded image with the sub-command `run`. If an image has not been downloaded when Docker is executed with the sub-command `run`, the Docker client will first download the image, then run a container using it:
 
 ```bash
 docker run hello-world:linux
 ```
 
 {{% alert title="Note" color="primary" %}}
-Here we use the linux tag of the hello-world image instead of using latest again.
+Here we use the `linux` tag of the hello-world image instead of using `latest` again.
 {{% /alert %}}
 
-To see the images that have been downloaded to your computer, type:
+To see the images that have been downloaded to your computer type:
 
 ```bash
 docker images
@@ -56,22 +49,22 @@ hello-world         latest              1815c82652c0        2 months ago        
 hello-world         linux               1815c82652c0        2 months ago        1.84kB
 ```
 
-The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.
+The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.
 
-As an example, let's run a container using the latest image of MariaDB. The combination of the -i and -t switches gives you interactive shell access into the container:
+As an example, let's run a container using the latest image of MariaDB. The combination of the -i and -t switches gives you interactive shell access to the container:
 
 ```bash
 docker run -it mariadb
 ```
 
-{{% alert title="Note" color="primary" %}}
-If you are on a Windows system, be aware of the error:
+{{% alert title="Note for Windows" color="primary" %}}
+If you are using `git-bash`, `cmd` or `powershell` on a Windows system, be aware of the error:
 
 ```
 the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
 ```
 
-Put `winpty` at the beginning of every command that uses the `-it` paramaters. E.g.:
+Put `winpty` at the beginning of every command that uses the `-it` paramaters. e.g.:
 
 ```bash
 winpty docker run -it mariadb
@@ -89,6 +82,33 @@ An error has popped up!
         You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 ```
 
-> Question: What's wrong? Am I an idiot?
+{{% details title="🤔 Why do I get an error? Is this a bug in the image?" %}}
+Everything is fine, to run this image there is some configuration needed. Read the following excerpt carefully.
 
-Check out the [next lab](../03/).
+```
+error: database is uninitialized and password option is not specified
+        You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+```
+More on passing configuration to containers in the [next lab](../03/).
+{{% /details %}}
+
+{{% details title="🤔 What's an image?" %}}
+
+Think of an image like a blueprint of what will be in a container when it runs.
+
+* An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
+* Images are made of layers, conceptually stacked on top of each other
+* Each layer can add, change or remove files
+* Images can share layers to optimize disk usage, transfer times and memory use
+* You build these images using Dockerfiles (in later labs)
+* Images are immutable, you cannot change them after creation
+{{% /details %}}
+
+{{% details title="🤔 What's the difference between a container and an image?" %}}
+When you run an image, it becomes a container.
+
+* An image is a read-only filesystem
+* A container is an encapsulated set of processes running in a read-write copy of that filesystem
+* To optimize container boot time, copy-on-write is used instead of regular copy
+* docker run starts a container from a given image
+{{% /details %}}

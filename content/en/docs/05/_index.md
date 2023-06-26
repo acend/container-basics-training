@@ -3,24 +3,17 @@ title: "5. Names"
 weight: 5
 ---
 
-From the [previous lab](../04/):
-
-> Question: Where do these strange names come from?
-
-Answer: Docker (what a surprise!)... Besides the CONTAINER ID the NAME is a unique identifier for a container.
-
-
 ## Naming a container
 
-Unlike the CONTAINER ID the NAME is something we can manipulate. The name is handy not only for starting/connecting/stopping/destroying a container, but also for the networking (which comes later in the lab).
+Unlike the `CONTAINER ID`, the `NAME` is something we can manipulate. The name is handy, not only for starting/connecting/stopping/destroying a container, but also for networking (which we will see in a later lab).
 
-To do so, you have to add a parameter to the `run` command of Docker
+To set a name, add the `--name` parameter to Docker's `run` command:
 
 ```bash
 docker run --name mariadb-container -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-As always, to check if this has really worked out look at the container list
+As always, to check if this has really worked out, look at the container list:
 
 ```bash
 docker ps
@@ -32,87 +25,47 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 699e82ed8f1f        mariadb             "docker-entrypoint..."   24 minutes ago      Up 24 minutes       3306/tcp            jolly_bardeen
 ```
 
-If you want to access your DB server there are two ways:
+Instead of accessing the database from inside the container like in the last lab, we access it from outside using a local mysqlclient.
 
-1) Using `docker exec -it mariadb-container bash`
-   This will connect you to the remote `bash` shell from where you can connect to the server via `mysql -uroot -pmy-secret-pw`.
-
-1) Using a local mysqlclient
-   This is a bit tricky. First you have to find out the IP address of your docker container. Therefore, use this command:
+This is a bit tricky. First find out the IP address of your docker container. Therefore, use this command:
 
 ```bash
-docker inspect mariadb-container
+docker inspect mariadb-container  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}'
 ```
 
+`docker inspect <container>` shows you details about a running container in JSON format (run it yourself and take a look at it). We filtered the json to only get the IP address of the container.  
+We could also have filtered the output with grep: `docker inspect mariadb-container | grep IPAddress` but our solution is more elegant 😊.
+
+Once you have the IP (in your example `172.17.0.2`) connect to it:
+
+```bash
+mysql -h172.17.0.2 -uroot -p my-secret-pw` 
 ```
-[
-    {
-        "Id": "6f08ac657320f279a9193728905f6f18d74f72d2c5dea97a9ffc76fb7e216c59",
-        "Created": "2020-05-27T06:37:18.180716875Z",
-        "Path": "docker-entrypoint.sh",
-        "Args": [
-            "mysqld"
-        ],
+If everthings works, exit mysql-client
 
-...
-
-        "NetworkSettings": {
-            "Bridge": "",
-            "SandboxID": "5a244dfe119b4211326ae2afb7b4331cba026df3b9b0b535c619606a8fd68a61",
-            "HairpinMode": false,
-            "LinkLocalIPv6Address": "",
-            "LinkLocalIPv6PrefixLen": 0,
-            "Ports": {
-                "3306/tcp": null
-            },
-            "SandboxKey": "/var/run/docker/netns/5a244dfe119b",
-            "SecondaryIPAddresses": null,
-            "SecondaryIPv6Addresses": null,
-            "EndpointID": "6dcdf9ed5c90c9fbf5eee5253a7642efff861603c079b0cba17111cb5c3e2514",
-            "Gateway": "172.17.0.1",
-            "GlobalIPv6Address": "",
-            "GlobalIPv6PrefixLen": 0,
-            "IPAddress": "172.17.0.2",
-            "IPPrefixLen": 16,
-            "IPv6Gateway": "",
-            "MacAddress": "02:42:ac:11:00:02",
-            "Networks": {
-                "bridge": {
-                    "IPAMConfig": null,
-                    "Links": null,
-                    "Aliases": null,
-                    "NetworkID": "4b12e50d081a1d103918e742503b0d52f05c50daf35c4d07d3bd7cd53fe75a79",
-                    "EndpointID": "6dcdf9ed5c90c9fbf5eee5253a7642efff861603c079b0cba17111cb5c3e2514",
-                    "Gateway": "172.17.0.1",
-                    "IPAddress": "172.17.0.2",
-                    "IPPrefixLen": 16,
-                    "IPv6Gateway": "",
-                    "GlobalIPv6Address": "",
-                    "GlobalIPv6PrefixLen": 0,
-                    "MacAddress": "02:42:ac:11:00:02",
-                    "DriverOpts": null
-                }
-            }
-        }
-    }
-]
+```bash
+exit;
 ```
 
-In the last section (`NetworkSettings`) you will find the `IPAddress` for your container. In this example it's 172.17.0.2.
-Once you have the IP you can connect with the command `mysql -h172.17.0.2 -uroot -p` (use password from run command)
 
-{{% alert title="Note" color="primary" %}}
+{{% alert title="Note for Windows" color="primary" %}}
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
 
-Also on Windows you must use port-forwarding to access the database:
+Also on Windows, you must use port-forwarding to access the database:
 
 ```bash
 docker run --name mariadb-container -p 3306:3306 -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
 ```
 
-Now you should be able to access the database by: `winpty mysql.exe -hlocalhost -uroot -p`.
+Now you should be able to access the database with:
+
+```bash
+winpty mysql.exe -hlocalhost -uroot -pmy-secret-pw
+```
+
 {{% /alert %}}
 
-> Question: I have a container with a database server running. What happens to my data when I remove the container?
-
-Let's find out in the [next lab](../06/)!
+{{% details title="🤔 Can you imagine another way to access the database?" %}}
+Instead of entering the container with bash, we could also directly run mysql inside the container:
+`docker exec -it mariadb-container mysql -uroot -pmy-secret-pw`
+{{% /details %}}

@@ -15,7 +15,7 @@ In this lab we're going to learn:
 
 ## Docker Hub
 
-You might be wondering where the images and base images you ran in the previous labs came from, when not already present on your computer. They all came from Docker Hub!
+Most of the images and base images you ran in the previous labs were downloaded from Docker Hub, when not already present on your computer.
 
 Docker Hub is an online Docker registry, repository management, and build platform. It consists of public and private repositories. Docker Hub integrates with various online services such as GitHub or GitLab.
 
