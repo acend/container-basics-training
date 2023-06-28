@@ -35,7 +35,7 @@ Okay, now create a new user in the MariaDB container:
 docker exec -it mariadb-container-with-external-volume mysql -uroot -pmy-secret-pw
 ```
 
-Inside the mysql-client execute some SQL commands:
+Inside the mariadb-client execute some SQL commands:
 
 ```bash
 use mysql
@@ -73,7 +73,7 @@ docker exec -it mariadb-container-with-existing-external-volume mysql -upeter -p
 ```
 
 ```bash
-mysql -upeter -pvenkman
+mariadb -upeter -pvenkman
 You should now be connected to your database instance as `peter`. You can test this by listing the users with the sql client:
 
 ```bash
