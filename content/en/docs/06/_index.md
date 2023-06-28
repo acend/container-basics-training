@@ -69,11 +69,9 @@ docker run --name mariadb-container-with-existing-external-volume \
 
 The moment of truth... Connect to the database server using Peter's credentials:
 ```bash
-docker exec -it mariadb-container-with-existing-external-volume mysql -upeter -pvenkman
+docker exec -it mariadb-container-with-existing-external-volume mariadb -upeter -pvenkman
 ```
 
-```bash
-mariadb -upeter -pvenkman
 You should now be connected to your database instance as `peter`. You can test this by listing the users with the sql client:
 
 ```bash
