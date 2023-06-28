@@ -32,7 +32,7 @@ See [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/) f
 Okay, now create a new user in the MariaDB container:
 
 ```bash
-docker exec -it mariadb-container-with-external-volume mysql -uroot -pmy-secret-pw
+docker exec -it mariadb-container-with-external-volume mariadb -uroot -pmy-secret-pw
 ```
 
 Inside the mariadb-client execute some SQL commands:
@@ -68,6 +68,7 @@ docker run --name mariadb-container-with-existing-external-volume \
 ```
 
 The moment of truth... Connect to the database server using Peter's credentials:
+
 ```bash
 docker exec -it mariadb-container-with-existing-external-volume mariadb -upeter -pvenkman
 ```
