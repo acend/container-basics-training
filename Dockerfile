@@ -1,4 +1,4 @@
-FROM klakegg/hugo:0.101.0-ext-ubuntu AS builder
+FROM klakegg/hugo:0.111.3-ext-ubuntu AS builder
 
 ARG TRAINING_HUGO_ENV=default
 
@@ -21,9 +21,10 @@ RUN wkhtmltopdf --enable-internal-links --enable-local-file-access \
     --margin-top 35mm --margin-bottom 22mm --margin-left 15mm --margin-right 10mm \
     --enable-internal-links --enable-local-file-access \
     --header-html /pdf/header/index.html --footer-html /pdf/footer/index.html \
+    --dpi 600 \
     /pdf/index.html /pdf.pdf
 
-FROM nginxinc/nginx-unprivileged:1.23-alpine
+FROM nginxinc/nginx-unprivileged:1.25-alpine
 
 LABEL maintainer acend.ch
 LABEL org.opencontainers.image.title "acend.ch's Container Basics Training"

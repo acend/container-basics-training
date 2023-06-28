@@ -3,21 +3,14 @@ title: "8. Embedding the source code"
 weight: 8
 ---
 
-From the [previous lab](../07/):
-
-> Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
-
-Answer(s):
-
-1. The Apache web server does not allow you to scan its own document root.
-2. There is another way, and you're going to love it.
+It looks like the apache image is working but needs a website to display. Create a small web application and run it inside the container.
 
 
-## Get the PHP app
+## Create a PHP app
 
 For this lab you're going to need a small PHP app consisting of two files.
 
-First, let's create a directory for the app's files called `php-app`.
+First, create a directory for the app's files called `php-app`.
 
 Then, inside that directory, create a new file named `index.php` with the following content:
 
@@ -62,19 +55,19 @@ That's it for the app part.
 
 Make sure you're outside that freshly created app directory when you execute the next commands.
 
-Now you can mount the php-app as the host directory into your docker container via
+Now mount the php-app as the host directory into your container:
 
 Linux:
 
 {{% onlyWhenNot mobi %}}
 ```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:7-apache
+docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
 ```
 {{% /onlyWhen %}}
 
@@ -82,47 +75,63 @@ Windows (Git Bash):
 
 {{% onlyWhenNot mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:8-apache
 ```
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:7-apache
+MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
 ```
 {{% /onlyWhen %}}
-
-{{% alert title="Note" color="primary" %}}
-Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
-{{% /alert %}}
 
 {{% alert title="Note" color="primary" %}}
 You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
 {{% /alert %}}
 
-You can now check whether the error is still present, or wait until the second question is answered.
+You can now check whether the error is still present.
 
 
 ## Port forwarding for your Docker container
 
-Docker is able to forward any port you want/specify to your local machine. This is great but also has the possibility of causing port trouble.
-Imagine you have a local httpd service running on port 80, and you are forwarding this same port to your Docker instance.
+Docker is able to forward any port you specify to your local machine by using `-p <host-port>:<container-port>`.
+This is great but also has the possibility of causing port trouble.
 
-But let's not assume this right now! Or simply use a port other than 80.
+Imagine you have a local httpd service running on port 8080, and you are forwarding this same port to your Docker instance.
 
-As you might have guessed, it's a parameter called `-p <host-port>:<container-port>` that you can set:
+So first, let us check out if port 8080 is occupied:
+
+In Linux or macOS do the following:
+
+```bash
+lsof -i:8080
+```
+
+or in Windows (Git Bash):
+
+```bash
+netstat -aon | findstr :8080 | findstr LISTENING
+```
+
+If you get an output, this means port 80 is used. In that case just us a different port, like 8888, in the examples below.
+
+Now run the image using the `-p` flag:
 
 Linux:
 
 {{% onlyWhenNot mobi %}}
 ```bash
-docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
+docker stop apache-php
+docker rm apache-php
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen mobi %}}
 ```bash
-docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:7-apache
+docker stop apache-php
+docker rm apache-php
+docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
 ```
 {{% /onlyWhen %}}
 
@@ -130,20 +139,25 @@ Windows (Git Bash):
 
 {{% onlyWhenNot mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
+docker stop apache-php
+docker rm apache-php
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:8-apache
 ```
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen mobi %}}
 ```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:7-apache
+docker stop apache-php
+docker rm apache-php
+MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
 ```
+{{% /onlyWhenNot %}}
 
-{{% alert title="Note" color="primary" %}}
+{{% alert title="Note regarding the webshell" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
 {{% /alert %}}
 
-If you take a look into `docker ps` you'll find an interesting change for the PORT column
+If you take a look into `docker ps` you'll find an interesting change for the PORTS column
 
 ```bash
 docker ps
@@ -151,28 +165,25 @@ docker ps
 
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
-6b0721fa6103        php:7-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   apache-php
+6b0721fa6103        php:8-apache        "docker-php-entryp..."   5 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   apache-php
 50197361e87b        mariadb             "docker-entrypoint..."   2 hours ago         Up 2 hours          3306/tcp             mariadb-container-with-existing-external-volume
-6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
 ```
 
 You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
-If you now type <http://LOCALHOST:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+If you now type <http://LOCALHOST:8080/index.php> in your browser you should get the message:  
+"Welcome to Docker...".  
+<http://LOCALHOST:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
 
-{{% alert title="Note" color="primary" %}}
+{{% alert title="Note regarding the Webshell" color="primary" %}}
 
-* Instead of using a browser, you can also use `curl http://LOCALHOST:8080/index.php`.
-* <http://LOCALHOST:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
+* Instead of the browser use `curl http://LOCALHOST:8080/index.php`.
 {{% /alert %}}
 
 {{% alert title="Note for play-with-docker.com" color="primary" %}}
-To access the frontend app, you have to use a special URL
+To access the frontend app use a special URL
 
 * Copy the SSH connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
 * Remove *ssh* and replace the **@** with a **.**
 * With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 {{% /alert %}}
-
-> Question: Can I somehow link the containers together, so that they can talk to each other?
-
-The answer lies in the [next lab](../09/).
+We have succeded in running our own app inside a container 🎉.

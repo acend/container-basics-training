@@ -68,4 +68,11 @@ Having this file, you can run both containers with a simple command:
 docker-compose up
 ```
 
-Then again, check <http://LOCALHOST:8080/db.php> in a browser.
+Then again, check <http://LOCALHOST:8080/db.php> in a browser (or curl in another terminal in the webshell).
+
+To stop the containers, hit CTRL+c followed by
+
+```bash
+docker-compose down
+```
+This will stop and remove the services.
