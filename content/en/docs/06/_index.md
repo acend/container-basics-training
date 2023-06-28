@@ -34,8 +34,8 @@ See [Docker's Volumes documentation](https://docs.docker.com/storage/volumes/) f
 Okay, let's create a new user in the MariaDB container:
 
 1. `docker exec -it mariadb-container-with-external-volume bash`
-2. `mysql -uroot -pmy-secret-pw`
-3. In the mysql-client:
+2. `mariadb -uroot -pmy-secret-pw`
+3. In the mariadb-client:
 
 ```bash
 use mysql
@@ -66,7 +66,7 @@ docker exec -it mariadb-container-with-existing-external-volume bash
 ```
 
 ```bash
-mysql -upeter -pvenkman
+mariadb -upeter -pvenkman
 ```
 
 If everything worked as expected, you should now be connected to your database instance as peter. You can test this by using the `SELECT User FROM mysql.user;` statement in the sql client.

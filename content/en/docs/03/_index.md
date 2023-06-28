@@ -122,7 +122,7 @@ Every time you connect yourself to a container you will always be the user that 
 Now that we are connected let's find out if the MariaDB is working...
 
 ```bash
-mysql -uroot -pmy-secret-pw
+mariadb -uroot -pmy-secret-pw
 ```
 
 If everything works as expected, you should now see the MariaDB command line:
