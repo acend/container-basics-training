@@ -235,7 +235,6 @@ Use `.dockerignore` to exclude files from the Docker context being added to the 
 
 In the directory containing the subdirectory `php-app` create a Dockerfile with the following content:
 
-{{% onlyWhenNot mobi %}}
 ```Dockerfile
 FROM php:8-apache
 
@@ -245,19 +244,6 @@ ADD ./php-app/ /var/www/html/
 # Install additional php extension
 RUN docker-php-ext-install mysqli
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```Dockerfile
-FROM <registry-url>/puzzle/k8s/kurs/php:8-apache
-
-# Copies the php source code to the correct location
-ADD ./php-app/ /var/www/html/
-
-# Install additional php extension
-RUN docker-php-ext-install mysqli
-```
-{{% /onlyWhen %}}
 
 {{% alert title="Note" color="primary" %}}
 The `docker-php-ext-install` command might not be able to download the required dependencies if there's a proxy in the way.

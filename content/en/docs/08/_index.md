@@ -59,31 +59,15 @@ Now mount the php-app as the host directory into your container:
 
 Linux:
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 Windows (Git Bash):
 
-{{% onlyWhenNot mobi %}}
 ```bash
 MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 {{% alert title="Note" color="primary" %}}
 You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
@@ -117,41 +101,21 @@ If you get an output, this means port 80 is used. In that case just us a differe
 
 Now run the image using the `-p` flag:
 
-Linux:
+Linux/Webshell:
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker stop apache-php
 docker rm apache-php
 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker stop apache-php
-docker rm apache-php
-docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 Windows (Git Bash):
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker stop apache-php
 docker rm apache-php
 MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker stop apache-php
-docker rm apache-php
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhenNot %}}
 
 {{% alert title="Note regarding the webshell" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
