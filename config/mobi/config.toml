@@ -19,7 +19,7 @@
 copyright = "Puzzle ITC GmbH"
 imagePrefix = "puzzle_"
 
-enabledModule = "base"
+enabledModule = "base mobi"
 
 [[Languages.en.menu.main]]
 copyright = "Puzzle ITC GmbH"
