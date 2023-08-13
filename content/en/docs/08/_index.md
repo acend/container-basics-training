@@ -63,8 +63,6 @@ Linux:
 docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:8-apache
 ```
 
-{{% /onlyWhen %}}
-
 Windows (Git Bash):
 
 ```bash
