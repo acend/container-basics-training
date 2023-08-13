@@ -53,34 +53,17 @@ To make the backend accessible from the frontend run both containers with the `-
 
 Linux/Webshell:
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:8-apache
 docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 <registry-url>/puzzle/k8s/kurs/php:8-apache
-docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
-```
-{{% /onlyWhen %}}
 
 Windows (Git Bash):
-{{% onlyWhenNot mobi %}}
+
 ```bash
 MSYS_NO_PATHCONV=1 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:8-apache
 docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-MSYS_NO_PATHCONV=1 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 <registry-url>/puzzle/k8s/kurs/php:8-apache
-docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
-```
-{{% /onlyWhen %}}
 
 If you access either container, you should be able to resolve the other container's address with its container name.
 

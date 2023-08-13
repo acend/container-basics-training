@@ -12,17 +12,9 @@ First thing: Find the fitting Docker image --> Where? Exactly... [Docker Hub](ht
 
 Use the `php:8-apache` image.
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker pull php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker pull <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 Once it is pulled check your local `docker images`:
 
@@ -48,17 +40,10 @@ For the hello-world image we see that we have the same image (read same image id
 
 Now deploy the new container using the correct tag:
 
-{{% onlyWhenNot mobi %}}
+
 ```bash
 docker run -d --name apache-php php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker run -d --name apache-php <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 `docker ps` shows all running containers. Check that `apache-php` is running:
 
@@ -109,17 +94,9 @@ docker rm apache-php
 
 Now start the container again with port forwarding:
 
-{{% onlyWhenNot mobi %}}
 ```bash
 docker run -p 8080:80 -d --name apache-php php:8-apache
 ```
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-```bash
-docker run -p 8080:80 -d --name apache-php <registry-url>/puzzle/k8s/kurs/php:8-apache
-```
-{{% /onlyWhen %}}
 
 Now you can access the web server at <http://LOCALHOST:8080>.
 {{% /alert %}}

@@ -19,7 +19,7 @@
 copyright = "Puzzle ITC GmbH"
 imagePrefix = "puzzle_"
 
-enabledModule = "base mobi"
+enabledModule = "base"
 
 [[Languages.en.menu.main]]
 copyright = "Puzzle ITC GmbH"
@@ -27,16 +27,6 @@ url = "https://www.puzzle.ch"
 
 [params.replaceContent]
 allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
-
-[[params.replaceContent.placeholders]]
-placeholder = "<registry-url>"
-queryParam = "r"
-defaultValue = "<registry-url>"
-
-[[params.replaceContent.placeholders]]
-placeholder = "<proxy>:<port>"
-queryParam = "p"
-defaultValue = "<proxy>:<port>"
 
 ############################## social links ##############################
 [params.links]
