@@ -170,19 +170,6 @@ There are a couple of other public registries available, such as <https://quay.i
 A docker registry can be deployed on premises as well. Most of the available artifact repository applications such as Nexus and Artifactory are able to manage Docker images as well.
 
 
-## Automated integrated Docker build from GitHub
-
-It's pretty straight-forward to integrate Docker Hub together with projects on GitHub.
-
-* Create a GitHub Repo, you might also want to fork this one
-* Login to Docker Hub and navigate to your dashboard
-* Click **Create** an automated build
-* Link GitHub account and create the automated build for the given repo
-* Trigger the first build
-
-Make a change in your `Dockerfile` and check for triggered builds.
-
-
 ## Additional lab
 
 Visit <https://hub.docker.com/>, <https://docker.com/>, <https://quay.io/> and compare the features available for free and subscription based plans.
