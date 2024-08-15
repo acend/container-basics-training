@@ -80,12 +80,18 @@ SELECT User FROM mysql.user;
 ```
 
 ```
-+-----------------+
-| USER()          |
-+-----------------+
-| peter@localhost |
-+-----------------+
-1 row in set (0.00 sec)
++-------------+
+| User        |
++-------------+
+| peter       |
+| root        |
+| healthcheck |
+| healthcheck |
+| healthcheck |
+| mariadb.sys |
+| root        |
++-------------+
+7 rows in set (0.001 sec)
 ```
 Now exit the mysql client
 

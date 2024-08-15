@@ -19,7 +19,7 @@ mkdir myfirstimage
 cd myfirstimage
 ```
 
-Add the following content to the Dockerfile using your editor of choice:
+Create a new File with the name `Dockerfile` and add the following content to that `Dockerfile` using your editor of choice:
 
 ```Dockerfile
 FROM ubuntu
