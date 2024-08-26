@@ -301,7 +301,7 @@ $password = "venkman";
 with
 
 ```php
-$password = $_ENV["password">];
+$password = $_ENV["password"];
 ```
 and run the container by passing the necessary env var:
 ```bash
