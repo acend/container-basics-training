@@ -97,7 +97,7 @@ or in Windows (Git Bash):
 netstat -aon | findstr :8080 | findstr LISTENING
 ```
 
-If you get an output, this means port 80 is used. In that case just us a different port, like 8888, in the examples below.
+If you get an output, this means port 8080 is used. In that case just us a different port, like 8888, in the examples below.
 
 Now run the image using the `-p` flag:
 
