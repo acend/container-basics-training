@@ -93,7 +93,7 @@ SELECT User FROM mysql.user;
 +-------------+
 7 rows in set (0.001 sec)
 ```
-Now exit the mysql client
+Now exit the mariadb client
 
 ```bash
 exit;
