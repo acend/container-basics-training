@@ -39,7 +39,7 @@ We could also have filtered the output with grep: `docker inspect mariadb-contai
 Once you have the IP (in your example `172.17.0.2`) connect to it:
 
 ```bash
-mysql -h172.17.0.2 -uroot -pmy-secret-pw 
+mariadb -h172.17.0.2 -uroot -pmy-secret-pw 
 ```
 If everthings works, exit mysql-client
 
@@ -67,5 +67,5 @@ winpty mysql.exe -hlocalhost -uroot -pmy-secret-pw mariadb
 
 {{% details title="🤔 Can you imagine another way to access the database?" %}}
 Instead of entering the container with bash, we could also directly run mysql inside the container:
-`docker exec -it mariadb-container mysql -uroot -pmy-secret-pw`
+`docker exec -it mariadb-container mariadb -uroot -pmy-secret-pw`
 {{% /details %}}
