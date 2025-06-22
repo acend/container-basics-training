@@ -3,76 +3,12 @@ title: "12. Orchestration"
 weight: 12
 ---
 
-Instead of managing the containers with the `docker` command, you may use [Docker Compose](https://docs.docker.com/compose/) to handle them.
+## Docker Compose
+Docker Compose is a tool for defining and managing multi-container Docker applications. It allows you to configure all your app’s services (like a web server, database, cache, etc.) using a single YAML file, and run them with a single command.
 
-{{% alert title="Note" color="primary" %}}
-Ubuntu users need to install the `docker-compose` command:
+## Docker Swarm
+Docker Swarm is Docker’s native orchestration tool that allows you to deploy, manage, and scale a cluster of Docker containers across multiple machines (called nodes) as if they were a single system.
 
-```bash
-sudo apt-get install docker-compose
-```
+Think of it as a way to coordinate a group of Docker hosts to work together and run containerized applications in a distributed, highly available way.
 
-On Windows, the Docker installer usually includes `docker-compose` already.
-{{% /alert %}}
-
-
-## Docker Compose file
-
-Previously we ran:
-
-```bash
-docker run --name mariadb-container-with-existing-external-volume -v$(pwd)/datastore-mysql:/var/lib/mysql -it -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
-```
-
-and:
-
-```bash
-docker run -itd --name php-app -p8080:80 --link mariadb-container-with-existing-external-volume php-app
-```
-
-We now create a file called `docker-compose.yml`:
-
-```yaml
-version: '3'
-
-services:
-
-  php-app:
-    image: php-app
-    ports:
-      - '8080:80'
-    networks:
-      - container-basics-training
-
-  mariadb-container-with-existing-external-volume:
-    image: mariadb
-    environment:
-      - MARIADB_ROOT_PASSWORD=my-secret-pw
-    volumes:
-      - 'volume-mariadb:/var/lib/mysql'
-    networks:
-      - container-basics-training
-
-networks:
-  container-basics-training:
-
-volumes:
-  volume-mariadb:
-```
-
-For each of the `docker run` commands, you add an entry under `services`, containing the appropriate options. The various options are described in the [Compose file reference](https://docs.docker.com/compose/compose-file/).
-
-Having this file, you can run both containers with a simple command:
-
-```bash
-docker-compose up
-```
-
-Then again, check <http://LOCALHOST:8080/db.php> in a browser (or curl in another terminal in the webshell).
-
-To stop the containers, hit CTRL+c followed by
-
-```bash
-docker-compose down
-```
-This will stop and remove the services.
+{{% /details %}}
