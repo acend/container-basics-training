@@ -7,7 +7,9 @@ sectionnumber: 12.2
 
 You can create a simple docker swarm server on any machine in the same network.
 
-For this lab you hav to go together with your neighbour and create a cluster
+{{% alert title="Note" color="primary" %}}
+For this lab, you should pair up with one of your neighbors and create a cluster.
+{{% /alert %}}
 
 
 ### Creating a Swarm
@@ -130,6 +132,12 @@ Check what we've got
 ```bash
 docker stack ls
 docker ps
+```
+
+Try to access our application by running curl
+
+```bash
+curl localhost:5000
 ```
 
 
