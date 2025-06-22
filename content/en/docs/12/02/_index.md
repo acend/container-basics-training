@@ -43,7 +43,6 @@ docker node ls
 ```
 
 
-
 ## Services
 
 The cluster is running, but really empty. Let's change that!
