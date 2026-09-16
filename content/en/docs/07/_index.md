@@ -78,12 +78,8 @@ With this IP navigate to the web server at <http://172.17.0.4>.
 As we don't have a browser in the webshell use `curl http://172.17.0.4` to open the page in your terminal.
 {{% /alert %}}
 
-{{% alert title="Note for Windows and macOS" color="primary" %}}
-As the Docker Linux bridge is not reachable from your Windows or macOS host you cannot access the container directly via IP address.
-See:
-
-* <https://docs.docker.com/docker-for-windows/networking/>
-* <https://docs.docker.com/docker-for-mac/networking/>
+{{% alert title="Note for Webshell, Windows and macOS" color="primary" %}}
+As the Docker Linux bridge is not reachable from your Webshell, Windows or macOS host you cannot access the container directly via IP address.
 
 If you've already started the `apache-php` container without port forwarding you have to stop and remove it first:
 
