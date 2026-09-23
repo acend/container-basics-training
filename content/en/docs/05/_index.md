@@ -47,6 +47,20 @@ If everthings works, exit mysql-client
 exit;
 ```
 
+{{% alert title="Note for Webshell" color="primary" %}}
+Also on Webshell, you must use port-forwarding to access the database:
+
+```bash
+docker run --name mariadb-container -p 3306:3306 -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
+```
+
+Now you should be able to access the database with:
+
+```bash
+mariadb -hlocalhost -uroot -pmy-secret-pw --port 3306
+```
+
+{{% /alert %}}
 
 {{% alert title="Note for Windows" color="primary" %}}
 The mysql client must be installed on your computer. On Windows, you can use the binary from the ZIP archive at <https://dev.mysql.com/downloads/mysql/>.
